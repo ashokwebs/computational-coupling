@@ -5,7 +5,7 @@ import json
 import os
 import subprocess
 
-PORT = 8000
+PORT = 8008
 PAPER_TEX = "/home/charizard/computational-coupling/paper/main.tex"
 PDF_OUT = "/home/charizard/computational-coupling/paper/output/paper.pdf"
 COMPILER_SCRIPT = "/home/charizard/computational-coupling/paper/compile_paper.py"
