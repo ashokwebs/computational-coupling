@@ -11,48 +11,83 @@
       "query": "tag:#theory",
       "color": {
         "a": 1,
-        "rgb": 3044790
-      }
-    },
-    {
-      "query": "tag:#paper",
-      "color": {
-        "a": 1,
-        "rgb": 14707829
-      }
-    },
-    {
-      "query": "tag:#diary",
-      "color": {
-        "a": 1,
-        "rgb": 10011513
-      }
-    },
-    {
-      "query": "tag:#literature",
-      "color": {
-        "a": 1,
-        "rgb": 13736550
+        "rgb": 58879
       }
     },
     {
       "query": "tag:#math",
       "color": {
         "a": 1,
-        "rgb": 12999901
+        "rgb": 13959417
+      }
+    },
+    {
+      "query": "tag:#paper",
+      "color": {
+        "a": 1,
+        "rgb": 16722541
+      }
+    },
+    {
+      "query": "tag:#diary",
+      "color": {
+        "a": 1,
+        "rgb": 59000
+      }
+    },
+    {
+      "query": "tag:#literature",
+      "color": {
+        "a": 1,
+        "rgb": 16748800
+      }
+    },
+    {
+      "query": "tag:#meta",
+      "color": {
+        "a": 1,
+        "rgb": 16766464
+      }
+    },
+    {
+      "query": "path:theory/",
+      "color": {
+        "a": 1,
+        "rgb": 58879
+      }
+    },
+    {
+      "query": "path:diary/",
+      "color": {
+        "a": 1,
+        "rgb": 59000
+      }
+    },
+    {
+      "query": "path:literature/",
+      "color": {
+        "a": 1,
+        "rgb": 16748800
+      }
+    },
+    {
+      "query": "path:paper/",
+      "color": {
+        "a": 1,
+        "rgb": 16722541
       }
     }
   ],
   "collapse-display": false,
   "showArrow": true,
-  "textScale": 1.1,
+  "textScale": 1.25,
   "showLabels": true,
-  "nodeSizeMultiplier": 1.4,
-  "lineSizeMultiplier": 1.2,
+  "nodeSizeMultiplier": 1.65,
+  "lineSizeMultiplier": 1.35,
   "collapse-forces": false,
-  "centerStrength": 0.45,
-  "repelStrength": 12,
-  "linkStrength": 1,
-  "linkDistance": 220,
-  "scale": 0.9
+  "centerStrength": 0.38,
+  "repelStrength": 16.5,
+  "linkStrength": 0.9,
+  "linkDistance": 240,
+  "scale": 0.85
 }
