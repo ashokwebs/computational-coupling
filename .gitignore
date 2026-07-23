@@ -1,0 +1,46 @@
+# LaTeX auxiliary files
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+*.bbl
+*.blg
+*.run.xml
+*.bcf
+
+# Python build & cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+*.so
+.venv/
+env/
+venv/
+
+# Datasets and heavy models (never commit raw 100GB neuroimaging data!)
+datasets/raw/*
+datasets/processed/*
+!datasets/README.md
+!datasets/TODO.md
+
+# Large experiment checkpoints & model weights
+experiments/results/*.pt
+experiments/results/*.pth
+experiments/results/*.bin
+experiments/results/*.ckpt
+experiments/results/*.parquet
+
+# OS & IDE junk
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Keep output PDFs that are explicitly compiled target artifacts
+# paper/output/paper.pdf is tracked

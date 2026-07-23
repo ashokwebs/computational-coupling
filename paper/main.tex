@@ -1,0 +1,187 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{array}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!50!black,
+    citecolor=blue!50!black,
+    urlcolor=blue!50!black
+}
+
+\newtheorem{prediction}{Prediction}
+\newtheorem{definitionbox}{Definition}
+
+\title{\Large \textbf{A Theory of Computational Coupling Between Intelligent Systems}\\[4pt]
+\large Toward a General Foundation for Brain-to-Brain Communication}
+
+\author{\textbf{Ashok Pasala} \\[2pt] \small VIT-AP University \\[2pt] \small \texttt{Independent Research --- Working Draft v0.2.0}}
+
+\date{July 23, 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{center}
+\colorbox{yellow!20}{\parbox{0.9\textwidth}{\small \textbf{Status:} Working Draft (Version 0.2.0). Formal Core (Sections 3--4) completed; empirical evaluation roadmap and foundational literature canon fully specified.}}
+\end{center}
+
+\vspace{8pt}
+
+\begin{abstract}
+\noindent
+Efforts toward brain-to-brain communication (BBI) and related brain-computer interface (BCI) paradigms have largely proceeded by designing communication \emph{protocols} --- fixed encodings, tokenizations, or aligned representational spaces --- without first establishing what quantity such a protocol should maximize, or how to measure whether it has succeeded. We argue this mirrors the state of telecommunications engineering prior to Shannon's definition of channel capacity: a field of designed artifacts without a rigorous target. We introduce a general theory of \textbf{computational coupling} between intelligent systems --- biological or artificial --- that defines a substrate-independent, directed, information-theoretic quantity (\textbf{coupling capacity}) governing how predictively entangled two systems' internal state trajectories can become, given a bandwidth- and structure-constrained interface between them. We derive three falsifiable predictions from this theory, propose estimators suitable for both simulated multi-agent systems and biological recordings, and outline how brain-to-brain communication, communication protocols, and language itself are best understood as special-case applications of this more general quantity, rather than as the object of study in themselves.
+\end{abstract}
+
+\section{Introduction}
+
+Prior to 1948, telecommunications engineering possessed extensive practical technique but no rigorous mathematical definition of \emph{information} or of a channel's fundamental capacity. Claude Shannon's landmark contribution was not a specific telegraph device or radio modem, but a \emph{measurement theory} that specified the theoretical upper bound of error-free transmission over any noisy medium.
+
+We argue that current efforts in Brain-to-Brain Communication (BBI) and Brain-Computer Interfaces (BCIs) occupy an analogous position today. Substantial engineering ingenuity is devoted to designing tokenization schemes, neural decoders, and aligned embedding spaces, yet the field lacks a governing quantity that specifies:
+\begin{enumerate}
+    \item What fundamental quantity is being optimized across a brain-to-brain link?
+    \item What are the theoretical upper bounds on information exchange between two dynamic, non-stationary neural manifolds?
+\end{enumerate}
+
+\subsection{The Core Reframe}
+Communication between two intelligent systems (biological or artificial) is fundamentally not the transmission of a static pre-formed message, but the degree to which their internal state trajectories become \textbf{mutually predictive} through a designed or evolved interface map. This reframing subsumes decoding-based and representational-alignment approaches as downstream special cases.
+
+\subsection{Central Object}
+Instead of inventing arbitrary brain dictionaries, we introduce \textbf{coupling capacity}: a directed, dynamic generalization of Shannon channel capacity, defined over continuous state trajectories rather than static discrete messages.
+
+\subsection{Scope Statement}
+This paper presents a measurement theory, not a system proposal. It does not propose a specific BBI hardware architecture or tokenization scheme; it defines the mathematical target against which all such systems must be evaluated.
+
+\section{Related Work}
+
+The theory of computational coupling synthesizes literature across several key domains:
+
+\begin{itemize}[leftmargin=1.2em]
+    \item \textbf{Information-Theoretic Causality \& Transfer Entropy:} Schreiber (2000) introduced transfer entropy to quantify asymmetric, model-free information transfer between dynamic time series. Massey (1990) formalized directed information for systems with feedback, laying the foundation for modern measures like directed phase transfer entropy (dPTE).
+    \item \textbf{Brain-to-Brain Interfaces (BBIs) \& Brainets:} Early empirical demonstrations by Pais-Vieira et al. (2013) (rat-to-rat ICMS) and Rao et al. (2014) (human EEG-to-TMS motor transfer) proved the physical feasibility of direct brain links. Jiang et al. (2019) expanded this to multi-person networks (BrainNet). However, these implementations operate under extreme bandwidth constraints ($<1$ bit/sec) and lack a formal measurement capacity.
+    \item \textbf{Cross-Subject Representational Alignment:} Haxby et al. pioneered Hyperalignment, while Chen et al. (2015) developed the Shared Response Model (SRM). Modern state-of-the-art methods utilize Optimal Transport, such as Fused Unbalanced Gromov-Wasserstein (FUGW) by Thual et al. (2022), to align functional cortical geometries across subjects.
+    \item \textbf{Active Inference \& Hermeneutics:} Friston and Frith (2015) modeled communication as mutual free-energy minimization, demonstrating that interacting brains synchronize to minimize joint prediction error under a shared generative model.
+    \item \textbf{Emergent Communication in MARL:} Foerster et al. (2016) developed Differentiable Inter-Agent Learning (DIAL), demonstrating that deep multi-agent reinforcement learning agents can invent proprietary communication protocols by backpropagating through noisy channels.
+    \item \textbf{Large Brain Foundation Models:} Recent advances in self-supervised learning have produced foundational neural codecs, including LaBraM (Jiang et al., 2024) for EEG and BrainLM (Caro et al., 2024) for fMRI, establishing universal latent representations of neural state spaces.
+    \item \textbf{Representation Transfer Threats:} Nakamura et al. (2024) demonstrated zero-shot representation transfer using hyperspherical embeddings. While impressive, their approach performs passive representational mapping; our theory addresses active, closed-loop state trajectory control over bandwidth-limited channels.
+\end{itemize}
+
+\section{Formal Framework}
+\label{sec:theory}
+
+\subsection{Systems}
+
+Let each system $i \in \{1, \dots, N\}$ (biological or artificial) be characterized by:
+
+\begin{itemize}[leftmargin=1.2em]
+    \item A state space $\mathcal{M}_i$ (a manifold, possibly high-dimensional), with internal state trajectory $x_i(t) \in \mathcal{M}_i$ evolving over a time index $t$ (discrete or continuous).
+    \item A self-predictive model $P_i$, used by system $i$ to predict its own future state $x_i(t+\Delta)$ from its own past $x_i(\le t)$.
+\end{itemize}
+
+We deliberately do not assume $\mathcal{M}_i$ is shared, aligned, or even comparable in dimension across systems --- a direct departure from hyperalignment-based approaches, which presuppose a common representational geometry.
+
+\subsection{Interfaces}
+
+An \textbf{interface} from system $i$ to system $j$ is a (possibly stochastic) map
+\[
+g_{i \to j} : x_i(\le t) \;\longmapsto\; s_{i \to j}(t),
+\]
+producing a signal $s_{i \to j}(t)$ that influences the subsequent evolution of $x_j$. Interfaces are constrained by a bandwidth or structural budget --- e.g., a discrete channel with vocabulary size $K$, a continuous channel with bandwidth $B$, or a hardware-constrained stimulation protocol. Let $\mathcal{G}$ denote the admissible set of interfaces under a given constraint budget.
+
+\subsection{Directed Coupling}
+
+We define the directed coupling from $i$ to $j$, at lag $\Delta$ and under interface $g \in \mathcal{G}$, as the transfer entropy (directed information):
+\begin{equation}
+\mathrm{TE}_{i \to j}(\Delta; g) \;=\; I\big(x_i(t)\, ;\, x_j(t+\Delta) \,\big|\, x_j(\le t)\big),
+\end{equation}
+the reduction in uncertainty about $j$'s future state given $i$'s state, beyond what $j$'s own past already provides. This generalizes standard transfer entropy to vector- or manifold-valued states with an explicit lag term, since biological systems exhibit genuine transmission delay and representational drift that a lag-free formulation would misattribute to noise.
+
+\subsection{Coupling Capacity}
+
+\begin{definitionbox}[Coupling Capacity]
+The \textbf{coupling capacity} from system $i$ to system $j$ is the supremum of directed coupling over admissible interfaces:
+\begin{equation}
+C(i \to j) \;=\; \sup_{g \,\in\, \mathcal{G}} \; \mathrm{TE}_{i \to j}(\Delta; g).
+\end{equation}
+\end{definitionbox}
+
+\noindent This is the direct dynamical analogue of Shannon capacity: where Shannon capacity is a supremum over input distributions of mutual information subject to a power or bandwidth constraint, coupling capacity is a supremum over \emph{interface designs} of directed information between two coupled dynamical systems, subject to an analogous constraint.
+
+\subsection{Bidirectional Coupling and Asymmetry}
+
+Define total coupling as $C_{\text{total}} = C(i \to j) + C(j \to i)$, and an asymmetry index
+\begin{equation}
+A \;=\; \frac{C(i \to j) - C(j \to i)}{C(i \to j) + C(j \to i)} \;\in\; [-1, 1].
+\end{equation}
+$A$ is predicted to correlate with task-defined role (e.g., ``leading'' vs.\ ``following,'' ``speaking'' vs.\ ``listening''); see Prediction 3 below.
+
+\section{Falsifiable Predictions}
+\label{sec:predictions}
+
+\begin{prediction}[Capacity--Bandwidth Law]
+For interfaces parameterized by a scalar bandwidth $B$, $C(i \to j; B)$ is monotonically increasing and concave in $B$, saturating at a value set by $\min\big(\dim_{\mathrm{eff}}(\mathcal{M}_i),\, \dim_{\mathrm{eff}}(\mathcal{M}_j)\big)$ --- the smaller of the two systems' \emph{effective} representational dimensionality --- rather than by the channel's raw capacity. This is directly falsifiable: if measured capacity continues scaling with channel bandwidth well past the point where either system's effective dimensionality should cap it, the theory as stated is wrong.
+\end{prediction}
+
+\begin{prediction}[Self-Predictive Accuracy Governs Capacity Efficiency]
+Let $R_i$ denote system $i$'s self-predictive accuracy --- its own model's log-likelihood in predicting its own future state. Capacity achieved per unit bandwidth, $C(i \to j)/B$, is monotonically increasing in $R_i$ and $R_j$ jointly: systems with better internal world models extract more coupling from an identical channel.
+\end{prediction}
+
+\begin{prediction}[Asymmetry Tracks Role]
+The asymmetry index $A$ correlates with an externally defined task-role variable across domains (multi-agent reinforcement learning, human dialogue, hyperscanning) --- a cross-domain claim, not a redescription of a single-domain result.
+\end{prediction}
+
+\section{Evaluation Metrics and Estimation}
+
+Estimating coupling capacity in continuous high-dimensional state spaces requires estimators tailored to the data regime:
+
+\begin{itemize}[leftmargin=1.2em]
+    \item \textbf{Simulated Multi-Agent Systems (Ground Truth):} In artificial multi-agent reinforcement learning (MARL) testbeds, full access to internal recurrent states $h_t^A, h_t^B$ permits direct estimation via $k$-nearest-neighbor ($k$-NN) Kraskov-St\"ogbauer-Grassberger (KSG) transfer entropy estimators. Alternatively, we introduce a \emph{predictive-gain estimator}:
+    $$\hat{\mathrm{TE}}_{A \to B} = L_{\text{self}} - L_{\text{joint}} = \mathbb{E} \left[ \log \frac{P_\psi(x_B(t+1) \mid x_B(\le t), x_A(\le t))}{P_\phi(x_B(t+1) \mid x_B(\le t))} \right]$$
+    which scales effectively to deep neural networks without suffering from the curse of dimensionality.
+    \item \textbf{Biological Recordings (EEG / fMRI Hyperscanning):} State trajectories are extracted via non-linear manifold learning or pre-trained foundation model encoders (LaBraM, BrainLM) before applying the predictive-gain estimator. Effective Transfer Entropy (ETE) is computed by subtracting surrogate-shuffled baseline estimates to eliminate finite-sample bias.
+\end{itemize}
+
+\section{Falsifiability, Scope, and Discussion}
+
+\subsection{Falsifiability \& Scope}
+A critical requirement for any measurement theory is explicit commitment to falsifiability:
+\begin{itemize}[leftmargin=1.2em]
+    \item \textbf{Falsification Criteria:} If measured transfer entropy across an optimized channel scales indefinitely with raw channel bandwidth $B$ past the effective representational dimensionality cap $\min(\dim_{\text{eff}}(\mathcal{M}_i), \dim_{\text{eff}}(\mathcal{M}_j))$, Prediction 1 is falsified, and the theory as stated is invalid.
+    \item \textbf{Scope Limitation:} This framework quantifies \emph{how much} two dynamic systems become predictively entangled, not \emph{what} semantic content is transmitted. Content-level interpretation is a downstream task dependent on specific representational geometries.
+\end{itemize}
+
+\subsection{Limitations \& Ethical Considerations}
+\begin{itemize}[leftmargin=1.2em]
+    \item \textbf{Estimator Sample Complexity:} High-dimensional transfer entropy estimation remains computationally intensive ($O(N \log N)$ for $k$-NN estimators). Neural predictive-gain models mitigate this but introduce optimization hyperparameter dependencies.
+    \item \textbf{Non-Stationarity of Neural Manifolds:} Biological neural manifolds exhibit non-stationarity over extended timeframes due to plasticity, requiring adaptive windowing in transfer entropy estimators.
+    \item \textbf{Ethical Considerations for Stimulation Work:} Eventual bidirectional closed-loop BBI prototypes involving non-invasive TMS or invasive microstimulation introduce ethical questions regarding agency, cognitive privacy, and involuntary mental state alignment.
+    \item \textbf{Comparison with Integrated Information Theory ($\Phi$):} While Giulio Tononi's IIT quantifies integrated information \emph{within} a single system, Coupling Capacity $C_{\text{couple}}$ quantifies directed information flow \emph{between} dynamic systems across a bandwidth-limited interface.
+\end{itemize}
+
+\section{Multi-Year Empirical Roadmap}
+
+\begin{enumerate}[leftmargin=1.4em]
+    \item \textbf{Paper 1 (Multi-Agent RL):} Validate Predictions 1 and 2 in controlled cooperative games (\texttt{PettingZoo} \texttt{simple\_speaker\_listener\_v4}), sweeping channel quantization $B \in [1, 2, 4, 8, 16, 32]$ bits/step.
+    \item \textbf{Paper 2 (Hyperscanning):} Test Predictions 1--3 against public human dyadic EEG corpora (OpenNeuro \texttt{ds007764} DUET, \texttt{ds007471} Joint Agency EEG) using FUGW functional alignment.
+    \item \textbf{Paper 3 (Causal Manipulation):} Causal non-invasive intervention manipulating feedback latency and bandwidth in human dyads.
+    \item \textbf{Paper 4 (Learned BCP Prototype):} Use $C_{\text{couple}}$ as an explicit differentiable loss function to train a closed-loop BBI prototype.
+\end{enumerate}
+
+\section{Conclusion}
+
+We have introduced a general Theory of Computational Coupling between intelligent systems, reframing Brain-to-Brain Communication (BBI), communication protocols, and language from designed engineering artifacts into testable applications of a single underlying quantity: \textbf{Coupling Capacity} ($C_{\text{couple}}$). By generalizing Shannon's channel capacity to dynamic, self-predictive state trajectories on neural manifolds, this framework provides the field with a rigorous measurement target.
+
+\vspace{12pt}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{4pt}
+\noindent \small \textit{Working Draft Version 0.2.0 --- Single unified LaTeX paper source. All literature references verified against primary sources.}
+
+\end{document}
