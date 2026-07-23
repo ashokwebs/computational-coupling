@@ -11,17 +11,12 @@
             "id": "0ce53270580ad9f9",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "pdf",
               "state": {
-                "file": "Computational_Coupling_Architecture.canvas",
-                "viewState": {
-                  "x": 255,
-                  "y": 85,
-                  "zoom": -0.5902374427618308
-                }
+                "file": "paper/output/paper.pdf"
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "Computational_Coupling_Architecture"
+              "icon": "lucide-file-text",
+              "title": "paper"
             }
           }
         ]
@@ -188,19 +183,55 @@
   },
   "active": "0ce53270580ad9f9",
   "lastOpenFiles": [
-    "Literature_Canon_Map.canvas",
-    "MOC_Roadmap.md",
-    "MOC_Literature.md",
-    "MOC_Theory.md",
-    "Home.md",
+    "paper/serve_paper.py",
+    "tools/overleaf-toolkit/data/redis",
+    "tools/overleaf-toolkit/data/overleaf",
+    "tools/overleaf-toolkit/data/mongo",
+    "tools/overleaf-toolkit/data/git-bridge",
+    "tools/overleaf-toolkit/config/version",
+    "tools/overleaf-toolkit/config/variables.env",
+    "tools/overleaf-toolkit/config/overleaf.rc",
+    "Untitled 1.canvas",
+    "paper/output/paper.pdf",
+    "tools/overleaf-toolkit/lib/config-seed/nginx.conf",
+    "tools/overleaf-toolkit/lib/config-seed/version",
+    "tools/overleaf-toolkit/doc/img/upgrade-demo.gif",
+    "tools/overleaf-toolkit/doc/upgrading.md",
+    "tools/overleaf-toolkit/doc/upgrading-from-0.x.md",
+    "tools/overleaf-toolkit/doc/tls-proxy.md",
+    "tools/overleaf-toolkit/doc/the-doctor.md",
+    "tools/overleaf-toolkit/doc/sandboxed-compiles.md",
+    "tools/overleaf-toolkit/doc/saml.md",
+    "tools/overleaf-toolkit/doc/quick-start-guide.md",
+    "tools/overleaf-toolkit/doc/persistent-data.md",
+    "tools/overleaf-toolkit/doc/overview.md",
+    "tools/overleaf-toolkit/doc/overleaf-rc.md",
+    "tools/overleaf-toolkit/doc/ldap.md",
+    "tools/overleaf-toolkit/doc/getting-server-pro.md",
+    "tools/overleaf-toolkit/doc/docker-compose.md",
+    "tools/overleaf-toolkit/doc/docker-compose-to-toolkit-migration.md",
+    "tools/overleaf-toolkit/doc/dependencies.md",
+    "tools/overleaf-toolkit/doc/configuration.md",
+    "tools/overleaf-toolkit/doc/ce-upgrading-texlive.md",
+    "tools/overleaf-toolkit/doc/README.md",
+    "tools/overleaf-toolkit/README.md",
+    "tools/overleaf-toolkit/CHANGELOG.md",
+    "paper/paper_draft.md",
+    "paper/TODO.md",
+    "Untitled.canvas",
+    "tools/overleaf/tools/migrations/README.md",
+    "tools/overleaf/services/web/transform/o-error/README.md",
+    "tools/overleaf/services/web/test/frontend/features/ide-react/unit/cobranding-logo.png",
+    "tools/overleaf/services/web/test/acceptance/files/2pixel.png",
+    "tools/overleaf/services/web/test/acceptance/files/1pixel.png",
+    "tools/overleaf/services/web/scripts/learn/checkSanitize/README.md",
+    "tools/overleaf/services/web/public/img/website-redesign/stickers/waving-hand-yellow.svg",
+    "tools/overleaf/services/web/public/img/website-redesign/stickers/waving-hand-red.svg",
+    "tools/overleaf/services/web/public/img/website-redesign/stickers/waving-hand-purple.svg",
+    "tools/overleaf/services/web/public/img/website-redesign/stickers/waving-hand-purple-medium.svg",
+    "tools/overleaf/services/web/public/img/website-redesign/stickers/waving-hand-green.svg",
+    "tools/overleaf/services/web/public/img/website-redesign/stickers/waving-hand-blue.svg",
     "Computational_Coupling_Architecture.canvas",
-    "ROADMAP.md",
-    "convert_to_obsidian_wikilinks.py",
-    "setup_obsidian_vault.py",
-    "damn_sources/paper_summaries/06_McParlin_2022_Active_Inference.md",
-    "damn_sources/paper_summaries/03_Foerster_2016_DIAL_MARL.md",
-    "damn_sources/paper_summaries/01_Pais_Vieira_2013_Rat_BBI.md",
-    "damn_sources/computational_coupling_foundation.pdf",
-    "damn_sources/computational_coupling_foundation.md"
+    "Literature_Canon_Map.canvas"
   ]
 }
