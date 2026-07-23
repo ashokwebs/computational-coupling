@@ -43,7 +43,7 @@ Efforts toward brain-to-brain communication (BBI) and related brain-computer int
 
 \section{Introduction}
 
-Prior to 1948, telecommunications engineering possessed extensive practical technique but no rigorous mathematical definition of \emph{information} or of a channel's fundamental capacity. Claude Shannon's landmark contribution was not a specific telegraph device or radio modem, but a \emph{measurement theory} that specified the theoretical upper bound of error-free transmission over any noisy medium.
+Prior to 1948, telecommunications engineering possessed extensive practical technique but no rigorous mathematical definition of \emph{information} or of a channel's fundamental capacity. Claude Shannon's landmark contribution \cite{shannon1948mathematical} was not a specific telegraph device or radio modem, but a \emph{measurement theory} that specified the theoretical upper bound of error-free transmission over any noisy medium.
 
 We argue that current efforts in Brain-to-Brain Communication (BBI) and Brain-Computer Interfaces (BCIs) occupy an analogous position today. Substantial engineering ingenuity is devoted to designing tokenization schemes, neural decoders, and aligned embedding spaces, yet the field lacks a governing quantity that specifies:
 \begin{enumerate}
@@ -65,13 +65,13 @@ This paper presents a measurement theory, not a system proposal. It does not pro
 The theory of computational coupling synthesizes literature across several key domains:
 
 \begin{itemize}[leftmargin=1.2em]
-    \item \textbf{Information-Theoretic Causality \& Transfer Entropy:} Schreiber (2000) introduced transfer entropy to quantify asymmetric, model-free information transfer between dynamic time series. Massey (1990) formalized directed information for systems with feedback, laying the foundation for modern measures like directed phase transfer entropy (dPTE).
-    \item \textbf{Brain-to-Brain Interfaces (BBIs) \& Brainets:} Early empirical demonstrations by Pais-Vieira et al. (2013) (rat-to-rat ICMS) and Rao et al. (2014) (human EEG-to-TMS motor transfer) proved the physical feasibility of direct brain links. Jiang et al. (2019) expanded this to multi-person networks (BrainNet). However, these implementations operate under extreme bandwidth constraints ($<1$ bit/sec) and lack a formal measurement capacity.
-    \item \textbf{Cross-Subject Representational Alignment:} Haxby et al. pioneered Hyperalignment, while Chen et al. (2015) developed the Shared Response Model (SRM). Modern state-of-the-art methods utilize Optimal Transport, such as Fused Unbalanced Gromov-Wasserstein (FUGW) by Thual et al. (2022), to align functional cortical geometries across subjects.
-    \item \textbf{Active Inference \& Hermeneutics:} Friston and Frith (2015) modeled communication as mutual free-energy minimization, demonstrating that interacting brains synchronize to minimize joint prediction error under a shared generative model.
-    \item \textbf{Emergent Communication in MARL:} Foerster et al. (2016) developed Differentiable Inter-Agent Learning (DIAL), demonstrating that deep multi-agent reinforcement learning agents can invent proprietary communication protocols by backpropagating through noisy channels.
-    \item \textbf{Large Brain Foundation Models:} Recent advances in self-supervised learning have produced foundational neural codecs, including LaBraM (Jiang et al., 2024) for EEG and BrainLM (Caro et al., 2024) for fMRI, establishing universal latent representations of neural state spaces.
-    \item \textbf{Representation Transfer Threats:} Nakamura et al. (2024) demonstrated zero-shot representation transfer using hyperspherical embeddings. While impressive, their approach performs passive representational mapping; our theory addresses active, closed-loop state trajectory control over bandwidth-limited channels.
+    \item \textbf{Information-Theoretic Causality \& Transfer Entropy:} Schreiber \cite{schreiber2000measuring} introduced transfer entropy to quantify asymmetric, model-free information transfer between dynamic time series. Massey \cite{massey1990causality} formalized directed information for systems with feedback, laying the foundation for modern measures like directed phase transfer entropy (dPTE). Kraskov et al. \cite{kraskov2004estimating} developed non-parametric $k$-NN mutual information estimators.
+    \item \textbf{Brain-to-Brain Interfaces (BBIs) \& Brainets:} Early empirical demonstrations by Pais-Vieira et al. \cite{pais2013brain} (rat-to-rat ICMS) and Rao et al. \cite{rao2014direct} (human EEG-to-TMS motor transfer) proved the physical feasibility of direct brain links. Jiang et al. \cite{jiang2019brainnet} expanded this to multi-person networks (BrainNet). However, these implementations operate under extreme bandwidth constraints ($<1$ bit/sec) and lack a formal measurement capacity.
+    \item \textbf{Cross-Subject Representational Alignment:} Modern state-of-the-art methods utilize Optimal Transport, such as Fused Unbalanced Gromov-Wasserstein (FUGW) by Thual et al. \cite{thual2022aligning}, to align functional cortical geometries across subjects.
+    \item \textbf{Active Inference \& Hermeneutics:} Friston and Frith \cite{friston2015active} modeled communication as mutual free-energy minimization, demonstrating that interacting brains synchronize to minimize joint prediction error under a shared generative model. Hasson et al. \cite{hasson2010speaker} demonstrated speaker-listener neural coupling during natural communication.
+    \item \textbf{Emergent Communication in MARL:} Foerster et al. \cite{foerster2016learning} developed Differentiable Inter-Agent Learning (DIAL), demonstrating that deep multi-agent reinforcement learning agents can invent proprietary communication protocols by backpropagating through noisy channels.
+    \item \textbf{Large Brain Foundation Models:} Recent advances in self-supervised learning have produced foundational neural codecs, including LaBraM \cite{jiang2024labram} for EEG and BrainLM \cite{caro2024brainlm} for fMRI, establishing universal latent representations of neural state spaces. Scotti et al. \cite{scotti2024mindeye2} introduced MindEye2 for shared-subject visual perception reconstruction.
+    \item \textbf{Representation Transfer Threats:} Nakamura et al. \cite{nakamura2024unsupervised} demonstrated zero-shot representation transfer using hyperspherical embeddings. While impressive, their approach performs passive representational mapping; our theory addresses active, closed-loop state trajectory control over bandwidth-limited channels.
 \end{itemize}
 
 \section{Formal Framework}
@@ -180,8 +180,7 @@ A critical requirement for any measurement theory is explicit commitment to fals
 We have introduced a general Theory of Computational Coupling between intelligent systems, reframing Brain-to-Brain Communication (BBI), communication protocols, and language from designed engineering artifacts into testable applications of a single underlying quantity: \textbf{Coupling Capacity} ($C_{\text{couple}}$). By generalizing Shannon's channel capacity to dynamic, self-predictive state trajectories on neural manifolds, this framework provides the field with a rigorous measurement target.
 
 \vspace{12pt}
-\noindent\rule{\textwidth}{0.4pt}
-\vspace{4pt}
-\noindent \small \textit{Working Draft Version 0.2.0 --- Single unified LaTeX paper source. All literature references verified against primary sources.}
+\bibliographystyle{plain}
+\bibliography{references}
 
 \end{document}
