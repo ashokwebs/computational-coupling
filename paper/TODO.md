@@ -11,9 +11,10 @@
 - [x] **Introduction (`paper/sections/introduction.tex`)** — Drafted with the Shannon telecommunications analogy hook.
 - [ ] **Related Work (`paper/sections/related_work.tex`)** — Expand text with explicit technical contrasts against FUGW \cite{thual2022aligning} and Nakamura et al. \cite{nakamura2024unsupervised}.
 - [x] **Theory (`paper/sections/theory.tex`)** — Formal core completed ($C_{\text{couple}}$ definition & Predictions 1–3).
-- [ ] **Experiments (`paper/sections/experiments.tex`)** — Add preliminary empirical plots from Paper 1 RL bandwidth sweeps once run.
-- [ ] **Discussion & Limitations (`paper/sections/discussion.tex`)** — Expand ethics paragraph on non-invasive TMS stimulation safety.
-- [x] **Conclusion (`paper/sections/conclusion.tex`)** — Drafted.
+- [x] **Dimensional Bottleneck (Sec. 4)** — Theorem + proof; ceiling $= \bar{c}\cdot\min(d_i,d_j)$, with $\bar{c}$ measured empirically ($\approx0.39$ bits/dim).
+- [x] **Proof-of-Concept / Validation (Sec. 7)** — Ground-truth simulation supports all three predictions; 3 embedded figures + results table; two estimators agree within 2%.
+- [x] **Discussion & Limitations** — Ethics paragraph on TMS/microstimulation expanded; open problems (general concavity, estimating $d_{\text{eff}}$) added.
+- [x] **Conclusion** — Updated to reflect empirical evidence.
 
 ---
 

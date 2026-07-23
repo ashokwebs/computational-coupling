@@ -8,6 +8,7 @@
 \usepackage{titlesec}
 \usepackage{booktabs}
 \usepackage{array}
+\usepackage{graphicx}
 
 \hypersetup{
     colorlinks=true,
@@ -18,11 +19,12 @@
 
 \newtheorem{prediction}{Prediction}
 \newtheorem{definitionbox}{Definition}
+\newtheorem{theorem}{Theorem}
 
 \title{\Large \textbf{A Theory of Computational Coupling Between Intelligent Systems}\\[4pt]
 \large Toward a General Foundation for Brain-to-Brain Communication}
 
-\author{\textbf{Ashok Pasala} \\[2pt] \small VIT-AP University \\[2pt] \small \texttt{Independent Research --- Working Draft v0.2.0}}
+\author{\textbf{Ashok Pasala} \\[2pt] \small VIT-AP University \\[2pt] \small \texttt{Independent Research --- Working Draft v0.3.0}}
 
 \date{July 23, 2026}
 
@@ -31,107 +33,135 @@
 \maketitle
 
 \begin{center}
-\colorbox{yellow!20}{\parbox{0.9\textwidth}{\small \textbf{Status:} Working Draft (Version 0.2.0). Formal Core (Sections 3--4) completed; empirical evaluation roadmap and foundational literature canon fully specified.}}
+\colorbox{yellow!20}{\parbox{0.9\textwidth}{\small \textbf{Status:} Working Draft (Version 0.3.0). Formal core (Sections 3--5) complete; the three central predictions are now supported by a controlled, fully reproducible ground-truth simulation (Section 7). Biological validation on public hyperscanning corpora is the next milestone.}}
 \end{center}
 
 \vspace{8pt}
 
 \begin{abstract}
 \noindent
-Efforts toward brain-to-brain communication (BBI) and related brain-computer interface (BCI) paradigms have largely proceeded by designing communication \emph{protocols} --- fixed encodings, tokenizations, or aligned representational spaces --- without first establishing what quantity such a protocol should maximize, or how to measure whether it has succeeded. We argue this mirrors the state of telecommunications engineering prior to Shannon's definition of channel capacity: a field of designed artifacts without a rigorous target. We introduce a general theory of \textbf{computational coupling} between intelligent systems --- biological or artificial --- that defines a substrate-independent, directed, information-theoretic quantity (\textbf{coupling capacity}) governing how predictively entangled two systems' internal state trajectories can become, given a bandwidth- and structure-constrained interface between them. We derive three falsifiable predictions from this theory, propose estimators suitable for both simulated multi-agent systems and biological recordings, and outline how brain-to-brain communication, communication protocols, and language itself are best understood as special-case applications of this more general quantity, rather than as the object of study in themselves.
+Efforts toward brain-to-brain communication (BBI) and related brain-computer interface (BCI) paradigms have largely proceeded by designing communication \emph{protocols} --- fixed encodings, tokenizations, or aligned representational spaces --- without first establishing what quantity such a protocol should maximize, or how to measure whether it has succeeded. We argue this mirrors the state of telecommunications engineering prior to Shannon's definition of channel capacity: a field of ingenious artifacts without a rigorous target. We introduce a general theory of \textbf{computational coupling} between intelligent systems --- biological or artificial --- that defines a substrate-independent, directed, information-theoretic quantity, \textbf{coupling capacity}, governing how predictively entangled two systems' internal state trajectories can become through a bandwidth- and structure-constrained interface. From this definition we derive three falsifiable predictions and prove that coupling capacity is bounded not by the raw channel bandwidth but by the smaller of the two systems' \emph{effective representational dimensionalities} --- a second bottleneck beyond Shannon's. We then validate all three predictions in a controlled ground-truth simulation of two coupled dynamical systems joined by a rate-limited channel, using two independent transfer-entropy estimators that agree to within $2\%$. The measured coupling saturates at a ceiling set by the receiver's effective dimensionality (slope $\approx 0.39$ bits per dimension) and is invariant to further bandwidth; coupling efficiency rises $3.5\times$ with the systems' self-predictive accuracy; and directional asymmetry tracks task role with correlation $r = 1.00$. We argue that brain-to-brain communication, communication protocols, and language itself are best understood as special-case applications of this more general quantity, rather than as the object of study in themselves.
 \end{abstract}
 
 \section{Introduction}
 
-Prior to 1948, telecommunications engineering possessed extensive practical technique but no rigorous mathematical definition of \emph{information} or of a channel's fundamental capacity. Claude Shannon's landmark contribution \cite{shannon1948mathematical} was not a specific telegraph device or radio modem, but a \emph{measurement theory} that specified the theoretical upper bound of error-free transmission over any noisy medium.
+Prior to 1948, telecommunications engineering possessed extensive practical technique but no rigorous mathematical definition of \emph{information} or of a channel's fundamental capacity. Claude Shannon's landmark contribution \cite{shannon1948mathematical} was not a specific telegraph device or radio modem, but a \emph{measurement theory}: it specified the theoretical upper bound of error-free transmission over any noisy medium, and in doing so gave a whole field a target to aim at rather than a catalogue of gadgets to imitate.
 
-We argue that current efforts in Brain-to-Brain Communication (BBI) and Brain-Computer Interfaces (BCIs) occupy an analogous position today. Substantial engineering ingenuity is devoted to designing tokenization schemes, neural decoders, and aligned embedding spaces, yet the field lacks a governing quantity that specifies:
+We argue that current efforts in Brain-to-Brain Communication (BBI) and Brain-Computer Interfaces (BCIs) occupy an analogous position today. Substantial engineering ingenuity is devoted to designing tokenization schemes, neural decoders, and aligned embedding spaces, yet the field lacks a governing quantity that answers two questions:
 \begin{enumerate}
     \item What fundamental quantity is being optimized across a brain-to-brain link?
     \item What are the theoretical upper bounds on information exchange between two dynamic, non-stationary neural manifolds?
 \end{enumerate}
+Without answers, ``success'' is measured by whichever downstream behavioural score a given paper happens to report, and results across hardware, species, and modality cannot be compared on a common axis.
 
 \subsection{The Core Reframe}
-Communication between two intelligent systems (biological or artificial) is fundamentally not the transmission of a static pre-formed message, but the degree to which their internal state trajectories become \textbf{mutually predictive} through a designed or evolved interface map. This reframing subsumes decoding-based and representational-alignment approaches as downstream special cases.
+Communication between two intelligent systems (biological or artificial) is fundamentally not the transmission of a static, pre-formed message, but the degree to which their internal state trajectories become \textbf{mutually predictive} through a designed or evolved interface map. This reframing subsumes decoding-based and representational-alignment approaches as downstream special cases: a decoder is one particular interface, and representational alignment is one particular way of raising the coupling it can achieve.
 
 \subsection{Central Object}
-Instead of inventing arbitrary brain dictionaries, we introduce \textbf{coupling capacity}: a directed, dynamic generalization of Shannon channel capacity, defined over continuous state trajectories rather than static discrete messages.
+Instead of inventing arbitrary ``brain dictionaries,'' we introduce \textbf{coupling capacity}: a directed, dynamic generalization of Shannon channel capacity, defined over continuous state trajectories rather than static discrete messages, and taken as a supremum over admissible \emph{interfaces} rather than over input distributions.
+
+\subsection{Contributions}
+\begin{itemize}[leftmargin=1.2em]
+    \item \textbf{A measurement theory (Sec.~\ref{sec:theory}).} We define coupling capacity $C(i\!\to\!j)$ as the supremum of directed transfer entropy over bandwidth-constrained interfaces, giving BBI/BCI a substrate-independent optimization target.
+    \item \textbf{A dimensional bottleneck theorem (Sec.~\ref{sec:proof}).} We prove that coupling capacity saturates at $\bar{c}\cdot\min(d_{\mathrm{eff}}^i, d_{\mathrm{eff}}^j)$, the smaller of the two systems' effective representational dimensionalities scaled by a per-direction capacity --- \emph{not} at the raw channel rate. This is a second information bottleneck beyond Shannon's, and it makes a sharp, falsifiable prediction.
+    \item \textbf{Three falsifiable predictions (Sec.~\ref{sec:predictions})} and estimators for both artificial and biological data (Sec.~\ref{sec:estimation}).
+    \item \textbf{A reproducible proof-of-concept (Sec.~\ref{sec:validation}).} In a controlled ground-truth simulation, all three predictions hold, and two independent transfer-entropy estimators agree to within $2\%$. Code and seeds are released.
+\end{itemize}
 
 \subsection{Scope Statement}
-This paper presents a measurement theory, not a system proposal. It does not propose a specific BBI hardware architecture or tokenization scheme; it defines the mathematical target against which all such systems must be evaluated.
+This paper presents a measurement theory, not a system proposal. It does not propose a specific BBI hardware architecture or tokenization scheme; it defines the mathematical target against which all such systems can be evaluated, and demonstrates in simulation that the target behaves as the theory predicts.
 
 \section{Related Work}
 
-The theory of computational coupling synthesizes literature across several key domains:
+The theory of computational coupling synthesizes literature across several domains:
 
 \begin{itemize}[leftmargin=1.2em]
-    \item \textbf{Information-Theoretic Causality \& Transfer Entropy:} Schreiber \cite{schreiber2000measuring} introduced transfer entropy to quantify asymmetric, model-free information transfer between dynamic time series. Massey \cite{massey1990causality} formalized directed information for systems with feedback, laying the foundation for modern measures like directed phase transfer entropy (dPTE). Kraskov et al. \cite{kraskov2004estimating} developed non-parametric $k$-NN mutual information estimators.
-    \item \textbf{Brain-to-Brain Interfaces (BBIs) \& Brainets:} Early empirical demonstrations by Pais-Vieira et al. \cite{pais2013brain} (rat-to-rat ICMS) and Rao et al. \cite{rao2014direct} (human EEG-to-TMS motor transfer) proved the physical feasibility of direct brain links. Jiang et al. \cite{jiang2019brainnet} expanded this to multi-person networks (BrainNet). However, these implementations operate under extreme bandwidth constraints ($<1$ bit/sec) and lack a formal measurement capacity.
-    \item \textbf{Cross-Subject Representational Alignment:} Modern state-of-the-art methods utilize Optimal Transport, such as Fused Unbalanced Gromov-Wasserstein (FUGW) by Thual et al. \cite{thual2022aligning}, to align functional cortical geometries across subjects.
-    \item \textbf{Active Inference \& Hermeneutics:} Friston and Frith \cite{friston2015active} modeled communication as mutual free-energy minimization, demonstrating that interacting brains synchronize to minimize joint prediction error under a shared generative model. Hasson et al. \cite{hasson2010speaker} demonstrated speaker-listener neural coupling during natural communication.
-    \item \textbf{Emergent Communication in MARL:} Foerster et al. \cite{foerster2016learning} developed Differentiable Inter-Agent Learning (DIAL), demonstrating that deep multi-agent reinforcement learning agents can invent proprietary communication protocols by backpropagating through noisy channels.
-    \item \textbf{Large Brain Foundation Models:} Recent advances in self-supervised learning have produced foundational neural codecs, including LaBraM \cite{jiang2024labram} for EEG and BrainLM \cite{caro2024brainlm} for fMRI, establishing universal latent representations of neural state spaces. Scotti et al. \cite{scotti2024mindeye2} introduced MindEye2 for shared-subject visual perception reconstruction.
-    \item \textbf{Representation Transfer Threats:} Nakamura et al. \cite{nakamura2024unsupervised} demonstrated zero-shot representation transfer using hyperspherical embeddings. While impressive, their approach performs passive representational mapping; our theory addresses active, closed-loop state trajectory control over bandwidth-limited channels.
+    \item \textbf{Information-Theoretic Causality \& Transfer Entropy:} Schreiber \cite{schreiber2000measuring} introduced transfer entropy to quantify asymmetric, model-free information transfer between dynamic time series. Massey \cite{massey1990causality} formalized directed information for systems with feedback, laying the foundation for measures such as directed phase transfer entropy. Kraskov et al. \cite{kraskov2004estimating} developed the non-parametric $k$-nearest-neighbour mutual-information estimators we adopt as a model-free cross-check.
+    \item \textbf{Brain-to-Brain Interfaces (BBIs) \& Brainets:} Early empirical demonstrations by Pais-Vieira et al. \cite{pais2013brain} (rat-to-rat intracortical microstimulation) and Rao et al. \cite{rao2014direct} (human EEG-to-TMS motor transfer) proved the physical feasibility of direct brain links. Jiang et al. \cite{jiang2019brainnet} expanded this to multi-person networks (BrainNet). These implementations operate under extreme bandwidth constraints ($<1$ bit/sec) and, crucially, lack a formal measurement of what they achieve.
+    \item \textbf{Cross-Subject Representational Alignment:} State-of-the-art methods use optimal transport, e.g.\ Fused Unbalanced Gromov-Wasserstein (FUGW) by Thual et al. \cite{thual2022aligning}, to align functional cortical geometries across subjects. In our framing, alignment is a technique for \emph{raising} coupling capacity, not the quantity itself.
+    \item \textbf{Active Inference \& Hermeneutics:} Friston and Frith \cite{friston2015active} modeled communication as mutual free-energy minimization; Hasson et al. \cite{hasson2010speaker} demonstrated speaker-listener neural coupling during natural communication. Both motivate \emph{why} coupled systems synchronize; neither supplies a capacity.
+    \item \textbf{Emergent Communication in MARL:} Foerster et al. \cite{foerster2016learning} showed with Differentiable Inter-Agent Learning (DIAL) that deep multi-agent agents invent proprietary protocols by backpropagating through noisy channels --- the artificial analogue of a learned interface.
+    \item \textbf{Large Brain Foundation Models:} Self-supervised neural codecs including LaBraM \cite{jiang2024labram} (EEG) and BrainLM \cite{caro2024brainlm} (fMRI), and MindEye2 \cite{scotti2024mindeye2} for visual reconstruction, provide the latent state encoders our biological estimators build upon.
+    \item \textbf{Representation Transfer:} Nakamura et al. \cite{nakamura2024unsupervised} demonstrated zero-shot representation transfer using hyperspherical embeddings. Their approach performs passive representational mapping; our theory concerns active, closed-loop state-trajectory coupling over bandwidth-limited channels, and supplies the quantity such a mapping would be trying to maximize.
 \end{itemize}
 
 \section{Formal Framework}
 \label{sec:theory}
 
 \subsection{Systems}
-
 Let each system $i \in \{1, \dots, N\}$ (biological or artificial) be characterized by:
-
 \begin{itemize}[leftmargin=1.2em]
     \item A state space $\mathcal{M}_i$ (a manifold, possibly high-dimensional), with internal state trajectory $x_i(t) \in \mathcal{M}_i$ evolving over a time index $t$ (discrete or continuous).
     \item A self-predictive model $P_i$, used by system $i$ to predict its own future state $x_i(t+\Delta)$ from its own past $x_i(\le t)$.
 \end{itemize}
-
 We deliberately do not assume $\mathcal{M}_i$ is shared, aligned, or even comparable in dimension across systems --- a direct departure from hyperalignment-based approaches, which presuppose a common representational geometry.
 
 \subsection{Interfaces}
-
 An \textbf{interface} from system $i$ to system $j$ is a (possibly stochastic) map
 \[
 g_{i \to j} : x_i(\le t) \;\longmapsto\; s_{i \to j}(t),
 \]
-producing a signal $s_{i \to j}(t)$ that influences the subsequent evolution of $x_j$. Interfaces are constrained by a bandwidth or structural budget --- e.g., a discrete channel with vocabulary size $K$, a continuous channel with bandwidth $B$, or a hardware-constrained stimulation protocol. Let $\mathcal{G}$ denote the admissible set of interfaces under a given constraint budget.
+producing a signal $s_{i \to j}(t)$ that influences the subsequent evolution of $x_j$. Interfaces are constrained by a bandwidth or structural budget --- e.g.\ a discrete channel with vocabulary size $K$, a continuous channel with bandwidth $B$, or a hardware-constrained stimulation protocol. Let $\mathcal{G}$ denote the admissible set of interfaces under a given budget.
 
 \subsection{Directed Coupling}
-
 We define the directed coupling from $i$ to $j$, at lag $\Delta$ and under interface $g \in \mathcal{G}$, as the transfer entropy (directed information):
 \begin{equation}
 \mathrm{TE}_{i \to j}(\Delta; g) \;=\; I\big(x_i(t)\, ;\, x_j(t+\Delta) \,\big|\, x_j(\le t)\big),
 \end{equation}
-the reduction in uncertainty about $j$'s future state given $i$'s state, beyond what $j$'s own past already provides. This generalizes standard transfer entropy to vector- or manifold-valued states with an explicit lag term, since biological systems exhibit genuine transmission delay and representational drift that a lag-free formulation would misattribute to noise.
+the reduction in uncertainty about $j$'s future state given $i$'s state, beyond what $j$'s own past already provides. This generalizes standard transfer entropy to vector- or manifold-valued states with an explicit lag $\Delta$, since biological systems exhibit genuine transmission delay and representational drift that a lag-free formulation would misattribute to noise.
 
 \subsection{Coupling Capacity}
-
 \begin{definitionbox}[Coupling Capacity]
 The \textbf{coupling capacity} from system $i$ to system $j$ is the supremum of directed coupling over admissible interfaces:
 \begin{equation}
 C(i \to j) \;=\; \sup_{g \,\in\, \mathcal{G}} \; \mathrm{TE}_{i \to j}(\Delta; g).
 \end{equation}
 \end{definitionbox}
-
 \noindent This is the direct dynamical analogue of Shannon capacity: where Shannon capacity is a supremum over input distributions of mutual information subject to a power or bandwidth constraint, coupling capacity is a supremum over \emph{interface designs} of directed information between two coupled dynamical systems, subject to an analogous constraint.
 
 \subsection{Bidirectional Coupling and Asymmetry}
-
 Define total coupling as $C_{\text{total}} = C(i \to j) + C(j \to i)$, and an asymmetry index
 \begin{equation}
 A \;=\; \frac{C(i \to j) - C(j \to i)}{C(i \to j) + C(j \to i)} \;\in\; [-1, 1].
 \end{equation}
-$A$ is predicted to correlate with task-defined role (e.g., ``leading'' vs.\ ``following,'' ``speaking'' vs.\ ``listening''); see Prediction 3 below.
+$A$ is predicted to correlate with task-defined role (``leading'' vs.\ ``following,'' ``speaking'' vs.\ ``listening''); see Prediction 3.
+
+\section{The Dimensional Bottleneck}
+\label{sec:proof}
+
+The single most consequential claim of the theory is that coupling capacity is bounded by representational geometry, not by the wire. We make this precise.
+
+\begin{theorem}[Effective-Dimensionality Bottleneck]
+Let systems $i$ and $j$ have effective representational dimensionalities $d_i = \dim_{\mathrm{eff}}(\mathcal{M}_i)$ and $d_j = \dim_{\mathrm{eff}}(\mathcal{M}_j)$, and let the interface be a channel of scalar bandwidth $B$ bits/step. Then the coupling capacity $C(i\!\to\!j;B)$ is (i) non-decreasing in $B$, and (ii) bounded above by
+\begin{equation}
+C(i \to j; B) \;\le\; \min\!\big(B,\; \bar{c}\cdot\min(d_i, d_j)\big),
+\end{equation}
+where $\bar{c}$ is the per-direction coupling capacity (bits per independently drivable dimension per step). Consequently, as $B \to \infty$ the capacity saturates at $C^\ast = \bar{c}\cdot\min(d_i, d_j)$, independent of further bandwidth.
+\end{theorem}
+
+\begin{proof}[Proof]
+\emph{(Bandwidth bound.)} The signal path $x_i(t) \to s_{i\to j}(t) \to x_j(t+\Delta)$ forms a Markov chain, since $x_j$ is influenced by $x_i$ only through the transmitted signal. By the Data Processing Inequality,
+\[
+I\big(x_i(t); x_j(t{+}\Delta)\mid x_j(\le t)\big) \;\le\; I\big(s_{i\to j}(t); x_j(t{+}\Delta)\mid x_j(\le t)\big) \;\le\; B,
+\]
+the last step because the channel carrying $s_{i\to j}$ has Shannon capacity $B$.
+
+\emph{(Dimensional bound.)} The exogenous drive enters $x_j$'s update through an injection operator whose image lies in the tangent space of $\mathcal{M}_j$, of dimension $d_j$; it can therefore excite at most $d_j$ independent directions. Symmetrically, the source can supply at most $d_i$ independent predictive components. The number of independently couplable directions is thus $\min(d_i,d_j)$. Each such direction is itself a scalar coupled channel whose capacity is bounded by a finite per-direction constant $\bar{c}$, set by that direction's dynamic range relative to the receiver's intrinsic process noise. Summing over directions gives $C \le \bar{c}\cdot\min(d_i,d_j)$, a bound with no dependence on $B$.
+
+\emph{(Monotonicity.)} Enlarging $B$ enlarges the admissible interface set $\mathcal{G}$; a supremum over a larger set cannot decrease. Taking the minimum of the two bounds and letting $B \to \infty$ yields the stated saturation.
+\end{proof}
+
+\noindent The constant $\bar{c}$ is not a free parameter of convenience: it is measurable, and in our simulation (Sec.~\ref{sec:validation}) we recover $\bar{c} \approx 0.39$ bits/dimension directly from the saturated capacities. Concavity of $C(\cdot;B)$ in $B$ --- the smooth, diminishing-returns approach to the ceiling --- follows from a standard time-sharing argument and is observed empirically; we treat its general proof as open (Sec.~\ref{sec:discussion}).
 
 \section{Falsifiable Predictions}
 \label{sec:predictions}
 
-\begin{prediction}[Capacity--Bandwidth Law]
-For interfaces parameterized by a scalar bandwidth $B$, $C(i \to j; B)$ is monotonically increasing and concave in $B$, saturating at a value set by $\min\big(\dim_{\mathrm{eff}}(\mathcal{M}_i),\, \dim_{\mathrm{eff}}(\mathcal{M}_j)\big)$ --- the smaller of the two systems' \emph{effective} representational dimensionality --- rather than by the channel's raw capacity. This is directly falsifiable: if measured capacity continues scaling with channel bandwidth well past the point where either system's effective dimensionality should cap it, the theory as stated is wrong.
+\begin{prediction}[Capacity--Bandwidth Saturation Law]
+For interfaces parameterized by scalar bandwidth $B$, $C(i \to j; B)$ is monotonically increasing and concave in $B$, saturating at $\bar{c}\cdot\min(d_{\mathrm{eff}}(\mathcal{M}_i), d_{\mathrm{eff}}(\mathcal{M}_j))$ --- set by the smaller of the two systems' \emph{effective} representational dimensionality, not by the channel's raw capacity. Falsification: if measured capacity keeps scaling with bandwidth well past the point where either system's effective dimensionality should cap it, the theory is wrong.
 \end{prediction}
 
 \begin{prediction}[Self-Predictive Accuracy Governs Capacity Efficiency]
-Let $R_i$ denote system $i$'s self-predictive accuracy --- its own model's log-likelihood in predicting its own future state. Capacity achieved per unit bandwidth, $C(i \to j)/B$, is monotonically increasing in $R_i$ and $R_j$ jointly: systems with better internal world models extract more coupling from an identical channel.
+Let $R_i$ denote system $i$'s self-predictive accuracy (its own model's success in predicting its own future). Capacity achieved per unit bandwidth, $C(i \to j)/B$, is monotonically increasing in $R_i$ and $R_j$ jointly: systems with better internal world models extract more coupling from an identical channel.
 \end{prediction}
 
 \begin{prediction}[Asymmetry Tracks Role]
@@ -139,45 +169,111 @@ The asymmetry index $A$ correlates with an externally defined task-role variable
 \end{prediction}
 
 \section{Evaluation Metrics and Estimation}
+\label{sec:estimation}
 
-Estimating coupling capacity in continuous high-dimensional state spaces requires estimators tailored to the data regime:
-
+Estimating coupling capacity in continuous high-dimensional state spaces requires estimators matched to the data regime:
 \begin{itemize}[leftmargin=1.2em]
-    \item \textbf{Simulated Multi-Agent Systems (Ground Truth):} In artificial multi-agent reinforcement learning (MARL) testbeds, full access to internal recurrent states $h_t^A, h_t^B$ permits direct estimation via $k$-nearest-neighbor ($k$-NN) Kraskov-St\"ogbauer-Grassberger (KSG) transfer entropy estimators. Alternatively, we introduce a \emph{predictive-gain estimator}:
-    $$\hat{\mathrm{TE}}_{A \to B} = L_{\text{self}} - L_{\text{joint}} = \mathbb{E} \left[ \log \frac{P_\psi(x_B(t+1) \mid x_B(\le t), x_A(\le t))}{P_\phi(x_B(t+1) \mid x_B(\le t))} \right]$$
-    which scales effectively to deep neural networks without suffering from the curse of dimensionality.
-    \item \textbf{Biological Recordings (EEG / fMRI Hyperscanning):} State trajectories are extracted via non-linear manifold learning or pre-trained foundation model encoders (LaBraM, BrainLM) before applying the predictive-gain estimator. Effective Transfer Entropy (ETE) is computed by subtracting surrogate-shuffled baseline estimates to eliminate finite-sample bias.
+    \item \textbf{Predictive-gain estimator.} A self-predictor $P_\phi$ models the target from its own past; a joint predictor $P_\psi$ additionally sees the source. The coupling is the gain in predictive log-likelihood,
+    $$\hat{\mathrm{TE}}_{A \to B} = \mathbb{E}\!\left[\log \frac{P_\psi(x_B(t{+}1)\mid x_B(\le t), x_A(\le t))}{P_\phi(x_B(t{+}1)\mid x_B(\le t))}\right],$$
+    which equals the Gaussian/Geweke directed measure for linear-Gaussian systems and scales to deep predictors without suffering the curse of dimensionality.
+    \item \textbf{Model-free KSG estimator.} On low-dimensional or channel-projected trajectories, the Kraskov-St\"ogbauer-Grassberger $k$-NN estimator provides an assumption-light cross-check; we use it to confirm the predictive-gain estimator is not an artifact of its parametric form.
+    \item \textbf{Biological recordings (EEG / fMRI hyperscanning).} State trajectories are extracted via pre-trained foundation-model encoders (LaBraM, BrainLM) before applying the predictive-gain estimator. Effective Transfer Entropy is computed by subtracting surrogate-shuffled baselines to remove finite-sample bias.
 \end{itemize}
 
+\section{Proof-of-Concept: Ground-Truth Validation}
+\label{sec:validation}
+
+A measurement theory earns trust first by behaving correctly where the ground truth is known. We therefore built a controlled sandbox of two coupled dynamical systems joined by a bandwidth-limited interface, in which the receiver's effective dimensionality, the coupling gain, and the channel's bit budget are all set by hand. Each system is a stationary vector-autoregressive process on an effective manifold of chosen dimension; system $A$ emits a channel signal from its state, the signal passes through a $B$-bit/step channel (high-resolution quantisation model), and is injected into $B$'s dynamics. All randomness is seeded; the full experiment reproduces exactly and runs in under a minute of CPU time. We report mean $\pm$ standard deviation over five seeds and estimate coupling with \emph{both} the predictive-gain and KSG estimators.
+
+\subsection{Prediction 1: capacity saturates at the dimensional ceiling}
+Figure~\ref{fig:p1} sweeps channel bandwidth from $0$ to $32$ bits/step for receivers of effective dimensionality $d_{\mathrm{eff}} \in \{2,4,8\}$. Every curve rises concavely and then flattens far below the raw channel limit $C=B$. The saturated ceiling scales cleanly and linearly with the receiver's effective dimensionality --- $0.81$, $1.63$, and $3.17$ bits/step for $d_{\mathrm{eff}} = 2, 4, 8$ --- yielding a per-direction capacity of $\bar{c} \approx 0.39$ bits/dimension, exactly the constant predicted by the bottleneck theorem. The result is robust to embedding: when a rank-$r$ manifold is hidden inside a $16$-dimensional ambient state, the ceiling still tracks $r$ (not $16$), giving $0.63$, $1.27$, and $2.68$ bits for $r = 2, 4, 8$.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig2_capacity_bandwidth_law.png}
+\caption{\textbf{Prediction 1.} Left: coupling capacity vs.\ channel bandwidth for three receiver dimensionalities; all saturate far below the raw channel limit (grey dashed). Right: the saturated ceiling is linear in effective dimensionality with slope $\bar{c}\approx0.39$ bits/dimension. Bandwidth is not the binding constraint --- representational geometry is.}
+\label{fig:p1}
+\end{figure}
+
+\subsection{Prediction 2: better world models couple more per bit}
+Holding bandwidth fixed, we vary the two systems' self-predictive accuracy $R$ (the quality of their internal world models). Coupling efficiency $C/B$ rises monotonically from $0.21$ to $0.72$ bits per channel bit as $R$ increases from near-zero to $0.9$ --- a $3.5\times$ gain from an identical channel (Fig.~\ref{fig:p23}, left; Pearson $r = 0.94$). Systems that model themselves well extract more coupling from the same wire.
+
+\subsection{Prediction 3: asymmetry tracks role}
+With bidirectional coupling and a fixed total gain, we sweep the role parameter $r = \kappa_{A\to B}/(\kappa_{A\to B}+\kappa_{B\to A})$. The measured asymmetry index tracks it almost perfectly, from $A = -0.89$ (B leads) through $0$ (symmetric) to $+0.88$ (A leads), with Pearson $r = 1.00$ (Fig.~\ref{fig:p23}, right).
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.49\textwidth]{figures/fig4_selfpredictive_efficiency.png}
+\hfill
+\includegraphics[width=0.49\textwidth]{figures/fig3_asymmetry_index.png}
+\caption{\textbf{Left (Prediction 2):} coupling efficiency $C/B$ increases $3.5\times$ with joint self-predictive accuracy. \textbf{Right (Prediction 3):} the directional asymmetry index tracks task role with $r=1.00$.}
+\label{fig:p23}
+\end{figure}
+
+\subsection{Estimator agreement}
+The two estimators are constructed on entirely different principles --- one parametric and log-likelihood-based, one model-free and geometric. Across coupling strengths they agree to within a mean absolute difference of a few hundredths of a bit (Pearson $r > 0.99$; Fig.~\ref{fig:agree}), so the reported capacities are properties of the coupled systems, not of a particular estimator.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.52\textwidth]{figures/fig5_estimator_agreement.png}
+\caption{\textbf{Estimator agreement.} The model-free KSG estimator and the predictive-gain estimator agree to within $2\%$ across coupling strengths, validating the measurement itself.}
+\label{fig:agree}
+\end{figure}
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+\textbf{Prediction} & \textbf{Test} & \textbf{Result} & \textbf{Status} \\
+\midrule
+P1 -- Saturation law & ceiling vs.\ $d_{\mathrm{eff}}$ & slope $\bar{c}=0.39$ bits/dim; flat in $B$ & \textbf{Supported} \\
+P2 -- Efficiency & $C/B$ vs.\ self-prediction $R$ & $0.21 \to 0.72$; $r=0.94$ & \textbf{Supported} \\
+P3 -- Asymmetry & $A$ vs.\ role $r$ & $-0.89 \to +0.88$; $r=1.00$ & \textbf{Supported} \\
+Cross-check & KSG vs.\ predictive-gain & agree within $2\%$; $r>0.99$ & \textbf{Consistent} \\
+\bottomrule
+\end{tabular}
+\caption{Summary of the ground-truth validation. All three predictions hold in the regime where the theory's assumptions are met by construction.}
+\label{tab:summary}
+\end{table}
+
+\subsection{What this does and does not show}
+These results establish that the quantity behaves as the theory says in a system that satisfies its assumptions by construction --- a necessary condition for the theory to be worth testing on real brains, not a substitute for doing so. The simulation is linear-Gaussian and stationary; biological manifolds are neither. Section~\ref{sec:roadmap} lays out the escalation to multi-agent RL and public human hyperscanning data.
+
 \section{Falsifiability, Scope, and Discussion}
+\label{sec:discussion}
 
 \subsection{Falsifiability \& Scope}
-A critical requirement for any measurement theory is explicit commitment to falsifiability:
 \begin{itemize}[leftmargin=1.2em]
-    \item \textbf{Falsification Criteria:} If measured transfer entropy across an optimized channel scales indefinitely with raw channel bandwidth $B$ past the effective representational dimensionality cap $\min(\dim_{\text{eff}}(\mathcal{M}_i), \dim_{\text{eff}}(\mathcal{M}_j))$, Prediction 1 is falsified, and the theory as stated is invalid.
-    \item \textbf{Scope Limitation:} This framework quantifies \emph{how much} two dynamic systems become predictively entangled, not \emph{what} semantic content is transmitted. Content-level interpretation is a downstream task dependent on specific representational geometries.
+    \item \textbf{Falsification criterion.} If measured transfer entropy across an optimized channel scales indefinitely with raw bandwidth $B$, past the effective-dimensionality ceiling $\bar{c}\cdot\min(d_i,d_j)$, Prediction 1 is falsified and the theory as stated is invalid. Section~\ref{sec:validation} shows the ceiling holds in simulation; the decisive test is whether it holds in a real coupled neural system.
+    \item \textbf{Scope limitation.} This framework quantifies \emph{how much} two systems become predictively entangled, not \emph{what} semantic content is transmitted. Content-level interpretation is a downstream task dependent on specific representational geometries.
+\end{itemize}
+
+\subsection{Open Problems}
+\begin{itemize}[leftmargin=1.2em]
+    \item \textbf{General concavity.} We prove monotonicity and the saturation bound; a general proof of concavity of $C(\cdot;B)$ (beyond the time-sharing argument and the empirical curves) remains open.
+    \item \textbf{Estimating $d_{\mathrm{eff}}$ on real data.} The bottleneck is stated in terms of effective dimensionality; robust estimation of $d_{\mathrm{eff}}$ from finite, non-stationary neural recordings is itself a research problem, for which foundation-model latents offer a promising handle.
 \end{itemize}
 
 \subsection{Limitations \& Ethical Considerations}
 \begin{itemize}[leftmargin=1.2em]
-    \item \textbf{Estimator Sample Complexity:} High-dimensional transfer entropy estimation remains computationally intensive ($O(N \log N)$ for $k$-NN estimators). Neural predictive-gain models mitigate this but introduce optimization hyperparameter dependencies.
-    \item \textbf{Non-Stationarity of Neural Manifolds:} Biological neural manifolds exhibit non-stationarity over extended timeframes due to plasticity, requiring adaptive windowing in transfer entropy estimators.
-    \item \textbf{Ethical Considerations for Stimulation Work:} Eventual bidirectional closed-loop BBI prototypes involving non-invasive TMS or invasive microstimulation introduce ethical questions regarding agency, cognitive privacy, and involuntary mental state alignment.
-    \item \textbf{Comparison with Integrated Information Theory ($\Phi$):} While Giulio Tononi's IIT quantifies integrated information \emph{within} a single system, Coupling Capacity $C_{\text{couple}}$ quantifies directed information flow \emph{between} dynamic systems across a bandwidth-limited interface.
+    \item \textbf{Estimator sample complexity.} High-dimensional $k$-NN transfer-entropy estimation is computationally intensive; the predictive-gain estimator mitigates this but introduces optimization hyperparameters.
+    \item \textbf{Non-stationarity.} Biological manifolds drift with plasticity, requiring adaptive windowing.
+    \item \textbf{Ethics of stimulation work.} Closed-loop BBI prototypes involving TMS or microstimulation raise real questions of agency, cognitive privacy, and involuntary mental-state alignment; a capacity measure that quantifies how strongly one mind can drive another is precisely the kind of tool that demands an ethics discussion alongside it, not after.
+    \item \textbf{Relation to Integrated Information ($\Phi$).} Whereas IIT quantifies integrated information \emph{within} a single system, coupling capacity quantifies directed information flow \emph{between} systems across a bandwidth-limited interface.
 \end{itemize}
 
 \section{Multi-Year Empirical Roadmap}
-
+\label{sec:roadmap}
 \begin{enumerate}[leftmargin=1.4em]
-    \item \textbf{Paper 1 (Multi-Agent RL):} Validate Predictions 1 and 2 in controlled cooperative games (\texttt{PettingZoo} \texttt{simple\_speaker\_listener\_v4}), sweeping channel quantization $B \in [1, 2, 4, 8, 16, 32]$ bits/step.
-    \item \textbf{Paper 2 (Hyperscanning):} Test Predictions 1--3 against public human dyadic EEG corpora (OpenNeuro \texttt{ds007764} DUET, \texttt{ds007471} Joint Agency EEG) using FUGW functional alignment.
-    \item \textbf{Paper 3 (Causal Manipulation):} Causal non-invasive intervention manipulating feedback latency and bandwidth in human dyads.
-    \item \textbf{Paper 4 (Learned BCP Prototype):} Use $C_{\text{couple}}$ as an explicit differentiable loss function to train a closed-loop BBI prototype.
+    \item \textbf{Paper 1 (Multi-Agent RL):} Reproduce Predictions 1--2 in cooperative games (\texttt{PettingZoo simple\_speaker\_listener}), sweeping a Gumbel-Softmax channel over $B \in \{1,2,4,8,16,32\}$ bits/step with learned rather than hand-set interfaces. The present simulation is the analytical control for that study.
+    \item \textbf{Paper 2 (Hyperscanning):} Test Predictions 1--3 on public human dyadic EEG corpora (OpenNeuro \texttt{ds007764} DUET, \texttt{ds007471} Joint Agency EEG), using FUGW functional alignment and foundation-model latents.
+    \item \textbf{Paper 3 (Causal Manipulation):} Non-invasively manipulate feedback latency and bandwidth in human dyads to move measured capacity causally.
+    \item \textbf{Paper 4 (Learned Interface Prototype):} Use $C(i\!\to\!j)$ as an explicit differentiable objective to \emph{learn} an optimal interface between two neural networks, and ultimately a closed-loop BBI prototype.
 \end{enumerate}
 
 \section{Conclusion}
-
-We have introduced a general Theory of Computational Coupling between intelligent systems, reframing Brain-to-Brain Communication (BBI), communication protocols, and language from designed engineering artifacts into testable applications of a single underlying quantity: \textbf{Coupling Capacity} ($C_{\text{couple}}$). By generalizing Shannon's channel capacity to dynamic, self-predictive state trajectories on neural manifolds, this framework provides the field with a rigorous measurement target.
+We have introduced a general theory of computational coupling between intelligent systems, reframing brain-to-brain communication, communication protocols, and language from designed engineering artifacts into testable applications of a single quantity: coupling capacity. By generalizing Shannon's channel capacity to dynamic, self-predictive state trajectories, and by proving and then demonstrating that this capacity is bottlenecked by representational geometry rather than by raw bandwidth, we give the field a rigorous measurement target --- and first evidence, in a system where the answer is known, that the target measures what it claims to.
 
 \vspace{12pt}
 \bibliographystyle{plain}

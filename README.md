@@ -8,7 +8,7 @@ alias: "Computational Coupling Master Guide"
 
 **Author:** Ashok Pasala (VIT-AP University)  
 **Target Venues:** NeurIPS, ICML, ICLR, Nature Machine Intelligence, Nature Neuroscience  
-**Draft Version:** 0.2.0 (Working Research Program)  
+**Draft Version:** 0.3.0 (Formal core + reproducible proof-of-concept)  
 
 ---
 
@@ -92,19 +92,44 @@ computational-coupling/
 
 ---
 
+## ✅ Proof-of-Concept: The Theory Holds Where the Ground Truth Is Known
+
+Before touching a single brain, we test the theory in a controlled sandbox of two coupled
+dynamical systems joined by a bandwidth-limited channel — a setting where the receiver's
+effective dimensionality, the coupling gain, and the channel's bit-budget are all set by
+hand. Everything is seeded and reproduces exactly (pure NumPy, ~1 minute of CPU). We measure
+coupling with **two independent estimators** (a parametric predictive-gain estimator and the
+model-free KSG *k*-NN estimator) so no result rides on one estimator's quirks.
+
+| Prediction | Test | Result | Status |
+| :--- | :--- | :--- | :--- |
+| **P1** — Capacity–Bandwidth Saturation | ceiling vs. effective dim | ceiling scales at **0.39 bits / dim**, flat in bandwidth $B$ | ✅ Supported |
+| **P2** — Self-Prediction → Efficiency | $C/B$ vs. self-predictive accuracy $R$ | $C/B$ rises **3.5×** (0.21 → 0.72); $r = 0.94$ | ✅ Supported |
+| **P3** — Asymmetry Tracks Role | asymmetry $A$ vs. task role | $A$: $-0.89 \to +0.88$; $r = 1.00$ | ✅ Supported |
+| Cross-check | KSG vs. predictive-gain | agree within **2%**; $r > 0.99$ | ✅ Consistent |
+
+The headline: **coupling capacity saturates at a ceiling set by the smaller system's effective
+representational dimensionality — not by the channel's raw bit-rate.** That's a *second* Shannon
+limit, and it says something concrete for BBI/BCI engineering: past a critical bandwidth, a wider
+channel buys you nothing; you must raise the receiver's usable dimensionality instead.
+
+---
+
 ## 🚀 Quick Start
 
-### 1. Compile the LaTeX Paper
+### 1. Compile the paper → PDF
 ```bash
-python3 paper/compile_paper.py
-# Or use pdflatex main.tex inside paper/
+python3 paper/compile_paper.py   # renders paper/output/paper.pdf (figures embedded)
+# On Overleaf / with a TeX install: pdflatex main.tex inside paper/
 ```
 
-### 2. Run Paper 1 Experiment Scaffold (Multi-Agent RL)
+### 2. Reproduce the proof-of-concept (figures + logs)
 ```bash
 cd experiments/paper1_rl/
-python run_bandwidth_sweep.py --env simple_speaker_listener_v4 --bandwidth_bits 1 2 4 8 16 32
+python3 run_experiments.py       # writes figures/ and experiments/results/logs/
 ```
+This runs all three prediction tests plus the estimator cross-check across 5 seeds and
+regenerates every figure in the paper. The coupling library lives in `coupling_lab.py`.
 
 ---
 

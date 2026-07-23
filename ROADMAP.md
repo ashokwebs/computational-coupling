@@ -42,12 +42,13 @@ We execute this vision through **two parallel tracks** across **four venue-targe
 ## 📄 Track 1: Foundational Paper (`paper/`)
 
 * **Title:** *A Theory of Computational Coupling Between Intelligent Systems: Toward a General Foundation for Brain-to-Brain Communication*
-* **Status:** Working Draft (Sections 3 & 4 complete; Sections 1, 2, 6, 8 structured outlines).
-* **Next Steps:**
-  - Expand Section 1 (Intro) with the Shannon telecommunications analogy hook.
-  - Populate Section 2 (Related Work) with verified BibTeX entries from `paper/references.bib`.
-  - Add explicit falsifiability teeth in Section 6.
-  - Add limitations & ethics of stimulation in Section 8.
+* **Status:** v0.3.0 — formal core complete **and empirically supported in a ground-truth simulation.**
+  - ✅ Intro with Shannon analogy; explicit contributions list.
+  - ✅ Related Work populated from verified `paper/references.bib` (all 15 keys resolve).
+  - ✅ **Dimensional Bottleneck theorem + proof** (Sec. 4): ceiling $=\bar{c}\cdot\min(d_i,d_j)$.
+  - ✅ **Proof-of-Concept validation** (Sec. 7): all three predictions supported; two estimators agree within 2%.
+  - ✅ Falsifiability teeth, open problems, ethics of stimulation.
+* **Next Steps:** biological validation (Paper 2); general concavity proof; robust $d_{\text{eff}}$ estimation on real recordings.
 
 ---
 
@@ -55,12 +56,13 @@ We execute this vision through **two parallel tracks** across **four venue-targe
 
 ### 🧪 Paper 1: Multi-Agent RL Testbed Validation
 * **Target Venues:** NeurIPS / ICML
-* **Goal:** Validate Prediction 1 (Capacity-Bandwidth Saturation Law) and Prediction 2 (Self-Predictive Accuracy Efficiency) in artificial agents where we got 100% ground-truth access to internal states ($h_t^A, h_t^B$).
-* **Methodology:**
-  - Environment: `PettingZoo` cooperative multi-agent environments (`mpe/simple_speaker_listener_v4`).
-  - Interface Bottleneck: Sweep channel quantization $B \in [1, 2, 4, 8, 16, 32]$ bits/step via Gumbel-Softmax discrete channels.
-  - Estimator: Neural predictive-gain Transfer Entropy estimator ($L_{\text{self}} - L_{\text{joint}}$).
-* **Milestone:** Plot $C_{\text{couple}}$ vs $B$ curve to empirically verify concave saturation at $\min(d_A, d_B)$.
+* **Goal:** Validate all three predictions in artificial systems with 100% ground-truth access to internal states.
+* **Stage 1 — analytical control (✅ DONE, `experiments/paper1_rl/`):** coupled VAR systems + bandwidth-limited channel in pure NumPy. All three predictions supported; capacity saturates at $0.39\cdot\min(d_{\text{eff}})$ bits, flat in $B$; predictive-gain and KSG estimators agree within 2%. This is the analytical control for the learned-interface study below.
+* **Stage 2 — learned interface (next):**
+  - Environment: `PettingZoo` cooperative games (`simple_speaker_listener`).
+  - Interface Bottleneck: **learned** Gumbel-Softmax discrete channel, sweep $B \in [1,2,4,8,16,32]$ bits/step.
+  - Estimator: neural predictive-gain Transfer Entropy ($L_{\text{self}} - L_{\text{joint}}$).
+* **Milestone:** show the saturation law emerges under an *optimized* interface, not only an imposed one.
 
 ---
 

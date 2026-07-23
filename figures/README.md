@@ -2,14 +2,17 @@
 
 This directory stores all publication-ready vector graphics, diagrams, and plots.
 
+These are **auto-generated** by `experiments/paper1_rl/run_experiments.py` (PNG for the
+reportlab compiler + PDF for Overleaf). Re-run that script to regenerate them from scratch.
+
 ```
 figures/
-├── fig1_bbi_reframe_diagram.pdf     # Conceptual reframe diagram (Shannon vs Coupling Capacity)
-├── fig2_capacity_bandwidth_law.pdf  # Prediction 1 concave saturation plot
-├── fig3_asymmetry_index.pdf         # Prediction 3 role asymmetry plot
-└── src/                             # TikZ / Python / Mermaid source files
+├── fig2_capacity_bandwidth_law.png/.pdf   # Prediction 1 — concave saturation + ceiling vs d_eff
+├── fig3_asymmetry_index.png/.pdf          # Prediction 3 — asymmetry index vs task role
+├── fig4_selfpredictive_efficiency.png/.pdf# Prediction 2 — C/B vs self-predictive accuracy
+└── fig5_estimator_agreement.png/.pdf      # KSG vs predictive-gain estimator agreement
 ```
 
 ### Guidelines:
-- Save figures in **SVG** or **PDF** format for lossless vector scaling in LaTeX.
-- Maintain consistent color palette: Navy (`#1F4E78`), Steel Blue (`#2E75B6`), and Coral (`#E05A47`).
+- Figures are regenerated deterministically (seeded); do not hand-edit.
+- Consistent palette: Navy (`#1F4E78`), Steel Blue (`#2E75B6`), Coral (`#E05A47`).

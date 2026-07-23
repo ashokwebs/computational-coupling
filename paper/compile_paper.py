@@ -4,9 +4,12 @@ from reportlab.lib.pagesizes import letter
 from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.platypus import (
-    SimpleDocTemplate, Paragraph, Spacer, HRFlowable, Table, TableStyle, KeepTogether
+    SimpleDocTemplate, Paragraph, Spacer, HRFlowable, Table, TableStyle, KeepTogether, Image
 )
+from reportlab.lib.utils import ImageReader
 from reportlab.pdfgen import canvas
+
+PAPER_DIR = "/home/charizard/computational-coupling/paper"
 
 TEX_MAIN = "/home/charizard/computational-coupling/paper/main.tex"
 PDF_OUT = "/home/charizard/computational-coupling/paper/output/paper.pdf"
@@ -40,7 +43,7 @@ class NumberedCanvas(canvas.Canvas):
         
         self.setFont("Helvetica", 8)
         self.drawRightString(8.5 * 72 - 54, 30, f"Page {self._pageNumber} of {page_count}")
-        self.drawString(54, 30, "Ashok Pasala (VIT-AP University) — Working Draft v0.2.0")
+        self.drawString(54, 30, "Ashok Pasala (VIT-AP University) — Working Draft v0.3.0")
         self.setStrokeColor(colors.HexColor("#E0E0E0"))
         self.setLineWidth(0.5)
         self.line(54, 40, 8.5 * 72 - 54, 40)
@@ -52,15 +55,38 @@ def clean_latex_text(text):
         return ""
 
     # Strip environment tags
-    text = re.sub(r'\\begin\{(itemize|enumerate|equation|align|center|figure|table|prediction|definitionbox)\}(\[[^\]]*\])?', '', text)
-    text = re.sub(r'\\end\{(itemize|enumerate|equation|align|center|figure|table|prediction|definitionbox)\}', '', text)
-    
+    text = re.sub(r'\\begin\{(itemize|enumerate|equation|align|center|figure|table|tabular|prediction|definitionbox|theorem|proof)\}(\[[^\]]*\])?(\{[^}]*\})?', '', text)
+    text = re.sub(r'\\end\{(itemize|enumerate|equation|align|center|figure|table|tabular|prediction|definitionbox|theorem|proof)\}', '', text)
+
+    # Strip figure/table scaffolding & booktabs rules
+    text = re.sub(r'\\includegraphics(\[[^\]]*\])?\{[^}]+\}', '', text)
+    text = re.sub(r'\\caption\{', '', text)
+    text = re.sub(r'\\(centering|toprule|midrule|bottomrule|small|hfill|qedhere)\b', '', text)
+
     # Strip bibliography & preamble commands
     text = re.sub(r'\\bibliographystyle\{[^}]+\}', '', text)
     text = re.sub(r'\\bibliography\{[^}]+\}', '', text)
     text = re.sub(r'\\label\{[^}]+\}', '', text)
+    text = re.sub(r'(Figure|Fig\.)\s*~?\s*\\ref\{fig:[^}]+\}', 'the figure', text)
+    text = re.sub(r'\\ref\{fig:[^}]+\}', 'the figure', text)
+    text = re.sub(r'(Table|Tab\.)\s*~?\s*\\ref\{tab:[^}]+\}', 'the table', text)
+    text = re.sub(r'\\ref\{tab:[^}]+\}', 'the table', text)
+    text = re.sub(r'(Sec\.|Section)\s*~?\s*\\ref\{sec:[^}]+\}', 'a later section', text)
+    text = re.sub(r'\\ref\{sec:[^}]+\}', 'a later section', text)
     text = re.sub(r'\\ref\{([^}]+)\}', r'\1', text)
+    text = re.sub(r'\\eqref\{([^}]+)\}', r'(\1)', text)
     text = re.sub(r'\\cite\{([^}]+)\}', r'[\1]', text)
+
+    # Math spacing / sizing commands carry no meaning in a text renderer.
+    text = re.sub(r'\\(!|,|;|:|quad|qquad|noalign)', '', text)
+    text = re.sub(r'\\(bigg?|Bigg?|left|right)\b', '', text)
+    # Fractions (one nesting level), accents, escaped braces, umlauts.
+    _arg = r'(?:[^{}]|\{[^{}]*\})*'
+    text = re.sub(r'\\frac\{(' + _arg + r')\}\{(' + _arg + r')\}', r'(\1)/(\2)', text)
+    text = re.sub(r'\\(bar|hat|tilde|vec|dot)\{(' + _arg + r')\}', r'\2', text)
+    text = re.sub(r'\\"\{?([aouAOU])\}?', lambda m: {'a':'ä','o':'ö','u':'ü','A':'Ä','O':'Ö','U':'Ü'}[m.group(1)], text)
+    text = text.replace('~', ' ')
+    text = text.replace(r'\{', '{').replace(r'\}', '}')  # escaped braces -> literal
     text = re.sub(r'\\noindent', '', text)
     text = re.sub(r'\\vspace\{[^}]+\}', '', text)
     text = re.sub(r'\\hspace\{[^}]+\}', '', text)
@@ -90,17 +116,58 @@ def clean_latex_text(text):
         (r'\in', ' ∈ '), (r'\notin', ' ∉ '), (r'\cdot', '·'), (r'\dots', '...'),
         (r'\vert', '|'), (r'\mid', '|'), (r'\le', ' ≤ '), (r'\ge', ' ≥ '),
         (r'\neq', ' ≠ '), (r'\approx', ' ≈ '), (r'\partial', '∂'), (r'\infty', '∞'),
-        (r'\sum', '∑'), (r'\prod', '∏'), (r'\_', '_'), (r'\&', '&'), (r'\%', '%'),
+        (r'\sum', '∑'), (r'\prod', '∏'),
+        (r'\times', '×'), (r'\ast', '*'), (r'\dim', 'dim'), (r'\log', 'log'),
+        (r'\ln', 'ln'), (r'\sqrt', '√'), (r'\langle', '⟨'), (r'\rangle', '⟩'),
+        (r'\rho', 'ρ'), (r'\kappa', 'κ'), (r'\sigma', 'σ'), (r'\Sigma', 'Σ'),
+        (r'\lambda', 'λ'), (r'\Gamma', 'Γ'), (r'\triangleq', '≜'), (r'\mapsto', '↦'),
+        (r'\pm', '±'), (r'\ast', '*'), (r'\star', '*'),
+        (r'\_', '_'), (r'\&', '&'), (r'\%', '%'),
         (r'\\', ' '), (r'\[', ''), (r'\]', ''), (r'\(', ''), (r'\)', '')
     ]
     for old, new in math_replacements:
         text = text.replace(old, new)
 
+    # Flatten single-level sub/superscript braces (d_{eff} -> d_eff).
+    text = re.sub(r'_\{([^{}]*)\}', r'_\1', text)
+    text = re.sub(r'\^\{([^{}]*)\}', r'^\1', text)
     text = text.replace('$', '')
     text = re.sub(r'\\item\b', '', text)
     text = re.sub(r'\\(begin|end)\b', '', text)
+    text = re.sub(r'\\ ', ' ', text)          # inter-word backslash-space
     text = re.sub(r'\s+', ' ', text).strip()
+    # Escape bare ampersands so ReportLab's XML parser is happy.
+    text = re.sub(r'&(?!(amp|lt|gt|#\d+);)', '&amp;', text)
     return text
+
+def make_image(rel_path, max_w):
+    """Load a figure, scaled to `max_w` points preserving aspect ratio."""
+    path = rel_path if os.path.isabs(rel_path) else os.path.join(PAPER_DIR, rel_path)
+    if not os.path.exists(path):
+        return None
+    iw, ih = ImageReader(path).getSize()
+    w = min(max_w, iw)
+    h = w * ih / iw
+    return Image(path, width=w, height=h)
+
+
+def parse_tabular(block):
+    """Parse a LaTeX tabular block into a list of cleaned string rows."""
+    m = re.search(r'\\begin\{tabular\}(\{(?:[^{}]|\{[^{}]*\})*\})?(.*?)\\end\{tabular\}', block, re.S)
+    if not m:
+        return []
+    body = m.group(2)
+    body = re.sub(r'\\(toprule|midrule|bottomrule)\b', '', body)
+    rows = []
+    for raw in body.split(r'\\'):
+        raw = raw.strip()
+        if not raw:
+            continue
+        cells = [clean_latex_text(c) for c in raw.split('&')]
+        if any(cells):
+            rows.append(cells)
+    return rows
+
 
 def compile_tex_to_pdf():
     os.makedirs(os.path.dirname(PDF_OUT), exist_ok=True)
@@ -157,8 +224,19 @@ def compile_tex_to_pdf():
         'BoxBody', parent=styles['Normal'], fontName='Helvetica',
         fontSize=9, leading=13, textColor=colors.HexColor("#222222")
     )
+    caption_style = ParagraphStyle(
+        'Caption', parent=styles['Normal'], fontName='Helvetica-Oblique',
+        fontSize=8.5, leading=11.5, textColor=colors.HexColor("#444444"),
+        alignment=1, spaceBefore=4, spaceAfter=8, leftIndent=20, rightIndent=20
+    )
+    proof_style = ParagraphStyle(
+        'Proof', parent=body_style, fontName='Helvetica', fontSize=9,
+        leftIndent=10, textColor=colors.HexColor("#222222")
+    )
 
     story = []
+    fig_counter = [0]
+    tab_counter = [0]
     
     with open(TEX_MAIN, "r", encoding="utf-8") as f:
         content = f.read()
@@ -166,10 +244,10 @@ def compile_tex_to_pdf():
     # 1. Header & Title
     story.append(Paragraph("A Theory of Computational Coupling Between Intelligent Systems", title_style))
     story.append(Paragraph("Toward a General Foundation for Brain-to-Brain Communication", subtitle_style))
-    story.append(Paragraph("<b>Ashok Pasala</b> &nbsp;|&nbsp; VIT-AP University &nbsp;|&nbsp; <i>Working Draft v0.2.0 (July 23, 2026)</i>", author_style))
+    story.append(Paragraph("<b>Ashok Pasala</b> &nbsp;|&nbsp; VIT-AP University &nbsp;|&nbsp; <i>Working Draft v0.3.0 (July 23, 2026)</i>", author_style))
     
     # 2. Status Callout Banner
-    status_text = "<b>Status:</b> Working Draft (Version 0.2.0). Formal Core (Sections 3–4) completed; empirical evaluation roadmap and foundational literature canon fully specified."
+    status_text = "<b>Status:</b> Working Draft (Version 0.3.0). Formal core complete; the three central predictions are now supported by a controlled, fully reproducible ground-truth simulation. Biological validation on public hyperscanning corpora is the next milestone."
     status_table = Table([[Paragraph(status_text, status_style)]], colWidths=[500])
     status_table.setStyle(TableStyle([
         ('BACKGROUND', (0, 0), (-1, -1), colors.HexColor("#FFF8E7")),
@@ -215,7 +293,7 @@ def compile_tex_to_pdf():
         if r'\section{' in block:
             m = re.search(r'\\section\*?\{([^}]+)\}', block)
             if m:
-                story.append(Paragraph(m.group(1), h1_style))
+                story.append(Paragraph(clean_latex_text(m.group(1)), h1_style))
                 sub_part = block.split(m.group(0))[1]
                 if sub_part.strip():
                     story.append(Paragraph(clean_latex_text(sub_part), body_style))
@@ -224,11 +302,79 @@ def compile_tex_to_pdf():
         if r'\subsection{' in block:
             m = re.search(r'\\subsection\*?\{([^}]+)\}', block)
             if m:
-                story.append(Paragraph(m.group(1), h2_style))
+                story.append(Paragraph(clean_latex_text(m.group(1)), h2_style))
                 sub_part = block.split(m.group(0))[1]
                 if sub_part.strip():
                     story.append(Paragraph(clean_latex_text(sub_part), body_style))
                 continue
+
+        # Figures
+        if r'\begin{figure}' in block:
+            fig_counter[0] += 1
+            paths = re.findall(r'\\includegraphics(?:\[[^\]]*\])?\{([^}]+)\}', block)
+            cap_m = re.search(r'\\caption\{(.+?)\}\s*(?:\\label|\\end\{figure\})', block, re.S)
+            imgs = [make_image(p, 245 if len(paths) > 1 else 500) for p in paths]
+            imgs = [im for im in imgs if im is not None]
+            if len(imgs) > 1:
+                row = Table([imgs], hAlign='CENTER')
+                row.setStyle(TableStyle([('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+                                         ('VALIGN', (0, 0), (-1, -1), 'MIDDLE')]))
+                story.append(row)
+            elif imgs:
+                imgs[0].hAlign = 'CENTER'
+                story.append(imgs[0])
+            if cap_m:
+                cap = clean_latex_text(cap_m.group(1))
+                story.append(Paragraph(f"<b>Figure {fig_counter[0]}.</b> {cap}", caption_style))
+            story.append(Spacer(1, 6))
+            continue
+
+        # Tables
+        if r'\begin{table}' in block:
+            tab_counter[0] += 1
+            rows = parse_tabular(block)
+            cap_m = re.search(r'\\caption\{(.+?)\}\s*(?:\\label|\\end\{table\})', block, re.S)
+            if rows:
+                ncol = max(len(r) for r in rows)
+                rows = [r + [''] * (ncol - len(r)) for r in rows]
+                data = [[Paragraph(c, box_body_style) for c in r] for r in rows]
+                tbl = Table(data, hAlign='CENTER')
+                tbl.setStyle(TableStyle([
+                    ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor("#1F4E78")),
+                    ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
+                    ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+                    ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.HexColor("#EEF3F8")]),
+                    ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor("#B8C6D6")),
+                    ('PADDING', (0, 0), (-1, -1), 5),
+                    ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+                ]))
+                story.append(tbl)
+            if cap_m:
+                cap = clean_latex_text(cap_m.group(1))
+                story.append(Paragraph(f"<b>Table {tab_counter[0]}.</b> {cap}", caption_style))
+            story.append(Spacer(1, 6))
+            continue
+
+        # Theorems (styled like a definition callout)
+        if r'\begin{theorem}' in block:
+            m_title = re.search(r'\\begin\{theorem\}\[([^\]]+)\]', block)
+            label = f"<b>THEOREM: {m_title.group(1)}</b>" if m_title else "<b>THEOREM</b>"
+            clean_body = clean_latex_text(block)
+            box_data = [[Paragraph(label, box_title_style)], [Paragraph(clean_body, box_body_style)]]
+            box_table = Table(box_data, colWidths=[500])
+            box_table.setStyle(TableStyle([
+                ('BACKGROUND', (0, 0), (-1, -1), colors.HexColor("#F3F0F8")),
+                ('BOX', (0, 0), (-1, -1), 1, colors.HexColor("#6A4C93")),
+                ('PADDING', (0, 0), (-1, -1), 7),
+            ]))
+            story.append(Spacer(1, 4)); story.append(box_table); story.append(Spacer(1, 6))
+            continue
+
+        # Proofs
+        if r'\begin{proof}' in block:
+            clean_body = clean_latex_text(block)
+            story.append(Paragraph(f"<i>Proof.</i> {clean_body} \u25a1", proof_style))
+            continue
 
         # Predictions / Definitions Callouts
         if r'\begin{prediction}' in block or r'\begin{definitionbox}' in block:
@@ -252,7 +398,7 @@ def compile_tex_to_pdf():
             continue
 
         # Equation Blocks
-        if r'\begin{equation}' in block or r'$$' in block or r'\[' in block:
+        if (r'\begin{equation}' in block or r'$$' in block or r'\[' in block) and r'\item' not in block and r'\begin{itemize}' not in block:
             clean_eq = clean_latex_text(block)
             if clean_eq:
                 story.append(Paragraph(f"<b>{clean_eq}</b>", equation_style))

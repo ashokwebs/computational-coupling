@@ -11,12 +11,17 @@
             "id": "0ce53270580ad9f9",
             "type": "leaf",
             "state": {
-              "type": "pdf",
+              "type": "canvas",
               "state": {
-                "file": "paper/output/paper.pdf"
+                "file": "Literature_Canon_Map.canvas",
+                "viewState": {
+                  "x": 180,
+                  "y": 20,
+                  "zoom": -0.015767315858316838
+                }
               },
-              "icon": "lucide-file-text",
-              "title": "paper"
+              "icon": "lucide-layout-dashboard",
+              "title": "Literature_Canon_Map"
             }
           }
         ]
@@ -183,19 +188,30 @@
   },
   "active": "0ce53270580ad9f9",
   "lastOpenFiles": [
-    "diary/2026-07-23_22-55_going_full_opensource_local_overleaf.md",
-    "paper/serve_paper.py",
-    "tools/overleaf-toolkit/data/redis",
-    "tools/overleaf-toolkit/data/overleaf",
-    "tools/overleaf-toolkit/data/mongo",
-    "tools/overleaf-toolkit/data/git-bridge",
-    "tools/overleaf-toolkit/config/version",
-    "tools/overleaf-toolkit/config/variables.env",
-    "tools/overleaf-toolkit/config/overleaf.rc",
-    "Untitled 1.canvas",
+    "Computational_Coupling_Architecture.canvas",
     "paper/output/paper.pdf",
-    "tools/overleaf-toolkit/lib/config-seed/nginx.conf",
-    "tools/overleaf-toolkit/doc/img/upgrade-demo.gif",
+    "paper/paper_draft.md.tmp.73451.d9f8afeb6f05",
+    "REPRODUCIBILITY.md.tmp.73451.36dc40de6121",
+    "figures/README.md.tmp.73451.b8e3b1eb36e3",
+    "ROADMAP.md.tmp.73451.6f239ee6ea22",
+    "ROADMAP.md.tmp.73451.d762647cd1b9",
+    "diary/2026-07-23_23-40_the_theory_actually_holds.md",
+    "diary/2026-07-23_23-40_the_theory_actually_holds.md.tmp.73451.9eef72e3bb83",
+    "paper/TODO.md.tmp.73451.66ac03b48454",
+    "experiments/paper1_rl/TODO.md.tmp.73451.4678d394e55d",
+    "experiments/paper1_rl/README.md.tmp.73451.cb3ba852f6df",
+    "experiments/results/plots/fig5_estimator_agreement.png",
+    "paper/figures/fig5_estimator_agreement.png",
+    "figures/fig5_estimator_agreement.png",
+    "experiments/results/plots/fig3_asymmetry_index.png",
+    "paper/figures/fig3_asymmetry_index.png",
+    "figures/fig3_asymmetry_index.png",
+    "experiments/results/plots/fig4_selfpredictive_efficiency.png",
+    "paper/figures/fig4_selfpredictive_efficiency.png",
+    "figures/fig4_selfpredictive_efficiency.png",
+    "experiments/results/plots/fig2_capacity_bandwidth_law.png",
+    "diary/2026-07-23_22-55_going_full_opensource_local_overleaf.md",
+    "Untitled 1.canvas",
     "tools/overleaf-toolkit/doc/upgrading.md",
     "tools/overleaf-toolkit/doc/upgrading-from-0.x.md",
     "tools/overleaf-toolkit/doc/tls-proxy.md",
@@ -220,18 +236,6 @@
     "paper/TODO.md",
     "Untitled.canvas",
     "tools/overleaf/tools/migrations/README.md",
-    "tools/overleaf/services/web/transform/o-error/README.md",
-    "tools/overleaf/services/web/test/frontend/features/ide-react/unit/cobranding-logo.png",
-    "tools/overleaf/services/web/test/acceptance/files/2pixel.png",
-    "tools/overleaf/services/web/test/acceptance/files/1pixel.png",
-    "tools/overleaf/services/web/scripts/learn/checkSanitize/README.md",
-    "tools/overleaf/services/web/public/img/website-redesign/stickers/waving-hand-yellow.svg",
-    "tools/overleaf/services/web/public/img/website-redesign/stickers/waving-hand-red.svg",
-    "tools/overleaf/services/web/public/img/website-redesign/stickers/waving-hand-purple.svg",
-    "tools/overleaf/services/web/public/img/website-redesign/stickers/waving-hand-purple-medium.svg",
-    "tools/overleaf/services/web/public/img/website-redesign/stickers/waving-hand-green.svg",
-    "tools/overleaf/services/web/public/img/website-redesign/stickers/waving-hand-blue.svg",
-    "Computational_Coupling_Architecture.canvas",
     "Literature_Canon_Map.canvas"
   ]
 }

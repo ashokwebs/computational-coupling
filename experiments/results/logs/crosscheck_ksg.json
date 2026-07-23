@@ -1,0 +1,29 @@
+{
+  "timestamp": "2026-07-23T23:46:26.287200",
+  "author": "Ashok Pasala (VIT-AP University)",
+  "experiment": "crosscheck_ksg_vs_predictive_gain",
+  "rows": [
+    {
+      "kappa": 0.0,
+      "predictive_gain": 0.00025899993420925384,
+      "ksg_effective": 0.0020511120275208956
+    },
+    {
+      "kappa": 0.3,
+      "predictive_gain": 0.09146386190428926,
+      "ksg_effective": 0.08240554495247761
+    },
+    {
+      "kappa": 0.6,
+      "predictive_gain": 0.3144842415159744,
+      "ksg_effective": 0.32008534604199035
+    },
+    {
+      "kappa": 0.9,
+      "predictive_gain": 0.5769751427825673,
+      "ksg_effective": 0.5708218866033492
+    }
+  ],
+  "pearson_r": 0.9996532191972712,
+  "mean_abs_diff_bits": 0.005651197437589338
+}
