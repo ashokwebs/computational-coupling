@@ -1,0 +1,169 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{titlesec}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!50!black,
+    citecolor=blue!50!black,
+    urlcolor=blue!50!black
+}
+
+\newtheorem{prediction}{Prediction}
+\newtheorem{definitionbox}{Definition}
+
+\title{\Large \textbf{A Theory of Computational Coupling Between Intelligent Systems}\\[4pt]
+\large Toward a General Foundation for Brain-to-Brain Communication}
+
+\author{Ashok Pasala \\[2pt] \small VIT-AP University \\[2pt] \small \texttt{Independent Research --- Working Draft}}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{center}
+\colorbox{yellow!20}{\parbox{0.9\textwidth}{\small \textbf{Status:} This is a working draft establishing the core theoretical framework and central definitions. Sections 1, 2, 6, and 8 are intentionally left as structured outlines for further development. Section 3 (Formal Framework) and Section 4 (Falsifiable Predictions) constitute the primary contribution of this draft. Related-work citations are placeholders and require verification before any submission or public circulation.}}
+\end{center}
+
+\vspace{8pt}
+
+\begin{abstract}
+\noindent
+Efforts toward brain-to-brain communication (BBI) and related brain-computer interface (BCI) paradigms have largely proceeded by designing communication \emph{protocols} --- fixed encodings, tokenizations, or aligned representational spaces --- without first establishing what quantity such a protocol should maximize, or how to measure whether it has succeeded. We argue this mirrors the state of telecommunications engineering prior to Shannon's definition of channel capacity: a field of designed artifacts without a rigorous target. We introduce a general theory of \textbf{computational coupling} between intelligent systems --- biological or artificial --- that defines a substrate-independent, directed, information-theoretic quantity (\textbf{coupling capacity}) governing how predictively entangled two systems' internal state trajectories can become, given a bandwidth- and structure-constrained interface between them. We derive three falsifiable predictions from this theory, propose estimators suitable for both simulated multi-agent systems and biological recordings, and outline how brain-to-brain communication, communication protocols, and language itself are best understood as special-case applications of this more general quantity, rather than as the object of study in themselves.
+\end{abstract}
+
+\section{Introduction}
+
+\textit{[Outline --- to be expanded]}
+
+\begin{itemize}[leftmargin=1.2em]
+    \item \textbf{Motivation.} Prior to 1948, telecommunications engineering possessed extensive practical technique but no rigorous definition of \emph{information} or of a channel's fundamental capacity. Shannon's contribution was not a device but a \emph{measurement theory}. We argue BBI and BCI research occupy an analogous position today: substantial engineering effort (tokenization schemes, decoders, aligned embeddings) without a governing quantity that specifies what is being optimized, or what its fundamental limits are.
+    \item \textbf{Core reframing.} Communication between two intelligent systems is not the transmission of a preformed message, but the degree to which their internal state trajectories become mutually predictive through a designed or evolved interface. This reframing subsumes, rather than discards, decoding-based and alignment-based approaches as special cases.
+    \item \textbf{Central object.} We introduce \emph{coupling capacity}: a directed, dynamic generalization of Shannon channel capacity, defined over trajectories rather than static messages (Section 3).
+    \item \textbf{Contribution.} Three falsifiable, cross-domain predictions (Section 4) distinguish this framework from a purely terminological unification of existing subfields.
+    \item \textbf{Scope statement.} This paper is a measurement theory, not a system proposal. It does not propose a BBI device, a new tokenization scheme, or a hardware architecture; it proposes what any such system should be evaluated against.
+\end{itemize}
+
+\section{Related Work}
+
+\textit{[Outline --- topic areas only; specific citations to be added and verified prior to any public release]}
+
+\begin{itemize}[leftmargin=1.2em]
+    \item Information-bottleneck and representation-learning approaches to neural decoding.
+    \item Hyperalignment and cross-subject representational alignment methods.
+    \item Transfer entropy and directed information (Schreiber-style formulations) in time-series analysis.
+    \item Synchronization theory and coupled-oscillator models (Kuramoto-type systems); inter-brain neural coupling (``hyperscanning'') during joint attention and natural conversation.
+    \item Active inference and free-energy formulations of communication as mutual prediction-error minimization.
+    \item Emergent communication protocols in multi-agent reinforcement learning.
+\end{itemize}
+
+\noindent \textit{Positioning:} each line of work above formalizes one \emph{instance} of coupling --- a fixed substrate, a fixed interface, or a fixed direction --- rather than the general quantity governing coupling itself.
+
+\section{Formal Framework}
+
+\subsection{Systems}
+
+Let each system $i \in \{1, \dots, N\}$ (biological or artificial) be characterized by:
+
+\begin{itemize}[leftmargin=1.2em]
+    \item A state space $\mathcal{M}_i$ (a manifold, possibly high-dimensional), with internal state trajectory $x_i(t) \in \mathcal{M}_i$ evolving over a time index $t$ (discrete or continuous).
+    \item A self-predictive model $P_i$, used by system $i$ to predict its own future state $x_i(t+\Delta)$ from its own past $x_i(\leq t)$.
+\end{itemize}
+
+We deliberately do not assume $\mathcal{M}_i$ is shared, aligned, or even comparable in dimension across systems --- a direct departure from hyperalignment-based approaches, which presuppose a common representational geometry.
+
+\subsection{Interfaces}
+
+An \textbf{interface} from system $i$ to system $j$ is a (possibly stochastic) map
+\[
+g_{i \to j} : x_i(\leq t) \;\longmapsto\; s_{i \to j}(t),
+\]
+producing a signal $s_{i \to j}(t)$ that influences the subsequent evolution of $x_j$. Interfaces are constrained by a bandwidth or structural budget --- e.g., a discrete channel with vocabulary size $K$, a continuous channel with bandwidth $B$, or a hardware-constrained stimulation protocol. Let $\mathcal{G}$ denote the admissible set of interfaces under a given constraint budget.
+
+\subsection{Directed Coupling}
+
+We define the directed coupling from $i$ to $j$, at lag $\Delta$ and under interface $g \in \mathcal{G}$, as the transfer entropy (directed information):
+\begin{equation}
+\mathrm{TE}_{i \to j}(\Delta; g) \;=\; I\big(x_i(t)\, ;\, x_j(t+\Delta) \,\big|\, x_j(\leq t)\big),
+\end{equation}
+the reduction in uncertainty about $j$'s future state given $i$'s state, beyond what $j$'s own past already provides. This generalizes standard transfer entropy to vector- or manifold-valued states with an explicit lag term, since biological systems exhibit genuine transmission delay and representational drift that a lag-free formulation would misattribute to noise.
+
+\subsection{Coupling Capacity}
+
+\begin{definitionbox}[Coupling Capacity]
+The \textbf{coupling capacity} from system $i$ to system $j$ is the supremum of directed coupling over admissible interfaces:
+\begin{equation}
+C(i \to j) \;=\; \sup_{g \,\in\, \mathcal{G}} \; \mathrm{TE}_{i \to j}(\Delta; g).
+\end{equation}
+\end{definitionbox}
+
+\noindent This is the direct dynamical analogue of Shannon capacity: where Shannon capacity is a supremum over input distributions of mutual information subject to a power or bandwidth constraint, coupling capacity is a supremum over \emph{interface designs} of directed information between two coupled dynamical systems, subject to an analogous constraint.
+
+\subsection{Bidirectional Coupling and Asymmetry}
+
+Define total coupling as $C_{\text{total}} = C(i \to j) + C(j \to i)$, and an asymmetry index
+\begin{equation}
+A \;=\; \frac{C(i \to j) - C(j \to i)}{C(i \to j) + C(j \to i)} \;\in\; [-1, 1].
+\end{equation}
+$A$ is predicted to correlate with task-defined role (e.g., ``leading'' vs.\ ``following,'' ``speaking'' vs.\ ``listening''); see Prediction 3 below.
+
+\section{Falsifiable Predictions}
+
+\begin{prediction}[Capacity--Bandwidth Law]
+For interfaces parameterized by a scalar bandwidth $B$, $C(i \to j; B)$ is monotonically increasing and concave in $B$, saturating at a value set by $\min\big(\dim_{\mathrm{eff}}(\mathcal{M}_i),\, \dim_{\mathrm{eff}}(\mathcal{M}_j)\big)$ --- the smaller of the two systems' \emph{effective} representational dimensionality --- rather than by the channel's raw capacity. This is directly falsifiable: if measured capacity continues scaling with channel bandwidth well past the point where either system's effective dimensionality should cap it, the theory as stated is wrong.
+\end{prediction}
+
+\begin{prediction}[Self-Predictive Accuracy Governs Capacity Efficiency]
+Let $R_i$ denote system $i$'s self-predictive accuracy --- its own model's log-likelihood in predicting its own future state. Capacity achieved per unit bandwidth, $C(i \to j)/B$, is monotonically increasing in $R_i$ and $R_j$ jointly: systems with better internal world models extract more coupling from an identical channel.
+\end{prediction}
+
+\begin{prediction}[Asymmetry Tracks Role]
+The asymmetry index $A$ correlates with an externally defined task-role variable across domains (multi-agent reinforcement learning, human dialogue, hyperscanning) --- a cross-domain claim, not a redescription of a single-domain result.
+\end{prediction}
+
+\section{Evaluation Metric and Estimation}
+
+\begin{itemize}[leftmargin=1.2em]
+    \item \textbf{Simulated multi-agent systems.} Full access to ground-truth internal states permits direct estimation via $k$-nearest-neighbor transfer entropy estimators (Kraskov--St\"ogbauer--Grassberger--style), or via a \emph{predictive-gain estimator}: train an auxiliary model to predict $x_j(t+\Delta)$ from $x_j(\leq t)$ alone, then from $x_j(\leq t)$ and $x_i(\leq t)$ jointly, and take the log-likelihood gap as the $\mathrm{TE}$ estimate. The predictive-gain estimator is expected to be more robust in high dimensions than raw $k$-NN estimators.
+    \item \textbf{Biological recordings (EEG / fMRI hyperscanning).} State trajectories are estimated via dimensionality reduction (PCA or factor analysis on the population signal) prior to applying the same predictive-gain estimator. This setting requires explicit treatment of measurement noise and short-data regimes as a stated limitation, not an afterthought.
+\end{itemize}
+
+\section{Falsifiability and Scope}
+
+\textit{[Outline --- to be expanded]}
+
+\begin{itemize}[leftmargin=1.2em]
+    \item State explicitly what observation would falsify the framework (Predictions 1--3, Section 4).
+    \item Scope limitation: this framework specifies \emph{how much} two systems can become mutually predictive, not \emph{what} they become predictive about. Content-level questions are downstream and substrate-specific.
+    \item Commitment to Predictions 1--3 as stated prior to running Paper 1, to avoid post-hoc loosening that would render the framework unfalsifiable.
+\end{itemize}
+
+\section{Roadmap}
+
+\textit{[Brief, forward-pointing only --- full detail reserved for subsequent papers]}
+
+\begin{enumerate}[leftmargin=1.4em]
+    \item \textbf{Paper 1:} Validate Predictions 1--2 in a controlled multi-agent reinforcement learning testbed with full ground-truth access.
+    \item \textbf{Paper 2:} Test the same predictions against public human hyperscanning and dialogue datasets.
+    \item \textbf{Paper 3:} Causal manipulation of a theory-predicted variable via non-invasive intervention.
+    \item \textbf{Paper 4 / Prototype:} Use coupling capacity as a training objective to discover a data-derived interface between two systems, culminating in a closed-loop BBI prototype for a narrow task domain.
+\end{enumerate}
+
+\section{Discussion and Limitations}
+
+\textit{[Outline --- to be expanded: computational cost of estimators at scale; ethical considerations attending causal/stimulation work; relationship to existing capacity-like quantities in neuroscience, e.g.\ integrated information.]}
+
+\vspace{12pt}
+\noindent\rule{\textwidth}{0.4pt}
+
+\vspace{4pt}
+\noindent \small \textit{Draft state: Sections 3 and 4 constitute the completed formal core of this working paper. Sections 1, 2, 6, and 8 are structured outlines pending expansion. No citation in this draft should be treated as verified; all require confirmation against primary sources prior to any external use or submission.}
+
+\end{document}
