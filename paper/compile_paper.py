@@ -48,6 +48,9 @@ class NumberedCanvas(canvas.Canvas):
 
 def clean_latex_math(text):
     """Converts LaTeX formatting into clean HTML/ReportLab markup."""
+    # Strip LaTeX comments
+    text = re.sub(r'%.*', '', text)
+
     # Bold, Italic, Code
     text = re.sub(r'\\textbf\{([^}]+)\}', r'<b>\1</b>', text)
     text = re.sub(r'\\emph\{([^}]+)\}', r'<i>\1</i>', text)
@@ -74,7 +77,7 @@ def clean_latex_math(text):
     for cmd, sym in math_map.items():
         text = text.replace(cmd, sym)
 
-    # Remove remaining backslashes from simple latex brackets/formatting
+    # Remove remaining LaTeX command noise
     text = re.sub(r'\\cite\{([^}]+)\}', r'[\1]', text)
     text = re.sub(r'\\ref\{([^}]+)\}', r'\1', text)
     text = re.sub(r'\\noindent', '', text)
@@ -82,6 +85,10 @@ def clean_latex_math(text):
     text = re.sub(r'\\\]', '', text)
     text = re.sub(r'\\\(', '', text)
     text = re.sub(r'\\\)', '', text)
+    text = re.sub(r'\\vspace\{[^}]+\}', '', text)
+    text = re.sub(r'\\hspace\{[^}]+\}', '', text)
+    text = re.sub(r'\\colorbox\{[^}]+\}', '', text)
+    text = re.sub(r'\\parbox\{[^}]+\}', '', text)
     text = text.replace('$', '')
     
     # Clean up multi-space
@@ -102,19 +109,19 @@ def compile_tex_to_pdf():
     )
     subtitle_style = ParagraphStyle(
         'TexSubTitle', parent=styles['Normal'], fontName='Helvetica-Bold',
-        fontSize=12, leading=16, textColor=colors.HexColor("#2E75B6"), spaceAfter=10, alignment=1
+        fontSize=11, leading=15, textColor=colors.HexColor("#2E75B6"), spaceAfter=8, alignment=1
     )
     author_style = ParagraphStyle(
         'TexAuthor', parent=styles['Normal'], fontName='Helvetica',
-        fontSize=10, leading=14, textColor=colors.HexColor("#333333"), spaceAfter=14, alignment=1
+        fontSize=9.5, leading=13, textColor=colors.HexColor("#333333"), spaceAfter=10, alignment=1
     )
     h1_style = ParagraphStyle(
         'TexH1', parent=styles['Heading1'], fontName='Helvetica-Bold',
-        fontSize=13, leading=16, textColor=colors.HexColor("#1F4E78"), spaceBefore=14, spaceAfter=6, keepWithNext=True
+        fontSize=12.5, leading=16, textColor=colors.HexColor("#1F4E78"), spaceBefore=14, spaceAfter=6, keepWithNext=True
     )
     h2_style = ParagraphStyle(
         'TexH2', parent=styles['Heading2'], fontName='Helvetica-Bold',
-        fontSize=11, leading=14, textColor=colors.HexColor("#2E75B6"), spaceBefore=10, spaceAfter=4, keepWithNext=True
+        fontSize=10.5, leading=14, textColor=colors.HexColor("#2E75B6"), spaceBefore=10, spaceAfter=4, keepWithNext=True
     )
     body_style = ParagraphStyle(
         'TexBody', parent=styles['Normal'], fontName='Helvetica',
@@ -122,14 +129,18 @@ def compile_tex_to_pdf():
     )
     abstract_style = ParagraphStyle(
         'TexAbstract', parent=styles['Normal'], fontName='Helvetica-Oblique',
-        fontSize=9, leading=13.5, textColor=colors.HexColor("#222222"), leftIndent=16, rightIndent=16, spaceAfter=12
+        fontSize=9, leading=13.5, textColor=colors.HexColor("#222222"), leftIndent=16, rightIndent=16, spaceAfter=10
     )
     bullet_style = ParagraphStyle(
         'TexBullet', parent=body_style, leftIndent=14, bulletIndent=4, spaceAfter=4
     )
+    status_style = ParagraphStyle(
+        'StatusText', parent=styles['Normal'], fontName='Helvetica',
+        fontSize=8.5, leading=12, textColor=colors.HexColor("#553C00"), alignment=1
+    )
     box_title_style = ParagraphStyle(
         'BoxTitle', parent=styles['Normal'], fontName='Helvetica-Bold',
-        fontSize=10, leading=13, textColor=colors.HexColor("#1F4E78"), spaceAfter=3
+        fontSize=9.5, leading=13, textColor=colors.HexColor("#1F4E78"), spaceAfter=2
     )
     box_body_style = ParagraphStyle(
         'BoxBody', parent=styles['Normal'], fontName='Helvetica',
@@ -141,31 +152,46 @@ def compile_tex_to_pdf():
     with open(TEX_MAIN, "r", encoding="utf-8") as f:
         content = f.read()
 
-    # Title & Header
+    # 1. Clean Title Header
     story.append(Paragraph("A Theory of Computational Coupling Between Intelligent Systems", title_style))
     story.append(Paragraph("Toward a General Foundation for Brain-to-Brain Communication", subtitle_style))
     story.append(Paragraph("<b>Ashok Pasala</b> &nbsp;|&nbsp; VIT-AP University &nbsp;|&nbsp; <i>Working Draft v0.2.0 (July 23, 2026)</i>", author_style))
-    story.append(HRFlowable(width="100%", thickness=1.5, color=colors.HexColor("#1F4E78"), spaceBefore=0, spaceAfter=12))
+    
+    # 2. Status Callout Banner
+    status_text = "<b>Status:</b> Working Draft (Version 0.2.0). Formal Core (Sections 3–4) completed; empirical evaluation roadmap and foundational literature canon fully specified."
+    status_table = Table([[Paragraph(status_text, status_style)]], colWidths=[500])
+    status_table.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (-1, -1), colors.HexColor("#FFF8E7")),
+        ('BOX', (0, 0), (-1, -1), 1, colors.HexColor("#FFE082")),
+        ('PADDING', (0, 0), (-1, -1), 6),
+        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+    ]))
+    story.append(status_table)
+    story.append(Spacer(1, 10))
+    story.append(HRFlowable(width="100%", thickness=1, color=colors.HexColor("#1F4E78"), spaceBefore=0, spaceAfter=10))
 
-    # Parse Sections
-    raw_blocks = content.split('\n\n')
-    in_abstract = False
+    # 3. Extract Main Body (Ignore Preamble & Setup Commands)
+    # Find start of abstract or body
+    if r'\begin{abstract}' in content:
+        body_part = content.split(r'\begin{abstract}')[1]
+        abstract_text, remaining_body = body_part.split(r'\end{abstract}')
+        
+        story.append(Paragraph("ABSTRACT", h2_style))
+        story.append(Paragraph(clean_latex_math(abstract_text), abstract_style))
+        story.append(HRFlowable(width="100%", thickness=0.5, color=colors.HexColor("#CCCCCC"), spaceBefore=4, spaceAfter=10))
+    else:
+        remaining_body = content
+
+    # Parse Remaining Body Blocks
+    raw_blocks = remaining_body.split('\n\n')
 
     for block in raw_blocks:
         block = block.strip()
         if not block:
             continue
-        if r'\documentclass' in block or r'\usepackage' in block or r'\maketitle' in block or r'\begin{document}' in block or r'\end{document}' in block:
-            continue
-
-        if r'\begin{abstract}' in block:
-            in_abstract = True
-            text = block.replace(r'\begin{abstract}', '').replace(r'\end{abstract}', '').strip()
-            text = clean_latex_math(text)
-            story.append(Paragraph("<b>ABSTRACT</b>", h2_style))
-            story.append(Paragraph(text, abstract_style))
-            story.append(HRFlowable(width="100%", thickness=0.5, color=colors.HexColor("#CCCCCC"), spaceBefore=4, spaceAfter=12))
-            in_abstract = False
+        
+        # Skip remaining preamble lines if any leaked
+        if any(cmd in block for cmd in [r'\documentclass', r'\usepackage', r'\hypersetup', r'\newtheorem', r'\title{', r'\author{', r'\date{', r'\begin{document}', r'\maketitle', r'\end{document}']):
             continue
 
         # Section Headers
@@ -181,7 +207,7 @@ def compile_tex_to_pdf():
                 story.append(Paragraph(m.group(1), h2_style))
                 continue
 
-        # Predictions / Definitions Boxes
+        # Predictions / Definitions Callout Boxes
         if r'\begin{prediction}' in block or r'\begin{definitionbox}' in block:
             box_type = "PREDICTION" if r'\begin{prediction}' in block else "DEFINITION"
             m_title = re.search(r'\[([^\]]+)\]', block)
@@ -191,15 +217,14 @@ def compile_tex_to_pdf():
             clean_body = re.sub(r'\\end\{(prediction|definitionbox)\}', '', clean_body).strip()
             clean_body = clean_latex_math(clean_body)
             
-            # Create shrunken callout box table
             box_data = [[Paragraph(box_label, box_title_style)], [Paragraph(clean_body, box_body_style)]]
             box_table = Table(box_data, colWidths=[500])
             box_table.setStyle(TableStyle([
                 ('BACKGROUND', (0, 0), (-1, -1), colors.HexColor("#F0F4F8")),
                 ('BOX', (0, 0), (-1, -1), 1, colors.HexColor("#2E75B6")),
-                ('PADDING', (0, 0), (-1, -1), 8),
-                ('TOPPADDING', (0, 0), (-1, 0), 6),
-                ('BOTTOMPADDING', (0, -1), (-1, -1), 6),
+                ('PADDING', (0, 0), (-1, -1), 7),
+                ('TOPPADDING', (0, 0), (-1, 0), 5),
+                ('BOTTOMPADDING', (0, -1), (-1, -1), 5),
             ]))
             story.append(Spacer(1, 4))
             story.append(box_table)
@@ -214,13 +239,13 @@ def compile_tex_to_pdf():
                 story.append(Paragraph(f"• {clean_item}", bullet_style))
             continue
 
-        # Paragraph text
+        # Regular Paragraph
         clean_p = clean_latex_math(block)
-        if clean_p:
+        if clean_p and len(clean_p) > 2:
             story.append(Paragraph(clean_p, body_style))
 
     doc.build(story, canvasmaker=NumberedCanvas)
-    print("Paper compiled cleanly to PDF:", PDF_OUT)
+    print("Paper compiled cleanly to PDF (No raw LaTeX preamble leakage!):", PDF_OUT)
 
 if __name__ == "__main__":
     compile_tex_to_pdf()
