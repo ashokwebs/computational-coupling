@@ -15,9 +15,9 @@
               "state": {
                 "file": "Computational_Coupling_Architecture.canvas",
                 "viewState": {
-                  "x": 176.53117647058824,
-                  "y": 101.08852941176471,
-                  "zoom": -1.0724084955280502
+                  "x": 255,
+                  "y": 85,
+                  "zoom": -0.5902374427618308
                 }
               },
               "icon": "lucide-layout-dashboard",
@@ -189,9 +189,13 @@
   "active": "0ce53270580ad9f9",
   "lastOpenFiles": [
     "Literature_Canon_Map.canvas",
+    "MOC_Roadmap.md",
+    "MOC_Literature.md",
+    "MOC_Theory.md",
+    "Home.md",
+    "Computational_Coupling_Architecture.canvas",
     "ROADMAP.md",
     "convert_to_obsidian_wikilinks.py",
-    "Computational_Coupling_Architecture.canvas",
     "setup_obsidian_vault.py",
     "damn_sources/paper_summaries/06_McParlin_2022_Active_Inference.md",
     "damn_sources/paper_summaries/03_Foerster_2016_DIAL_MARL.md",

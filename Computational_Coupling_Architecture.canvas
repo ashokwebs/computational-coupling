@@ -1,144 +1,23 @@
 {
-  "nodes": [
-    {
-      "id": "node_core",
-      "type": "text",
-      "text": "# \ud83e\udde0 Theory of Computational Coupling\n**Coupling Capacity:** $C(A \\to B) = \\sup_{g \\in \\mathcal{A}} \\mathrm{TE}_{A \\to B}^g$\n\nCentral object governing information flow across dynamic neural manifolds.",
-      "x": 0,
-      "y": 0,
-      "width": 400,
-      "height": 200,
-      "color": "1"
-    },
-    {
-      "id": "node_theory_defs",
-      "type": "file",
-      "file": "theory/definitions.md",
-      "x": -450,
-      "y": -250,
-      "width": 380,
-      "height": 300,
-      "color": "1"
-    },
-    {
-      "id": "node_theory_math",
-      "type": "file",
-      "file": "theory/mathematics.md",
-      "x": -450,
-      "y": 150,
-      "width": 380,
-      "height": 300,
-      "color": "1"
-    },
-    {
-      "id": "node_paper1",
-      "type": "text",
-      "text": "### \ud83d\ude80 Paper 1 (MARL)\n*Multi-Agent Reinforcement Learning*\n- Bandwidth sweep $B \\in [1..32]$\n- Validation of Capacity-Bandwidth Law",
-      "x": 500,
-      "y": -300,
-      "width": 350,
-      "height": 180,
-      "color": "4"
-    },
-    {
-      "id": "node_paper2",
-      "type": "text",
-      "text": "### \ud83e\udde0 Paper 2 (Hyperscanning)\n*Biological Human Dyad EEG*\n- OpenNeuro `ds007764` DUET dataset\n- FUGW functional alignment",
-      "x": 500,
-      "y": -80,
-      "width": 350,
-      "height": 180,
-      "color": "4"
-    },
-    {
-      "id": "node_paper3",
-      "type": "text",
-      "text": "### \u26a1 Paper 3 (Causal Control)\n*Feedback & Latency Manipulation*\n- Non-invasive causal intervention\n- Latency jitter & asymmetry tracking",
-      "x": 500,
-      "y": 140,
-      "width": 350,
-      "height": 180,
-      "color": "4"
-    },
-    {
-      "id": "node_paper4",
-      "type": "text",
-      "text": "### \ud83c\udfc6 Paper 4 (Learned BCP Prototype)\n*Closed-Loop BBI Prototype*\n- Differentiable $C_{\\text{couple}}$ loss\n- Nature Machine Intelligence target",
-      "x": 500,
-      "y": 360,
-      "width": 350,
-      "height": 180,
-      "color": "4"
-    },
-    {
-      "id": "node_fugw",
-      "type": "file",
-      "file": "literature/summaries/05_Thual_2022_FUGW_Optimal_Transport.md",
-      "x": 0,
-      "y": -400,
-      "width": 380,
-      "height": 260,
-      "color": "3"
-    },
-    {
-      "id": "node_dial",
-      "type": "file",
-      "file": "literature/summaries/03_Foerster_2016_DIAL_MARL.md",
-      "x": 0,
-      "y": 350,
-      "width": 380,
-      "height": 260,
-      "color": "3"
-    }
-  ],
-  "edges": [
-    {
-      "id": "e1",
-      "fromNode": "node_core",
-      "toNode": "node_theory_defs",
-      "label": "Formal Definitions"
-    },
-    {
-      "id": "e2",
-      "fromNode": "node_core",
-      "toNode": "node_theory_math",
-      "label": "Estimators & Math"
-    },
-    {
-      "id": "e3",
-      "fromNode": "node_core",
-      "toNode": "node_paper1",
-      "label": "Empirical Test 1"
-    },
-    {
-      "id": "e4",
-      "fromNode": "node_core",
-      "toNode": "node_paper2",
-      "label": "Empirical Test 2"
-    },
-    {
-      "id": "e5",
-      "fromNode": "node_core",
-      "toNode": "node_paper3",
-      "label": "Empirical Test 3"
-    },
-    {
-      "id": "e6",
-      "fromNode": "node_core",
-      "toNode": "node_paper4",
-      "label": "Empirical Test 4"
-    },
-    {
-      "id": "e7",
-      "fromNode": "node_fugw",
-      "toNode": "node_core",
-      "label": "Geometric Mapping Engine"
-    },
-    {
-      "id": "e8",
-      "fromNode": "node_dial",
-      "toNode": "node_core",
-      "label": "Emergent Protocol Engine"
-    }
-  ]
+	"nodes":[
+		{"id":"node_core","type":"text","text":"# 🧠 Theory of Computational Coupling\n**Coupling Capacity:** $C(A \\to B) = \\sup_{g \\in \\mathcal{A}} \\mathrm{TE}_{A \\to B}^g$\n\nCentral object governing information flow across dynamic neural manifolds.","x":-10,"y":10,"width":400,"height":200,"color":"1"},
+		{"id":"node_theory_defs","type":"file","file":"theory/definitions.md","x":-640,"y":-270,"width":380,"height":300,"color":"1"},
+		{"id":"node_theory_math","type":"file","file":"theory/mathematics.md","x":-640,"y":210,"width":380,"height":300,"color":"1"},
+		{"id":"node_dial","type":"file","file":"literature/summaries/03_Foerster_2016_DIAL_MARL.md","x":10,"y":510,"width":380,"height":260,"color":"3"},
+		{"id":"node_paper4","type":"text","text":"### 🏆 Paper 4 (Learned BCP Prototype)\n*Closed-Loop BBI Prototype*\n- Differentiable $C_{\\text{couple}}$ loss\n- Nature Machine Intelligence target","x":600,"y":510,"width":350,"height":180,"color":"4"},
+		{"id":"node_paper3","type":"text","text":"### ⚡ Paper 3 (Causal Control)\n*Feedback & Latency Manipulation*\n- Non-invasive causal intervention\n- Latency jitter & asymmetry tracking","x":775,"y":270,"width":350,"height":180,"color":"4"},
+		{"id":"node_paper2","type":"text","text":"### 🧠 Paper 2 (Hyperscanning)\n*Biological Human Dyad EEG*\n- OpenNeuro `ds007764` DUET dataset\n- FUGW functional alignment","x":800,"y":-60,"width":350,"height":180,"color":"4"},
+		{"id":"node_paper1","type":"text","text":"### 🚀 Paper 1 (MARL)\n*Multi-Agent Reinforcement Learning*\n- Bandwidth sweep $B \\in [1..32]$\n- Validation of Capacity-Bandwidth Law","x":625,"y":-340,"width":350,"height":180,"color":"4"},
+		{"id":"node_fugw","type":"file","file":"literature/summaries/05_Thual_2022_FUGW_Optimal_Transport.md","x":-40,"y":-600,"width":380,"height":260,"color":"3"}
+	],
+	"edges":[
+		{"id":"e1","fromNode":"node_core","fromSide":"left","toNode":"node_theory_defs","toSide":"right","label":"Formal Definitions"},
+		{"id":"e2","fromNode":"node_core","fromSide":"left","toNode":"node_theory_math","toSide":"right","label":"Estimators & Math"},
+		{"id":"e3","fromNode":"node_core","fromSide":"top","toNode":"node_paper1","toSide":"bottom","label":"Empirical Test 1"},
+		{"id":"e4","fromNode":"node_core","fromSide":"right","toNode":"node_paper2","toSide":"left","label":"Empirical Test 2"},
+		{"id":"e5","fromNode":"node_core","fromSide":"right","toNode":"node_paper3","toSide":"left","label":"Empirical Test 3"},
+		{"id":"e6","fromNode":"node_core","fromSide":"bottom","toNode":"node_paper4","toSide":"top","label":"Empirical Test 4"},
+		{"id":"e7","fromNode":"node_fugw","fromSide":"bottom","toNode":"node_core","toSide":"top","label":"Geometric Mapping Engine"},
+		{"id":"e8","fromNode":"node_dial","fromSide":"top","toNode":"node_core","toSide":"bottom","label":"Emergent Protocol Engine"}
+	]
 }

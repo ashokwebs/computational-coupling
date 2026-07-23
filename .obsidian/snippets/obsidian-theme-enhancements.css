@@ -1,0 +1,43 @@
+/* Custom Obsidian Styling Snippet for Computational Coupling Research Vault */
+
+/* Glowing Callout Header Accents */
+.callout[data-callout="abstract"] {
+    --callout-color: 46, 117, 182;
+    border-left: 4px solid #2E75B6;
+}
+
+.callout[data-callout="math"] {
+    --callout-color: 198, 120, 221;
+    border-left: 4px solid #C678DD;
+}
+
+.callout[data-callout="important"] {
+    --callout-color: 224, 108, 117;
+    border-left: 4px solid #E06C75;
+}
+
+/* Wikilink Hover & Active Styling */
+.cm-hmd-internal-link, .internal-link {
+    color: #2E75B6;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s ease-in-out;
+}
+
+.internal-link:hover {
+    color: #61AFEF;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+/* Node glow in Canvas */
+.canvas-node {
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.canvas-node:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(46, 117, 182, 0.3);
+}
