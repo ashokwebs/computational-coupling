@@ -1,3 +1,8 @@
+---
+tags: [#theory/mathematics, #math/estimators]
+alias: "Transfer Entropy Math"
+---
+
 # 🧮 Mathematical Derivations & Estimators
 
 Bro, calculating $\mathrm{TE}_{X \to Y}$ in real continuous time-series without assuming linear Gaussian distributions is tricky becuase brain signals are non-linear as fuck. Here are our two estimators:

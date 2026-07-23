@@ -1,3 +1,8 @@
+---
+tags: [#literature/paper, #paper/canon]
+alias: "09_Scotti_2024_MindEye2"
+---
+
 # Research Paper Report: MindEye2: Shared-Subject Models Enable fMRI-To-Image With 1 Hour Data
 
 **Authors:** Paul S. Scotti, Atriya Banerjee, Justin Goode, Nikolay Shabalin, Alex Nguyen, Jonathan Cohen, Kenneth A. Norman, Tanishq Mathew Abraham  

@@ -1,3 +1,8 @@
+---
+tags: [#meta/readme, #overview]
+alias: "Computational Coupling Master Guide"
+---
+
 # 🧠⚡ A Theory of Computational Coupling Between Intelligent Systems
 ### *Toward a General Foundation for Brain-to-Brain Communication (BBI)*
 

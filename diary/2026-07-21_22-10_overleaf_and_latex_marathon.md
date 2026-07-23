@@ -1,3 +1,8 @@
+---
+tags: [#diary/entry, #research-log]
+alias: "2026-07-21_22-10_overleaf_and_latex_marathon"
+---
+
 # Diary Entry — July 21, 2026 (10:10 PM)
 **Location:** Hostel Room, VIT-AP
 **Mood:** Exhausted, eyes burning, caffeine overload

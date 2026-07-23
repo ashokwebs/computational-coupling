@@ -1,3 +1,8 @@
+---
+tags: [#literature/paper, #paper/canon]
+alias: "10_Nakamura_2024_Representation_Transfer"
+---
+
 # Research Paper Report: Unsupervised method for representation transfer from one brain to another
 
 **Authors:** Daiki Nakamura, Shizuo Kaji, Ryota Kanai, Ryusuke Hayashi  

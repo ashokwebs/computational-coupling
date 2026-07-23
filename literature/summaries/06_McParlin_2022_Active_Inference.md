@@ -1,3 +1,8 @@
+---
+tags: [#literature/paper, #paper/canon]
+alias: "06_McParlin_2022_Active_Inference"
+---
+
 # Research Paper Report: Therapeutic Alliance as Active Inference
 
 **Authors:** Z. McParlin, F. Cerritelli, Karl J. Friston  

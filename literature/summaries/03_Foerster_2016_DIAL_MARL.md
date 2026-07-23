@@ -1,3 +1,8 @@
+---
+tags: [#literature/paper, #paper/canon]
+alias: "03_Foerster_2016_DIAL_MARL"
+---
+
 # Research Paper Report: Learning to Communicate with Deep Multi-Agent Reinforcement Learning (DIAL)
 
 **Authors:** Jakob Foerster, Yannis M. Assael, Nando de Freitas, Shimon Whiteson  

@@ -1,3 +1,8 @@
+---
+tags: [#theory/definitions, #math/manifolds]
+alias: "Theory Definitions"
+---
+
 # 📐 Formal Definitions: Theory of Computational Coupling
 
 **Author:** Ashok Pasala (VIT-AP University)  

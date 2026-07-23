@@ -1,3 +1,8 @@
+---
+tags: [#theory/open-questions]
+alias: "Open Research Questions"
+---
+
 # ❓ Open Theoretical Questions
 
 1. **How tf do we handle non-stationary neural drift over multi-day recordings?**  

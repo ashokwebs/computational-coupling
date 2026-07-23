@@ -1,3 +1,8 @@
+---
+tags: [#theory/assumptions]
+alias: "Theoretical Assumptions"
+---
+
 # 🔍 Underlying Theoretical Assumptions
 
 To be 100% transparent and clear, here are the explicit assumptions under which our theory holds:

@@ -1,3 +1,8 @@
+---
+tags: [#literature/paper, #paper/canon]
+alias: "01_Pais_Vieira_2013_Rat_BBI"
+---
+
 # Research Paper Report: A Brain-to-Brain Interface for Real-Time Sharing of Sensorimotor Information
 
 **Authors:** Miguel Pais-Vieira, Mikhail Lebedev, Carolina Kunicki, Joseph Wang, Miguel A. L. Nicolelis  

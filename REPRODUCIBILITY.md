@@ -1,3 +1,8 @@
+---
+tags: [#meta/reproducibility]
+alias: "Reproducibility Protocol"
+---
+
 # 🔬 Reproducibility Checklist & Standards
 
 Bro, to make sure our research survives Reviewer #2 and meets top venue standards (**NeurIPS**, **ICML**, **ICLR**, **Nature Machine Intelligence**, **Nature Neuroscience**), every single experiment in this repo gotta follow this checklist.

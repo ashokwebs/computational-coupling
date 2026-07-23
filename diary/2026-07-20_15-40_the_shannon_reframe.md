@@ -1,3 +1,8 @@
+---
+tags: [#diary/entry, #research-log]
+alias: "2026-07-20_15-40_the_shannon_reframe"
+---
+
 # Diary Entry — July 20, 2026 (03:40 PM)
 **Location:** Dept Lab Whiteboard
 **Mood:** Hyped as fuck, Eureka moment! 💡

@@ -1,3 +1,8 @@
+---
+tags: [#diary/entry, #research-log]
+alias: "2026-07-22_08-30_lit_dump_and_rough_notes"
+---
+
 # Diary Entry — July 22, 2026 (08:30 AM)
 **Location:** Library ground floor, near the window
 **Mood:** Focused, hyper-curious, 42 Chrome tabs open 💻🔥

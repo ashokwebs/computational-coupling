@@ -1,3 +1,8 @@
+---
+tags: [#literature/paper, #paper/canon]
+alias: "15_Montague_2002_Hyperscanning"
+---
+
 # Research Paper Report: Hyperscanning: Simultaneous fMRI during linked social interactions
 
 **Authors:** P. Read Montague et al.  

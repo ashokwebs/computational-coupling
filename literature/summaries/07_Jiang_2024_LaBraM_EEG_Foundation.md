@@ -1,3 +1,8 @@
+---
+tags: [#literature/paper, #paper/canon]
+alias: "07_Jiang_2024_LaBraM_EEG_Foundation"
+---
+
 # Research Paper Report: Large Brain Model for Learning Generic Representations (LaBraM)
 
 **Authors:** Wei-Bang Jiang, Lin Zhao, Bao-Liang Lu  

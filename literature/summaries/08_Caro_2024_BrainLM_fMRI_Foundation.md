@@ -1,3 +1,8 @@
+---
+tags: [#literature/paper, #paper/canon]
+alias: "08_Caro_2024_BrainLM_fMRI_Foundation"
+---
+
 # Research Paper Report: BrainLM: A foundation model for brain activity recordings
 
 **Authors:** Josue Caro, Pedro Fonseca, David van Dijk  

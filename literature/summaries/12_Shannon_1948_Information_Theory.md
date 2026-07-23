@@ -1,3 +1,8 @@
+---
+tags: [#literature/paper, #paper/canon]
+alias: "12_Shannon_1948_Information_Theory"
+---
+
 # Research Paper Report: A Mathematical Theory of Communication
 
 **Author:** Claude E. Shannon  

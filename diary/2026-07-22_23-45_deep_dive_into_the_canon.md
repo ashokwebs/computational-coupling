@@ -1,3 +1,8 @@
+---
+tags: [#diary/entry, #research-log]
+alias: "2026-07-22_23-45_deep_dive_into_the_canon"
+---
+
 # Diary Entry — July 22, 2026 (11:45 PM)
 **Location:** Hostel Room (Desk covered in printed paper preprints & yellow highlighters)
 **Mood:** Mind blown, hyper-analyzing literature, 2 AM researcher energy 🧠🔥

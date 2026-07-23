@@ -1,3 +1,8 @@
+---
+tags: [#diary/entry, #research-log]
+alias: "2026-07-23_20-12_done_with_latex_lol"
+---
+
 # Diary Entry — July 23, 2026 (08:12 PM)
 **Location:** VIT-AP Hostel Room (Desk covered in sticky notes & empty coffee cups ☕)
 **Mood:** Exhausted, laughing at LaTeX errors, super proud 🥳

@@ -1,0 +1,202 @@
+{
+  "main": {
+    "id": "300e7360accf9f91",
+    "type": "split",
+    "children": [
+      {
+        "id": "9ee0d77cf0e10b09",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "0ce53270580ad9f9",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "Computational_Coupling_Architecture.canvas",
+                "viewState": {
+                  "x": 176.53117647058824,
+                  "y": 101.08852941176471,
+                  "zoom": -1.0724084955280502
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "Computational_Coupling_Architecture"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "5f8f75929b6b0db9",
+    "type": "split",
+    "children": [
+      {
+        "id": "0475680b6a425b3e",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "269357aca8f0e59c",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "9973371b666fad45",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "9106677e00e477b9",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "d34d10904f42bac4",
+    "type": "split",
+    "children": [
+      {
+        "id": "91bc32cdd7f57bab",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "60231eadd19748ad",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "ROADMAP.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for ROADMAP"
+            }
+          },
+          {
+            "id": "8a54f18f04b7569d",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "ROADMAP.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from ROADMAP"
+            }
+          },
+          {
+            "id": "dec6ac30cc001d7a",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "841088382267f4b3",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "e7f598c834f813d0",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "ROADMAP.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of ROADMAP"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "0ce53270580ad9f9",
+  "lastOpenFiles": [
+    "Literature_Canon_Map.canvas",
+    "ROADMAP.md",
+    "convert_to_obsidian_wikilinks.py",
+    "Computational_Coupling_Architecture.canvas",
+    "setup_obsidian_vault.py",
+    "damn_sources/paper_summaries/06_McParlin_2022_Active_Inference.md",
+    "damn_sources/paper_summaries/03_Foerster_2016_DIAL_MARL.md",
+    "damn_sources/paper_summaries/01_Pais_Vieira_2013_Rat_BBI.md",
+    "damn_sources/computational_coupling_foundation.pdf",
+    "damn_sources/computational_coupling_foundation.md"
+  ]
+}

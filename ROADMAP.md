@@ -1,3 +1,8 @@
+---
+tags: [#meta/roadmap, #paper/plan]
+alias: "4-Paper Strategic Roadmap"
+---
+
 # 🗺️ Research Roadmap: Theory of Computational Coupling
 
 **Author:** Ashok Pasala (VIT-AP University)  

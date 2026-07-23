@@ -1,3 +1,8 @@
+---
+tags: [#literature/paper, #paper/canon]
+alias: "11_Schreiber_2000_Transfer_Entropy"
+---
+
 # Research Paper Report: Measuring Information Transfer
 
 **Author:** Thomas Schreiber  

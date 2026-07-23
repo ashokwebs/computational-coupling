@@ -1,3 +1,8 @@
+---
+tags: [#literature/paper, #paper/canon]
+alias: "02_Rao_2014_Human_BBI"
+---
+
 # Research Paper Report: A Direct Brain-to-Brain Interface in Humans
 
 **Authors:** Rajesh P. N. Rao, Andrea Stocco, Matthew Bryan, Devapratim Sarma, Tiffany M. Youngquist, Joseph Wu, Chantel S. Prat  

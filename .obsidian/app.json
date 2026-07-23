@@ -1,0 +1,11 @@
+{
+  "useMarkdownLinks": false,
+  "showFrontmatter": true,
+  "foldHeading": true,
+  "foldIndent": true,
+  "rightSidebarIsCollapsed": false,
+  "leftSidebarIsCollapsed": false,
+  "showLineNumber": true,
+  "autoPairBrackets": true,
+  "autoPairMarkdown": true
+}

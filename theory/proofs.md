@@ -1,3 +1,8 @@
+---
+tags: [#theory/proofs, #math/capacity-law]
+alias: "Capacity Saturation Proof"
+---
+
 # 📜 Proof Sketches & Mathematical Derivations
 
 ---

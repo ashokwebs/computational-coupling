@@ -1,3 +1,8 @@
+---
+tags: [#diary/entry, #research-log]
+alias: "2026-07-23_14-15_the_two_tracks_and_grand_plan"
+---
+
 # Diary Entry — July 23, 2026 (02:15 PM)
 **Location:** VIT-AP Campus Canteen (Eating Biryani 🍛)
 **Mood:** Strategic, calm, visionary

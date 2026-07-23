@@ -1,3 +1,8 @@
+---
+tags: [#literature/paper, #paper/canon]
+alias: "14_Chen_2015_Shared_Response_Model"
+---
+
 # Research Paper Report: A Reduced-Dimension fMRI Shared Response Model
 
 **Authors:** Po-Hsuan Chen, James Haxby, Peter Ramadge  

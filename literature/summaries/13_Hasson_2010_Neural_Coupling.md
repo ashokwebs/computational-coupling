@@ -1,3 +1,8 @@
+---
+tags: [#literature/paper, #paper/canon]
+alias: "13_Hasson_2010_Neural_Coupling"
+---
+
 # Research Paper Report: Speaker-listener neural coupling underlies successful communication
 
 **Authors:** Greg J. Stephens, Lauren J. Silbert, Uri Hasson  

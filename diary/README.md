@@ -1,3 +1,8 @@
+---
+tags: [#diary/entry, #research-log]
+alias: "README"
+---
+
 # 📔 Research Journal & Personal Lab Diary
 
 Yo! Welcome to my personal research journal for the **Theory of Computational Coupling**!
