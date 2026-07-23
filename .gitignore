@@ -23,6 +23,9 @@ htmlcov/
 env/
 venv/
 
+# Tools & Cloned Overleaf
+tools/overleaf/
+
 # Datasets and heavy models (never commit raw 100GB neuroimaging data!)
 datasets/raw/*
 datasets/processed/*

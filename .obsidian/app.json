@@ -7,5 +7,7 @@
   "leftSidebarIsCollapsed": false,
   "showLineNumber": true,
   "autoPairBrackets": true,
-  "autoPairMarkdown": true
+  "autoPairMarkdown": true,
+  "showUnsupportedFiles": true,
+  "showFileExtensions": true
 }
