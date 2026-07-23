@@ -183,6 +183,7 @@
   },
   "active": "0ce53270580ad9f9",
   "lastOpenFiles": [
+    "diary/2026-07-23_22-55_going_full_opensource_local_overleaf.md",
     "paper/serve_paper.py",
     "tools/overleaf-toolkit/data/redis",
     "tools/overleaf-toolkit/data/overleaf",
@@ -194,7 +195,6 @@
     "Untitled 1.canvas",
     "paper/output/paper.pdf",
     "tools/overleaf-toolkit/lib/config-seed/nginx.conf",
-    "tools/overleaf-toolkit/lib/config-seed/version",
     "tools/overleaf-toolkit/doc/img/upgrade-demo.gif",
     "tools/overleaf-toolkit/doc/upgrading.md",
     "tools/overleaf-toolkit/doc/upgrading-from-0.x.md",
