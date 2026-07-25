@@ -65,14 +65,22 @@ def make_env(max_cycles: int = 25):
 
 
 def rollout(env, speaker, listener, channel, n_bits, seed, baseline=None,
-            greedy=False, record=False):
-    """Run one episode. Returns (log_probs, values, entropies, rewards, records)."""
+            greedy=False, record=False, zero_message=False):
+    """Run one episode. Returns (log_probs, values, entropies, rewards, records).
+
+    zero_message: ablation switch. If True, the listener always receives an
+    all-zero message regardless of what the speaker emits -- the speaker's
+    forward pass still runs (so gradients/logging are unaffected when this
+    is used only at eval time), but the *information* never reaches the
+    listener. Used to test whether the listener's task performance actually
+    depends on the message at all (dead-channel diagnostic).
+    """
     obs, _ = env.reset(seed=seed)
     speaker_id = [a for a in env.agents if a.startswith("speaker")][0]
     listener_id = [a for a in env.agents if a.startswith("listener")][0]
 
     log_probs, values, entropies, rewards = [], [], [], []
-    messages, listener_states = [], []
+    messages, listener_states, speaker_obs_hist = [], [], []
 
     speaker_noop = None  # resolved from action space on first use
 
@@ -83,8 +91,9 @@ def rollout(env, speaker, listener, channel, n_bits, seed, baseline=None,
 
         msg_logits = speaker(s_obs)
         message = channel(msg_logits, hard=True)  # (n_bits,) in {0,1}, straight-through
+        message_to_listener = torch.zeros_like(message) if zero_message else message
 
-        dist = listener(l_obs, message)
+        dist = listener(l_obs, message_to_listener)
         value = baseline(l_obs) if baseline is not None else torch.zeros(())
         if not greedy:
             action = dist.sample()
@@ -106,6 +115,7 @@ def rollout(env, speaker, listener, channel, n_bits, seed, baseline=None,
         if record:
             messages.append(message.detach().numpy().copy())
             listener_states.append(np.asarray(obs[listener_id], dtype=float))
+            speaker_obs_hist.append(s_obs.detach().numpy().copy())
 
         obs = next_obs
         done = all(terminations.values()) or all(truncations.values())
@@ -117,6 +127,7 @@ def rollout(env, speaker, listener, channel, n_bits, seed, baseline=None,
         records = {
             "messages": np.array(messages),
             "listener_states": np.array(listener_states),
+            "speaker_obs": np.array(speaker_obs_hist),
         }
     return log_probs, values, entropies, rewards, records
 
@@ -130,8 +141,25 @@ def discount_returns(rewards, gamma=0.95):
     return torch.tensor(out, dtype=torch.float32)
 
 
-def train_one_bandwidth(n_bits, episodes, seed, lr=3e-3, entropy_coef=0.02, log_every=50,
-                         n_eval_episodes=150):
+def train_policies(n_bits, episodes, seed, lr=3e-3, entropy_coef=0.02, log_every=50,
+                    episodes_per_update=1):
+    """Train speaker/listener/baseline for one bandwidth and return them, still
+    live (env open), so callers can run custom evaluation/ablation rollouts
+    without re-training. Used by both train_one_bandwidth and
+    diagnose_channel_usage.py.
+
+    episodes_per_update: how many episodes' trajectories to accumulate before
+    each Adam step (default 1 = original single-episode REINFORCE update).
+    Motivation: diagnose_channel_usage.py found the speaker's gradient is
+    real and stable (~0.3 norm, never vanishing) but ~40x smaller than the
+    listener's and computed from a single noisy episode -- a supervised
+    probe with the same channel and batch_size=64 converged to R^2>0.99 in
+    a few hundred steps, so batching more episodes per update is the
+    leading hypothesis for reducing REINFORCE variance enough for the
+    speaker's weak, indirect signal to actually accumulate in a consistent
+    direction. `episodes` still counts total episodes of experience, so runs
+    stay comparable across different episodes_per_update settings.
+    """
     torch.manual_seed(seed)
     np.random.seed(seed)
 
@@ -151,19 +179,31 @@ def train_one_bandwidth(n_bits, episodes, seed, lr=3e-3, entropy_coef=0.02, log_
     params = list(speaker.parameters()) + list(listener.parameters()) + list(baseline.parameters())
     opt = optim.Adam(params, lr=lr)
 
+    n_updates = episodes // episodes_per_update
     ep_returns = []
-    for ep in range(episodes):
-        log_probs, values, entropies, rewards, _ = rollout(
-            env, speaker, listener, channel, n_bits,
-            seed=seed * 10_000 + ep, baseline=baseline)
-        returns = discount_returns(rewards)
-        values = torch.stack(values)
+    ep_counter = 0
+    for update in range(n_updates):
+        batch_log_probs, batch_values, batch_entropies, batch_returns = [], [], [], []
+        for _ in range(episodes_per_update):
+            log_probs, values, entropies, rewards, _ = rollout(
+                env, speaker, listener, channel, n_bits,
+                seed=seed * 10_000 + ep_counter, baseline=baseline)
+            returns = discount_returns(rewards)
+            batch_log_probs.extend(log_probs)
+            batch_values.extend(values)
+            batch_entropies.extend(entropies)
+            batch_returns.append(returns)
+            ep_returns.append(sum(rewards))
+            ep_counter += 1
+
+        returns = torch.cat(batch_returns)
+        values = torch.stack(batch_values)
         advantage = returns - values.detach()
         adv_norm = (advantage - advantage.mean()) / (advantage.std() + 1e-6)
 
-        policy_loss = -torch.stack([lp * a for lp, a in zip(log_probs, adv_norm)]).sum()
+        policy_loss = -torch.stack([lp * a for lp, a in zip(batch_log_probs, adv_norm)]).sum()
         value_loss = torch.nn.functional.mse_loss(values, returns, reduction="sum")
-        entropy_bonus = torch.stack(entropies).sum()
+        entropy_bonus = torch.stack(batch_entropies).sum()
         loss = policy_loss + 0.5 * value_loss - entropy_coef * entropy_bonus
 
         opt.zero_grad()
@@ -171,11 +211,19 @@ def train_one_bandwidth(n_bits, episodes, seed, lr=3e-3, entropy_coef=0.02, log_
         torch.nn.utils.clip_grad_norm_(params, max_norm=5.0)
         opt.step()
 
-        ep_returns.append(sum(rewards))
-        if (ep + 1) % log_every == 0:
+        if ep_counter % log_every < episodes_per_update:
             recent = np.mean(ep_returns[-log_every:])
-            print(f"      [B={n_bits:>2d} bits] episode {ep + 1:>4d}/{episodes}  "
-                  f"mean return (last {log_every}) = {recent:+.3f}")
+            print(f"      [B={n_bits:>2d} bits] episode {ep_counter:>4d}/{episodes}  "
+                  f"mean return (last {min(log_every, len(ep_returns))}) = {recent:+.3f}")
+
+    return env, speaker, listener, channel, baseline, ep_returns
+
+
+def train_one_bandwidth(n_bits, episodes, seed, lr=3e-3, entropy_coef=0.02, log_every=50,
+                         n_eval_episodes=150, episodes_per_update=1):
+    env, speaker, listener, channel, baseline, ep_returns = train_policies(
+        n_bits, episodes, seed, lr=lr, entropy_coef=entropy_coef, log_every=log_every,
+        episodes_per_update=episodes_per_update)
 
     # Frozen evaluation rollouts: measure task success + coupling capacity.
     eval_returns = []

@@ -1,0 +1,34 @@
+{
+  "timestamp": "2026-07-25T20:28:58.886723",
+  "author": "Ashok Pasala (VIT-AP University)",
+  "experiment": "P1_stage2_channel_usage_diagnostic",
+  "seed": 42,
+  "episodes_per_bandwidth": 2000,
+  "lr": 0.0005,
+  "eval_episodes": 150,
+  "results": [
+    {
+      "n_bits": 8,
+      "train_final_return_mean_last50": -19.539785589222234,
+      "eval_return_real_message_mean": -23.430164111414005,
+      "eval_return_real_message_std": 16.830956121863625,
+      "eval_return_zero_message_mean": -22.27457290589511,
+      "eval_return_zero_message_std": 17.111360553368108,
+      "real_vs_zero_z_stat": -0.5896693505678356,
+      "per_bit_message_std": [
+        0.48686525225639343,
+        0.4879043400287628,
+        0.4816010594367981,
+        0.4629845917224884,
+        0.49574071168899536,
+        0.49954816699028015,
+        0.486549973487854,
+        0.4928912818431854
+      ],
+      "n_dead_bits_std_below_0.01": 0,
+      "speaker_goal_to_message_encoding_r2": 0.0010611573817119746,
+      "listener_message_sensitivity_kl": 0.007704697549343109,
+      "listener_state_sensitivity_kl": 0.13643522560596466
+    }
+  ]
+}

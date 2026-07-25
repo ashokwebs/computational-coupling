@@ -1,0 +1,18 @@
+{
+  "timestamp": "2026-07-25T20:42:24.202212",
+  "results": [
+    {
+      "eval_return_real_message_mean": -16.27670480536326,
+      "eval_return_zero_message_mean": -16.274437428248955,
+      "real_vs_zero_z_stat": -0.0019295429807319954,
+      "speaker_goal_to_message_encoding_r2": 0.7559416036823323,
+      "listener_message_sensitivity_kl": 0.07044880837202072,
+      "listener_state_sensitivity_kl": 0.983228325843811,
+      "n_bits": 8,
+      "aux_coef": 200.0
+    }
+  ],
+  "episodes": 20000,
+  "episodes_per_update": 16,
+  "entropy_coef": 0.0
+}

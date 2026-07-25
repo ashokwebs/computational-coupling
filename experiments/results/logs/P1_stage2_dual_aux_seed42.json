@@ -1,0 +1,18 @@
+{
+  "timestamp": "2026-07-25T21:10:02.444872",
+  "results": [
+    {
+      "eval_return_real_message_mean": -15.99370623345744,
+      "eval_return_zero_message_mean": -16.580666127658564,
+      "real_vs_zero_z_stat": 0.5001529326837574,
+      "speaker_goal_to_message_encoding_r2": 0.9144080435991715,
+      "listener_message_sensitivity_kl": 0.04452133551239967,
+      "listener_state_sensitivity_kl": 0.6708752512931824,
+      "n_bits": 8
+    }
+  ],
+  "episodes": 20000,
+  "episodes_per_update": 16,
+  "speaker_aux_coef": 200.0,
+  "listener_aux_coef": 200.0
+}
