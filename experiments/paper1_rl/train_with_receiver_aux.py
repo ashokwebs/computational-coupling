@@ -231,6 +231,43 @@ def train_policies_dual_aux(n_bits, episodes, seed, lr=5e-4, entropy_coef=0.0,
     return env, speaker, listener, channel, baseline, ep_returns
 
 
+def rollout_with_message_source(env, speaker, listener, channel, n_bits, seed, message_pool, rng):
+    """Frozen-eval rollout in which the listener receives a message drawn at
+    random from `message_pool` instead of the one the speaker actually emitted
+    for this episode.
+
+    This is the *randomisation* intervention (as distinct from ablation): it
+    preserves the message marginal distribution exactly -- every message the
+    listener sees is a real, in-distribution message the speaker genuinely
+    produced -- while destroying the pairing between message and the sender's
+    private state. It is the condition that discriminates genuine functional
+    coupling from a receiver whose behaviour merely coheres with the sender
+    because both act on shared prior structure: a receiver acting on the
+    message degrades, a receiver acting on anything else is unaffected.
+    """
+    obs, _ = env.reset(seed=seed)
+    speaker_id = [a for a in env.agents if a.startswith("speaker")][0]
+    listener_id = [a for a in env.agents if a.startswith("listener")][0]
+
+    rewards = []
+    speaker_noop = None
+    with torch.no_grad():
+        while env.agents:
+            l_obs = torch.tensor(obs[listener_id], dtype=torch.float32)
+            fake = torch.tensor(message_pool[rng.integers(len(message_pool))], dtype=torch.float32)
+            dist = listener(l_obs, fake)
+            action = dist.sample()
+
+            if speaker_noop is None:
+                speaker_noop = env.action_space(speaker_id).sample() * 0
+            actions = {speaker_id: int(speaker_noop), listener_id: int(action.item())}
+            obs, reward, terminations, truncations, _ = env.step(actions)
+            rewards.append(float(reward[listener_id]))
+            if all(terminations.values()) or all(truncations.values()):
+                break
+    return sum(rewards)
+
+
 def evaluate(env, speaker, listener, channel, n_bits, seed, n_eval_episodes=150):
     def eval_batch(zero_message, seed_offset):
         returns, all_messages, all_speaker_obs, all_listener_states = [], [], [], []
@@ -249,6 +286,15 @@ def evaluate(env, speaker, listener, channel, n_bits, seed, n_eval_episodes=150)
     real_returns, messages, speaker_obs, listener_states = eval_batch(False, 0)
     zero_returns, _, _, _ = eval_batch(True, 500_000)
 
+    # Randomisation condition: real, in-distribution messages, wrong pairing.
+    rng_shuf = np.random.default_rng(seed + 7)
+    shuffled_returns = np.array([
+        rollout_with_message_source(env, speaker, listener, channel, n_bits,
+                                     seed=999_000 + seed * 100 + 250_000 + k,
+                                     message_pool=messages, rng=rng_shuf)
+        for k in range(n_eval_episodes)
+    ])
+
     encoding_r2 = _ridge_r2(messages, speaker_obs)
 
     with torch.no_grad():
@@ -263,13 +309,19 @@ def evaluate(env, speaker, listener, channel, n_bits, seed, n_eval_episodes=150)
 
     real_mean, real_std = float(real_returns.mean()), float(real_returns.std())
     zero_mean, zero_std = float(zero_returns.mean()), float(zero_returns.std())
+    shuf_mean, shuf_std = float(shuffled_returns.mean()), float(shuffled_returns.std())
     se = np.sqrt(real_std ** 2 / n_eval_episodes + zero_std ** 2 / n_eval_episodes) + 1e-9
     z_stat = (real_mean - zero_mean) / se
+    se_shuf = np.sqrt(real_std ** 2 / n_eval_episodes + shuf_std ** 2 / n_eval_episodes) + 1e-9
+    z_stat_shuf = (real_mean - shuf_mean) / se_shuf
 
     return {
         "eval_return_real_message_mean": real_mean,
         "eval_return_zero_message_mean": zero_mean,
+        "eval_return_shuffled_message_mean": shuf_mean,
+        "eval_return_shuffled_message_std": shuf_std,
         "real_vs_zero_z_stat": float(z_stat),
+        "real_vs_shuffled_z_stat": float(z_stat_shuf),
         "speaker_goal_to_message_encoding_r2": encoding_r2,
         "listener_message_sensitivity_kl": msg_kl,
         "listener_state_sensitivity_kl": state_kl,
@@ -304,8 +356,9 @@ def main():
         r = evaluate(env, speaker, listener, channel, b, args.seed, n_eval_episodes=args.eval_episodes)
         env.close()
         r["n_bits"] = b
-        print(f"[B={b}] eval return real={r['eval_return_real_message_mean']:+.2f} "
-              f"zero={r['eval_return_zero_message_mean']:+.2f} (z={r['real_vs_zero_z_stat']:+.2f})")
+        print(f"[B={b}] eval return real={r['eval_return_real_message_mean']:+.2f}  "
+              f"ablated(zero)={r['eval_return_zero_message_mean']:+.2f} (z={r['real_vs_zero_z_stat']:+.2f})  "
+              f"randomised(shuffled)={r['eval_return_shuffled_message_mean']:+.2f} (z={r['real_vs_shuffled_z_stat']:+.2f})")
         print(f"        encoding R^2={r['speaker_goal_to_message_encoding_r2']:.4f}   "
               f"msg-sensitivity KL={r['listener_message_sensitivity_kl']:.4f}   "
               f"state-sensitivity KL={r['listener_state_sensitivity_kl']:.4f}")

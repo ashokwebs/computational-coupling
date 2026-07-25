@@ -5,7 +5,10 @@ alias: "Lab Home & Master Dashboard"
 
 # 🧠 Theory of Computational Coupling — Master Lab Dashboard
 
-> [!abstract] **Core Research Vision**
+> [!danger] **Reframed 2026-07-26 — start with [[opp]], [[handoff]], and `paper2/`.**
+> The dashboard below describes the v0.3.0 brain-to-brain framing. The current question is **"when does information flowing between two adaptive systems actually constitute communication, and how would you know?"** — answered by showing that functional coupling is an *interventional* quantity, not identifiable from the observational measures four fields currently use. Links below still work but describe the older program.
+
+> [!abstract] **Core Research Vision (v0.3.0 — superseded)**
 > Developing a substrate-independent, directed, information-theoretic measurement theory (**Coupling Capacity** $C_{\text{couple}} = \sup_{g \in \mathcal{A}} \mathrm{TE}_{A \to B}^g$) for brain-to-brain communication, targeting top ML/neuro venues (NeurIPS, ICML, ICLR, Nature Machine Intelligence, Nature Neuroscience).
 
 ---

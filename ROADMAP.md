@@ -5,8 +5,13 @@ alias: "4-Paper Strategic Roadmap"
 
 # 🗺️ Research Roadmap: Theory of Computational Coupling
 
+> [!warning] **SUPERSEDED — describes the v0.3.0 BBI framing (July 2026 and earlier).**
+> The program was reframed on 2026-07-26. The four-paper BBI roadmap below assumed an EEG/TMS lab and dyadic data collection that were never available, and Stage 2 produced a result that reframed the question entirely. The current program is **`opp.md`** (the idea), **`paper2/`** (the paper), and **`handoff.md`** (state + next steps). BBI is now a *case study* the framework explains, not the subject.
+>
+> This file is kept because Papers 1–3 below contain reusable experimental design, and because the Stage 1/Stage 2 contrast turned out to be the accidental control that isolated the missing variable. Do not plan from it.
+
 **Author:** Ashok Pasala (VIT-AP University)  
-**Timeline:** 2026 – 2029  
+**Timeline:** 2026 – 2029 *(as originally planned)*  
 **Target Venues:** NeurIPS, ICML, ICLR, Nature Machine Intelligence, Nature Neuroscience  
 
 ---

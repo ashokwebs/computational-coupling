@@ -48,3 +48,10 @@ Thumbs.db
 
 # Keep output PDFs that are explicitly compiled target artifacts
 # paper/output/paper.pdf is tracked
+
+# LaTeX build artifacts (paper2)
+paper2/*.aux
+paper2/*.bbl
+paper2/*.blg
+paper2/*.log
+paper2/*.out
