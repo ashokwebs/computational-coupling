@@ -43,7 +43,7 @@ import torch.optim as optim
 from torch.distributions import Categorical
 
 from gumbel_channel import GumbelBinaryChannel
-from policies import SpeakerPolicy, ValueBaseline
+from policies import SpeakerPolicy
 from probe_supervised_encoding import Decoder
 from run_bandwidth_sweep import make_env, rollout, discount_returns
 from diagnose_channel_usage import _ridge_r2
@@ -52,6 +52,26 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
 LOG_DIR = os.path.join(ROOT, "experiments", "results", "logs")
 os.makedirs(LOG_DIR, exist_ok=True)
+
+
+class ValueBaselineWithMessage(nn.Module):
+    """policies.ValueBaseline only ever sees the listener's own observation,
+    never the message -- so the advantage estimate can't explain away any
+    return variance the message *should* account for once it's informative.
+    That leaves more noise for the action head's REINFORCE gradient to fight
+    through than necessary. This variant conditions the baseline on the
+    message too, exactly like the listener's own policy does."""
+
+    def __init__(self, obs_dim, n_bits, hidden=64):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Linear(obs_dim + n_bits, hidden), nn.Tanh(),
+            nn.Linear(hidden, 1),
+        )
+
+    def forward(self, obs, message):
+        x = torch.cat([obs, message], dim=-1) if message.shape[-1] > 0 else obs
+        return self.net(x).squeeze(-1)
 
 
 class ListenerPolicyWithAux(nn.Module):
@@ -96,7 +116,14 @@ def rollout_with_aux(env, speaker, listener, channel, baseline, seed):
         message = channel(msg_logits, hard=True)
 
         dist, listener_aux_pred = listener(l_obs, message, return_aux=True)
-        value = baseline(l_obs)
+        # Detach message here: the baseline should still see message content
+        # (to reduce advantage variance for the listener's policy gradient),
+        # but its value_loss is reduction="sum" over the whole batch -- an
+        # undetached message would open a large, uncontrolled sum-scaled
+        # gradient path back to the speaker, on top of the already-tuned
+        # aux_coef=200 pathway (verified: this collapsed encoding R^2 from
+        # 0.90 to 0.0003 when tried without detaching).
+        value = baseline(l_obs, message.detach())
         action = dist.sample()
         log_prob = dist.log_prob(action)
 
@@ -141,7 +168,7 @@ def train_policies_dual_aux(n_bits, episodes, seed, lr=5e-4, entropy_coef=0.0,
     channel = GumbelBinaryChannel(n_bits=n_bits, tau=1.0)
     speaker = SpeakerPolicy(obs_dim_s, n_bits)
     listener = ListenerPolicyWithAux(obs_dim_l, n_bits, n_actions, obs_dim_s)
-    baseline = ValueBaseline(obs_dim_l)
+    baseline = ValueBaselineWithMessage(obs_dim_l, n_bits)
     speaker_decoder = Decoder(n_bits, obs_dim_s)
 
     params = (list(speaker.parameters()) + list(listener.parameters())

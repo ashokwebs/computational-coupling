@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-07-25T21:10:02.444872",
+  "timestamp": "2026-07-25T21:28:57.487679",
   "results": [
     {
-      "eval_return_real_message_mean": -15.99370623345744,
-      "eval_return_zero_message_mean": -16.580666127658564,
-      "real_vs_zero_z_stat": 0.5001529326837574,
-      "speaker_goal_to_message_encoding_r2": 0.9144080435991715,
-      "listener_message_sensitivity_kl": 0.04452133551239967,
-      "listener_state_sensitivity_kl": 0.6708752512931824,
+      "eval_return_real_message_mean": -15.867364424932699,
+      "eval_return_zero_message_mean": -16.450360148877227,
+      "real_vs_zero_z_stat": 0.498128710410296,
+      "speaker_goal_to_message_encoding_r2": 0.9037236654293963,
+      "listener_message_sensitivity_kl": 0.020712275058031082,
+      "listener_state_sensitivity_kl": 0.6861652135848999,
       "n_bits": 8
     }
   ],
