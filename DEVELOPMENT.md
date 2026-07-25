@@ -26,7 +26,7 @@ source .venv/bin/activate
 
 # Upgrade pip & install core packages
 pip install --upgrade pip
-pip install torch numpy scipy matplotlib pettingzoo gymnasium docx reportlab
+pip install torch numpy scipy matplotlib pettingzoo mpe2 gymnasium docx reportlab
 ```
 
 ---
