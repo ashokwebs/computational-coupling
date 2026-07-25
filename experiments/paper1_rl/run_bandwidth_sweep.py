@@ -130,7 +130,8 @@ def discount_returns(rewards, gamma=0.95):
     return torch.tensor(out, dtype=torch.float32)
 
 
-def train_one_bandwidth(n_bits, episodes, seed, lr=3e-3, entropy_coef=0.02, log_every=50):
+def train_one_bandwidth(n_bits, episodes, seed, lr=3e-3, entropy_coef=0.02, log_every=50,
+                         n_eval_episodes=150):
     torch.manual_seed(seed)
     np.random.seed(seed)
 
@@ -179,7 +180,7 @@ def train_one_bandwidth(n_bits, episodes, seed, lr=3e-3, entropy_coef=0.02, log_
     # Frozen evaluation rollouts: measure task success + coupling capacity.
     eval_returns = []
     all_messages, all_states = [], []
-    for k in range(20):
+    for k in range(n_eval_episodes):
         _, _, _, rewards, rec = rollout(env, speaker, listener, channel, n_bits,
                                         seed=999_000 + seed * 100 + k,
                                         greedy=False, record=True)
@@ -196,11 +197,18 @@ def train_one_bandwidth(n_bits, episodes, seed, lr=3e-3, entropy_coef=0.02, log_
     # Drop any dead dimensions before estimating TE.
     live = states.std(axis=0) > 1e-8
     states = states[:, live]
-    # Predictive-gain TE needs >=1 live channel dimension; guard the B=0 case.
+    # predictive_gain_te is an in-sample linear-regression estimator: as
+    # n_bits approaches the eval sample count, its in-sample R^2 is
+    # mechanically inflated even for pure noise (verified: 128-bit random
+    # noise vs. random state reports ~0.7 "bits" of fake coupling at 500
+    # samples). cl.effective_te subtracts a block-shuffled surrogate
+    # baseline to remove this finite-sample/dimensionality bias -- the same
+    # correction already used for the KSG cross-check in run_experiments.py.
     if n_bits > 0 and messages.shape[0] > 20 and states.shape[1] > 0:
-        te_bits = cl.predictive_gain_te(messages, states, direction="A->B")
+        te_bits, te_raw, te_surrogate = cl.effective_te(
+            cl.predictive_gain_te, messages, states, direction="A->B", n_surrogate=8, seed=seed)
     else:
-        te_bits = 0.0
+        te_bits, te_raw, te_surrogate = 0.0, 0.0, 0.0
 
     env.close()
     return {
@@ -209,6 +217,8 @@ def train_one_bandwidth(n_bits, episodes, seed, lr=3e-3, entropy_coef=0.02, log_
         "eval_return_mean": float(np.mean(eval_returns)),
         "eval_return_std": float(np.std(eval_returns)),
         "measured_te_bits": float(te_bits),
+        "measured_te_raw_bits": float(te_raw),
+        "measured_te_surrogate_bits": float(te_surrogate),
     }
 
 
@@ -217,19 +227,24 @@ def main():
     ap.add_argument("--bits", type=int, nargs="+", default=[1, 2, 4, 8, 16, 32])
     ap.add_argument("--episodes", type=int, default=600)
     ap.add_argument("--seed", type=int, default=42)
+    ap.add_argument("--lr", type=float, default=3e-3)
+    ap.add_argument("--eval_episodes", type=int, default=150)
     args = ap.parse_args()
 
     print("=" * 70)
     print("Stage 2 -- Learned Gumbel-Softmax Channel (PettingZoo)")
-    print(f"bandwidths={args.bits}  episodes/bandwidth={args.episodes}  seed={args.seed}")
+    print(f"bandwidths={args.bits}  episodes/bandwidth={args.episodes}  seed={args.seed}  lr={args.lr}"
+          f"  eval_episodes={args.eval_episodes}")
     print("=" * 70)
 
     results = []
     for b in args.bits:
         print(f"\n[Bandwidth sweep] training at B={b} bits/step ...")
-        r = train_one_bandwidth(b, episodes=args.episodes, seed=args.seed)
+        r = train_one_bandwidth(b, episodes=args.episodes, seed=args.seed, lr=args.lr,
+                                 n_eval_episodes=args.eval_episodes)
         print(f"   -> eval return {r['eval_return_mean']:+.3f} +/- {r['eval_return_std']:.3f}   "
-              f"measured TE = {r['measured_te_bits']:.3f} bits")
+              f"measured TE = {r['measured_te_bits']:.3f} bits "
+              f"(raw={r['measured_te_raw_bits']:.3f}, surrogate={r['measured_te_surrogate_bits']:.3f})")
         results.append(r)
 
     payload = {
@@ -239,10 +254,14 @@ def main():
         "environment": "simple_speaker_listener_v4",
         "seed": args.seed,
         "episodes_per_bandwidth": args.episodes,
+        "lr": args.lr,
+        "eval_episodes": args.eval_episodes,
         "bandwidth_bits": [r["n_bits"] for r in results],
         "eval_return_mean": [r["eval_return_mean"] for r in results],
         "eval_return_std": [r["eval_return_std"] for r in results],
         "measured_te_bits": [r["measured_te_bits"] for r in results],
+        "measured_te_raw_bits": [r["measured_te_raw_bits"] for r in results],
+        "measured_te_surrogate_bits": [r["measured_te_surrogate_bits"] for r in results],
     }
     out_path = os.path.join(LOG_DIR, f"P1_stage2_gumbel_seed{args.seed}.json")
     with open(out_path, "w") as f:

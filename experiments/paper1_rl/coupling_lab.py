@@ -369,10 +369,11 @@ def effective_te(estimator_fn, src, tgt, n_surrogate=8, seed=0, **kwargs):
     T = src.shape[0]
     surr = []
     block = max(10, T // 20)
+    n_blocks = T // block
+    usable_T = n_blocks * block  # drop the remainder so every block is full-length
+    tgt_usable = tgt[:usable_T]
     for s in range(n_surrogate):
-        n_blocks = T // block
         order = rng.permutation(n_blocks)
         idx = np.concatenate([np.arange(b * block, (b + 1) * block) for b in order])
-        idx = idx[:T]
-        surr.append(estimator_fn(src[idx], tgt, **kwargs))
+        surr.append(estimator_fn(src[idx], tgt_usable, **kwargs))
     return max(raw - np.mean(surr), 0.0), raw, float(np.mean(surr))
