@@ -125,8 +125,33 @@ All tested this session on the Stage 2 system; each was well-motivated and each 
 
 ---
 
-## 9. If you only do three things
+## 9. State at close of session — 2026-07-26, ~03:00
 
-1. Compile it, print it, and read it on paper as a hostile referee.
-2. Do §4.2 — find the assumptions under which identification *is* possible.
-3. Run the human–AI dissociation (§5.3). It is cheap, nobody has done it, and it is what makes this matter outside a seminar room.
+Written at the end of a very long day, deliberately calibrated rather than triumphant, because the next person to read this will be sober and should be met honestly.
+
+### What is solid
+- **A false positive was caught before it reached the paper.** An `r = 0.99` bandwidth–coupling trend was already committed to this repo and was estimator bias; a pure-noise control returned 0.71 fabricated bits. This is the single most valuable thing that happened, and it is invisible because it prevented rather than produced a result.
+- **The oracle control is a genuinely good experiment.** Channel removed, information handed over free, agent still lands on the goal-blind optimum. It is cheap, decisive, and it closed off an entire class of explanations at once. It should have been run first; that it was run seventh is the methodological lesson of the day.
+- **The randomisation finding is a real methodological contribution.** ~3× more sensitive than ablation on the identical system, and it forced an honest downgrade of the headline claim from "zero" to "small, not provably zero." The correction only exists because the experiment was run rather than cited as prescription.
+- **The diagnostic instruments are reusable** and will matter more for Paper II/III than anything else in `experiments/`.
+- **The paper compiles, is internally consistent, and its mathematics is correct.**
+
+### What is not yet established, and should be treated as a hypothesis
+- **The novelty claim is unverified.** Prior art in §8 of the paper was summarised from memory, not from reading. **Before doing anything else, read Kolchinsky & Wolpert (2018) and Lowe et al. (2019) in full.** If Kolchinsky & Wolpert already locate meaning in causal consequence in the way §8 concedes, the paper needs restructuring around the identifiability result specifically, and possibly a different framing. This is the load-bearing uncertainty and it is cheap to resolve.
+- **Theorem 1's mathematics is elementary.** Its content is standard confounding; the claim to novelty rests entirely on *where* it applies — that the confounder is constitutive. A referee may find that insufficient. Theorem 2 and Propositions 2–3 are what give the paper technical substance.
+- **One toy system is thin evidence** for a claim pitched at four fields.
+- **The four-fields framing has not met an expert from any of those fields.** It is the kind of argument that feels inevitable at 3am and can look overreaching in daylight.
+- **The BBI retrodiction is post-hoc** and is the section to cut first if the paper needs shortening.
+
+### The honest summary
+A day that began by debugging a reinforcement-learning bug ended with a compiled paper arguing that four fields measure understanding with the wrong instrument. That trajectory is either the best thing that has happened to this project or a very elaborate way of avoiding a hard experiment, and **the difference is settled by whether the human–AI dissociation (§5.3) replicates.** Everything else is scaffolding for that test.
+
+---
+
+## 10. If you only do three things
+
+1. **Read Kolchinsky & Wolpert (2018) and Lowe et al. (2019) properly**, not from anyone's summary. The paper's entire novelty claim is exposed to these two. Half a day, and it determines whether the rest is worth doing.
+2. **Print `paper2/main.pdf` and read it cold as a hostile referee**, ideally after a night's sleep and away from the machine. Mark every sentence that asserts rather than shows.
+3. **Run the human–AI dissociation (§5.3).** Cheap, nobody has done it, and it is the difference between a seminar-room argument and a result. If apparent and functional coupling come apart in a deployed system, this matters; if they don't, that is worth knowing quickly and the paper should say so.
+
+*(Item 4.2 — the identification conditions — is done and is now §4 of the paper. It went from the highest-value open item to the paper's technical core in a single sitting, which is the argument for doing the theory rather than planning it.)*
