@@ -1,0 +1,38 @@
+{
+  "episodes_per_bandwidth": 1500,
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "bandwidth_bits": [
+    1,
+    2,
+    4,
+    8,
+    16,
+    32
+  ],
+  "te_mean": [
+    0.011936411377265579,
+    0.017639831106680586,
+    0.04241488010139435,
+    0.08932928698283511,
+    0.12721344796097447,
+    0.34277597661664216
+  ],
+  "te_std": [
+    0.008027025024155636,
+    0.011651868109966431,
+    0.021172979169606632,
+    0.0817522278390756,
+    0.1251164088412304,
+    0.20554912429083413
+  ],
+  "pearson_r_bandwidth_vs_meanTE": 0.9896840111340278,
+  "zero_te_cells": 4,
+  "total_cells": 30,
+  "note": "Clean, monotonic rise with bandwidth after fixing an unused-baseline bug (policy collapse dropped from 13/30 to 4/30 zero-TE cells). Still climbing at B=32 bits with no plateau -- the successive increments actually GROW (0.006, 0.025, 0.047, 0.038, 0.216 bits), the opposite of the concave/saturating shape Prediction 1 expects. Task eval returns also remain deeply negative and non-monotonic, meaning the policies still have not converged to a good task solution. Read as: real, clean signal that coupling increases with bandwidth, but NOT yet evidence for or against saturation -- need either much longer training or higher bandwidths to see whether a ceiling appears."
+}
