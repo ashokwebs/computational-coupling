@@ -7,11 +7,11 @@ alias: "Research Journal & Personal Lab Diary Index"
 
 Yo! Welcome to my personal research journal for the **Theory of Computational Coupling**!
 
-This folder maintains an authentic, raw, and candid log of breakthroughs, late-night paper marathons, library coffee sessions, and random existential questions asked during our 5-day research program (July 19, 2026 – July 23, 2026).
+This folder maintains an authentic, raw, and candid log of breakthroughs, late-night paper marathons, library coffee sessions, existential questions, honest null results, and the occasional forced break courtesy of viral fever — spanning our ongoing research program (July 19, 2026 – present).
 
 ---
 
-## 📅 5-Day Journal Index
+## 📅 Research Journal Index
 
 | Date & Timestamp | File Link | Summary |
 | :--- | :--- | :--- |
@@ -27,3 +27,5 @@ This folder maintains an authentic, raw, and candid log of breakthroughs, late-n
 | **Day 6: 2026-07-24 10:05 PM** | [[diary/2026-07-24_22-05_stage2_pettingzoo_and_the_mentalist|2026-07-24_22-05_stage2_pettingzoo_and_the_mentalist.md]] | **Crossing into Deep RL & Watching The Mentalist:** Launching PettingZoo Gumbel-Softmax testbed, EEG prep & late-night Patrick Jane thoughts! 🕵️‍♂️ |
 | **Day 7: 2026-07-25 08:30 AM** | [[diary/2026-07-25_08-30_morning_after_the_mentalist|2026-07-25_08-30_morning_after_the_mentalist.md]] | **Morning After The Mentalist:** Cold-reading-as-inference framing idea, kicking off the actual PettingZoo Gumbel-Softmax build. |
 | **Day 7: 2026-07-25 06:15 PM** | [[diary/2026-07-25_18-15_the_signal_was_the_bias|2026-07-25_18-15_the_signal_was_the_bias.md]] | **The Signal Was The Bias:** lr instability fixed, then the TE estimator itself turned out to be biased — the "clean saturation trend" evaporates under a noise control. Honest null result on Stage 2. |
+| *(Days 8–10: 2026-07-26 → 2026-07-28)* | — | *Out sick — viral fever. Laptop untouched.* |
+| **Day 11: 2026-07-29 09:00 PM** | [[diary/2026-07-29_21-00_back_from_the_dead|2026-07-29_21-00_back_from_the_dead.md]] | **Back From The Dead:** Returning after 3-day fever, re-reading paper2 and opp.md with fresh eyes, novelty assessment against Kolchinsky & Wolpert / Lowe et al., planning next moves. |
