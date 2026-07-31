@@ -50,6 +50,10 @@ Read this before touching the paper; the claims only make sense with the chain i
 
 ---
 
+## 3.5. Exposition pass (2026-07-31)
+
+`paper2/main.tex`'s theoretical core (Sections 2--4) got a clarity pass, content unchanged, nothing new claimed: (1) the confounder $C$ is now flagged in the Setup section before it appears cold in Theorem 1's proof; (2) a TikZ causal diagram (Figure 1) sits right before the theorem, showing $\mathcal{D}_1$ (message mediates the only path to $U$) side by side with $\mathcal{D}_2$ (message and behaviour share only a common cause, drawn as a dotted "correlated, not causal" link) — makes the whole non-identifiability argument visible before the formal proof forces it; (3) Theorem 2's three identification conditions get a one-sentence plain-English gloss ("you can see the confounder and adjust for it; you can find something that jitters the message for reasons unrelated to the convention; or you can just set the message yourself"); (4) the front-door criterion is glossed in one clause where Proposition 3 first invokes it, for readers who don't have Pearl's causal toolkit memorized. Recompiled clean, 16pp (was 15).
+
 ## 4. Immediate next steps
 
 ### 4.1 Compile the paper

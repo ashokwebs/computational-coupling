@@ -10,6 +10,8 @@
 \usepackage{array}
 \usepackage{graphicx}
 \usepackage[htt]{hyphenat}   % allow \texttt{} to hyphenate at underscores
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, calc}
 
 \hypersetup{
     colorlinks=true,
@@ -86,6 +88,8 @@ A dyad is a tuple $\mathcal{D} = (Z_A, M, Z_B, U)$ of random variables, where $Z
 
 We are deliberately permissive about what these denote. In hyperscanning, $Z_A, Z_B$ are neural recordings and $M$ is speech, gesture, or gaze. In human--AI interaction, $Z_A$ is the user's intent, $M$ the prompt, $Z_B$ the model's activations, $U$ its output. In multi-agent learning they are agent states and messages. The argument is indifferent to substrate.
 
+One further ingredient is not part of the tuple, precisely because it is generally unobserved: a convention-bearing latent $C$ --- the code, language, or learned protocol the dyad already shares, without which $M$ could not function as a signal at all. Section~\ref{sec:nonid} introduces it formally; it is flagged here because it is the reason the tuple above, exhaustive as it looks, is not enough to determine $\mathcal{F}$.
+
 \begin{definition}[Observational measures]
 An \emph{observational} coupling measure is any functional $\Phi$ of the joint distribution $P(Z_A, M, Z_B, U)$ obtained by passive observation of the dyad.
 \end{definition}
@@ -109,6 +113,32 @@ Functional coupling is thus an interventional quantity by construction. The ques
 Communication requires prior agreement. For a signal to carry information to a receiver, the receiver must already possess a convention --- learned, evolved, trained, or installed --- that renders the signal actionable \cite{lewis1969convention, skyrms2010signals}. A signal in a code the receiver does not hold is not a degraded signal; it is not a signal.
 
 This creates an unusual epistemic situation. The shared convention $C$ is a common cause: it shapes what the sender emits ($C \to M$) and it shapes how the receiver behaves ($C \to U$), because the receiver's dispositions were formed under the same convention. Observed coherence between $M$ and $U$ is therefore ambiguous between two explanations that are ordinarily distinguished by design --- and cannot be here, because eliminating $C$ eliminates the possibility of communication along with the confound.
+
+Figure~\ref{fig:dags} makes the ambiguity concrete before the theorem states it formally. The two dyads constructed in the proof below differ only in whether $M$ lies \emph{on} the causal path from $C$ to $U$ or merely \emph{beside} it. Both produce a message that is correlated with behaviour --- in the left dyad because the message causes the behaviour, in the right dyad only because both are effects of the same shared convention. No inspection of $(C, M, U)$ alone tells these apart; the difference only shows up under intervention on $M$.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[>=Stealth, thick, node distance=16mm]
+  \node (C1) {$C$};
+  \node[right=of C1] (M1) {$M$};
+  \node[right=of M1] (U1) {$U$};
+  \draw[->] (C1) -- (M1);
+  \draw[->] (M1) -- (U1) node[midway, above, font=\scriptsize] {causal};
+  \node[below=7mm of M1, font=\small] {$\mathcal{D}_1$: genuinely coupled};
+\end{tikzpicture}
+\hspace{18mm}
+\begin{tikzpicture}[>=Stealth, thick, node distance=16mm]
+  \node (C2) {$C$};
+  \node[above right=6mm and 16mm of C2] (M2) {$M$};
+  \node[below right=6mm and 16mm of C2] (U2) {$U$};
+  \draw[->] (C2) -- (M2);
+  \draw[->] (C2) -- (U2);
+  \draw[gray, dotted, <->] (M2) to[bend left=15] node[midway, above, font=\scriptsize, gray] {correlated, not causal} (U2);
+  \node[below=9mm of C2, font=\small] {$\mathcal{D}_2$: confounded, uncoupled};
+\end{tikzpicture}
+\caption{Both dyads induce the identical joint law over $(C,M,U)$ used in the proof of Theorem~\ref{thm:nonid}, so every observational functional $\Phi$ agrees on them. On the left, $M$ mediates the only path from $C$ to $U$: intervening on $M$ changes $U$. On the right, $U$ reads off $C$ directly; $M$ and $U$ are statistically associated (dotted) purely through their common cause, and intervening on $M$ leaves $U$ unchanged. $\mathcal{F}$ tracks the solid causal arrow into $U$, not the association.}
+\label{fig:dags}
+\end{figure}
 
 \subsection{The result}
 
@@ -157,7 +187,7 @@ Theorem~\ref{thm:nonid} is a negative result about observational data absent fur
 \subsection{Sufficient conditions}
 
 \begin{theorem}[Identification]\label{thm:id}
-Functional coupling $\mathcal{F}(\mathcal{D})$ is identified if any of the following holds.
+Functional coupling $\mathcal{F}(\mathcal{D})$ is identified if any of the following holds. Informally: you can see the confounder and adjust for it; you can find something that jitters the message for reasons unrelated to the convention and use it as leverage; or you can just set the message yourself.
 \begin{enumerate}[label=(\roman*), leftmargin=*, itemsep=2pt]
     \item \textbf{Adjustment.} The convention-bearing latent $C$ is observed and satisfies the back-door criterion relative to $(M, U)$. Then
     $P\big(U \mid \mathrm{do}(M{=}m)\big) = \sum_c P(U \mid M{=}m, C{=}c)\,P(c)$.
@@ -189,7 +219,7 @@ Measures defined by temporal ordering do not identify $\mathcal{F}$. Because $C$
 This deserves emphasis because such measures are routinely described as ``directed'' or ``causal,'' and the governing intuition is that respecting temporal order supplies causal content. It does so only in the absence of a common cause preceding both variables. In dyadic communication such a common cause is not a hazard to be checked for but a structural guarantee: without prior shared convention there is no communication to measure. The field's principal workhorse is thus subject to the theorem in full.
 
 \begin{proposition}[Receiver-side measurement is insufficient]\label{prop:frontdoor}
-Observing the receiver's internal state does not restore identification via the front-door criterion. Consider $Z_B$ as candidate mediator on $M \to Z_B \to U$. Front-door identification requires (a) no unblocked back-door path from $M$ to $Z_B$, and (b) that every back-door path from $Z_B$ to $U$ be blocked by $M$. If $C \to Z_B$ and $C \to U$, then $M \leftarrow Z_A \leftarrow C \rightarrow Z_B$ violates (a), and $Z_B \leftarrow C \rightarrow U$ --- which conditioning on $M$ does not block --- violates (b).
+Observing the receiver's internal state does not restore identification via the front-door criterion --- Pearl's route for identifying a causal effect through a mediator when the direct treatment--outcome relationship is itself confounded, which requires no back-door confounding between treatment and mediator and none between mediator and outcome (except what the treatment already blocks). Consider $Z_B$ as candidate mediator on $M \to Z_B \to U$. Front-door identification requires (a) no unblocked back-door path from $M$ to $Z_B$, and (b) that every back-door path from $Z_B$ to $U$ be blocked by $M$. If $C \to Z_B$ and $C \to U$, then $M \leftarrow Z_A \leftarrow C \rightarrow Z_B$ violates (a), and $Z_B \leftarrow C \rightarrow U$ --- which conditioning on $M$ does not block --- violates (b).
 \end{proposition}
 
 Both edges are present whenever the receiver's internal representations and its behavioural dispositions were shaped by the same prior convention, which is to say whenever the receiver is capable of communicating at all.
