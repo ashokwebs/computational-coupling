@@ -148,4 +148,33 @@ The explanation for BBI stagnation (convention, not hardware, is the binding con
 
 ---
 
-*Assessment prepared 2026-07-29. To be updated after full reads of K&W and Lowe et al.*
+## 6. Update 2026-07-31 — full reads completed
+
+Both papers have now been read in full (not from memory or summary). This section supersedes the risk ratings in §4 where they conflict.
+
+### 6.1 Kolchinsky & Wolpert (2018) — verified
+
+Their formalism is **monadic, not dyadic**: semantic information ($I_{\text{sem}}^{\text{stored}} = I_{\tilde p^*}(X_0;Y_0)$, Eq. 5.7) is defined for *one* system's information about *its own environment*, via a viability-optimal counterfactual intervention. There is no sender/receiver pair anywhere in the paper, no treatment of two systems exchanging signals, and no notion of a shared convention or common-cause confounder between two agents. They also do **not** state or prove any non-identifiability/impossibility result — they assume interventional (counterfactual) access is available and build the definition on top of it; nothing in the paper says semantic information *cannot* be recovered observationally. And they never touch communication, hyperscanning, BBI, or AI evaluation — the paper is about organisms (bacteria, birds) maintaining themselves against an environment.
+
+**Correction to §4:** the original threat-matrix severity of 🟡 HIGH was set from memory and was too high. On a full read, K&W is a strong *citation* (nearest formal neighbour for "meaning = causal relevance, not correlation") but a weak *competitor* — they don't have the dyadic structure, the confounder, the impossibility result, or the domain. Actual severity: 🟢 LOW–MEDIUM. `paper2/main.tex` §8 (L347) already states this distinction correctly ("unlike us, they do not address identifiability from observational data or the constitutive role of shared convention as confounder") — that sentence is now verified against the primary source rather than asserted from a prior summary.
+
+### 6.2 Lowe et al. (2019) — verified
+
+Closer than K&W, and closer than the original assessment suggested in one specific way: their Speaker Consistency (SC) vs. Causal Influence of Communication (CIC) result on matrix communication games is *quantitatively* the same shape as our Stage 2 finding — SC positive (0.19–0.54 across game sizes) while CIC sits at the floor and they report the message has "no effect" on the partner's action for the vast majority of games. That is a real, independent replication of positive-signalling/positive-listening dissociation in a different environment, which strengthens rather than weakens the case that this is a real phenomenon worth a general theory of.
+
+Two things differentiate cleanly on a full read:
+1. **No oracle/unbottlenecked control.** They test intact vs. scrambled-message conditions and run action-classifier probes: they never hand the receiver the sender's information directly, unmediated by any channel, to check whether it would use it if it were free. That is exactly the control our Proposition 1 / oracle result supplies and they do not — it is what rules out "the channel just isn't good enough" as an explanation, and nothing in their paper does that.
+2. **Different root cause, explicitly.** They attribute the dissociation to an *architectural* confound: shared hidden-layer representations between the action and communication heads cause the message to correlate with the action-relevant state even when the communication parameters aren't trained (SC=0.171 with λ_c=0). That is a spurious-correlation story, not a confounding-by-convention story, and they say so. Our Stage 2 diagnostic chain (separate speaker/listener networks, aux-loss fix that pushes encoding R² to 0.90, listener's own reconstruction head decoding the goal at error 0.0016) already rules out the architectural-sharing explanation for our system — the information is genuinely, causally available in the listener's hidden state and the policy head still doesn't read it out. So the two papers report the same *symptom* through two different, non-overlapping *mechanisms*, which is a stronger differentiation than "they found the symptom, we diagnose the disease" (the phrase already used in §8) — it's closer to "they found the symptom in a system where it has an architectural cause; we found it in a system where that cause is ruled out and it persists anyway."
+3. They frame their finding entirely as a **metric pitfall** (title, abstract, recommendations are all "measure CIC, use several metrics, avoid test-time-only ablation") — never as a structural non-identifiability claim. They do mention "learned convention" once, in passing, as an alternative explanation for coordination without communication, but don't develop it. Their fix is practical (use better estimators); ours is that no estimator, however good, escapes the confound without intervention. That's the actual daylight between "pitfall" and "impossibility," and it survives the full read.
+
+**Correction to §4:** severity stays 🟡 MEDIUM as originally rated, but the defense is now sharper and evidence-backed rather than asserted: cite the CIC numbers directly as an independent replication, and lean on the oracle-control gap and the architectural-vs-convention mechanism split rather than a general "diagnosis vs symptom" framing.
+
+### 6.3 Net effect on the paper
+
+The single highest-risk open item from `handoff.md` §10.1 is resolved: the novelty claim survives contact with both nearest neighbours. Nothing found requires restructuring the paper. Two small, honest fixes worth making before submission:
+- §8 (L349) can now cite the actual CIC numbers from Lowe et al. as a second data point for the dissociation, strengthening rather than just citing the claim.
+- §8 could add one sentence noting K&W's formalism is monadic, which is the sharpest one-line reason their impossibility-adjacent framing doesn't already cover dyadic coupling — currently the paper states the *what* (identifiability, confounder) but not the *structural* reason (single-system vs. two-system) their machinery can't reach it.
+
+Remaining items from handoff.md §10, in order: (2) hostile-referee read of the compiled PDF, (3) the human–AI dissociation experiment. Both still open.
+
+*Original assessment prepared 2026-07-29 from memory/summary. §6 added 2026-07-31 after full primary-source reads of both papers.*
