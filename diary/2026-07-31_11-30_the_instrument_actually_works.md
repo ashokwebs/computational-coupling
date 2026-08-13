@@ -1,5 +1,5 @@
 ---
-tags: [#diary/entry, #research-log, #paper2/identifiability, #noise-as-instrument, #human-ai-experiment]
+tags: ["#diary/entry", "#research-log", "#paper2/identifiability", "#noise-as-instrument", "#human-ai-experiment"]
 alias: "2026-07-31_11-30_the_instrument_actually_works"
 ---
 

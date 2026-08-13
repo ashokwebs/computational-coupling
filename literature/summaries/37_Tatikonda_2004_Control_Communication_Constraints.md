@@ -1,5 +1,5 @@
 ---
-tags: [#literature/paper, #paper/round2-control]
+tags: ["#literature/paper", "#paper/round2-control"]
 alias: "37_Tatikonda_2004_Control_Communication_Constraints"
 ---
 

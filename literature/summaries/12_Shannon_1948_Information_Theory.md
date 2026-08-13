@@ -1,5 +1,5 @@
 ---
-tags: [#literature/paper, #paper/canon]
+tags: ["#literature/paper", "#paper/canon"]
 alias: "12_Shannon_1948_Information_Theory"
 ---
 

@@ -1,5 +1,5 @@
 ---
-tags: [#diary/entry, #research-log, #paper2/identifiability, #novelty-check]
+tags: ["#diary/entry", "#research-log", "#paper2/identifiability", "#novelty-check"]
 alias: "2026-07-29_21-00_back_from_the_dead"
 ---
 

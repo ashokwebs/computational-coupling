@@ -1,5 +1,5 @@
 ---
-tags: [#literature/paper, #paper/extended-canon]
+tags: ["#literature/paper", "#paper/extended-canon"]
 alias: "28_LaRocco_2020_Optimizing_CBI_Parameters"
 ---
 

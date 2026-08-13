@@ -1,5 +1,5 @@
 ---
-tags: [#literature/paper, #paper/canon]
+tags: ["#literature/paper", "#paper/canon"]
 alias: "15_Montague_2002_Hyperscanning"
 ---
 

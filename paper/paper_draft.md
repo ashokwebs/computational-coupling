@@ -1,5 +1,5 @@
 ---
-tags: [#paper/draft, #latex/source]
+tags: ["#paper/draft", "#latex/source"]
 alias: "Paper Draft (pointer)"
 ---
 

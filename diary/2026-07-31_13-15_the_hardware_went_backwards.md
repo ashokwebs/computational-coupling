@@ -1,5 +1,5 @@
 ---
-tags: [#diary/entry, #research-log, #paper2/retrodiction, #bbi-throughput, #literature-survey]
+tags: ["#diary/entry", "#research-log", "#paper2/retrodiction", "#bbi-throughput", "#literature-survey"]
 alias: "2026-07-31_13-15_the_hardware_went_backwards"
 ---
 

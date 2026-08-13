@@ -1,5 +1,5 @@
 ---
-tags: [#literature/paper, #paper/canon]
+tags: ["#literature/paper", "#paper/canon"]
 alias: "08_Caro_2024_BrainLM_fMRI_Foundation"
 ---
 

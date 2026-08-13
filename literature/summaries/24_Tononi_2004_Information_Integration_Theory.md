@@ -1,5 +1,5 @@
 ---
-tags: [#literature/paper, #paper/extended-canon]
+tags: ["#literature/paper", "#paper/extended-canon"]
 alias: "24_Tononi_2004_Information_Integration_Theory"
 ---
 

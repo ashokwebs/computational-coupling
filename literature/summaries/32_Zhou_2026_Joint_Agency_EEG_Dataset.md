@@ -1,5 +1,5 @@
 ---
-tags: [#literature/paper, #paper/round2-datasets]
+tags: ["#literature/paper", "#paper/round2-datasets"]
 alias: "32_Zhou_2026_Joint_Agency_EEG_Dataset"
 ---
 

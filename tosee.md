@@ -1,5 +1,5 @@
 ---
-tags: [#meta/reading-list]
+tags: ["#meta/reading-list"]
 alias: "To See — Reading List & Where Our Docs Live"
 ---
 

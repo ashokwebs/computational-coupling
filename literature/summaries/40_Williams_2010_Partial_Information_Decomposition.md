@@ -1,5 +1,5 @@
 ---
-tags: [#literature/paper, #paper/round2-TE-methods]
+tags: ["#literature/paper", "#paper/round2-TE-methods"]
 alias: "40_Williams_2010_Partial_Information_Decomposition"
 ---
 

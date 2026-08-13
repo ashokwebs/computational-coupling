@@ -1,5 +1,5 @@
 ---
-tags: [#diary/entry, #research-log]
+tags: ["#diary/entry", "#research-log"]
 alias: "2026-07-22_08-30_lit_dump_and_rough_notes"
 ---
 

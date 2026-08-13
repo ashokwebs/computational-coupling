@@ -1,5 +1,5 @@
 ---
-tags: [#diary/entry, #research-log, #paper2/exposition, #writing]
+tags: ["#diary/entry", "#research-log", "#paper2/exposition", "#writing"]
 alias: "2026-07-31_14-30_a_picture_worth_a_proof"
 ---
 

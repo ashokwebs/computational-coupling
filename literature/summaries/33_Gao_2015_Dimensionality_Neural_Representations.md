@@ -1,5 +1,5 @@
 ---
-tags: [#literature/paper, #paper/round2-manifolds]
+tags: ["#literature/paper", "#paper/round2-manifolds"]
 alias: "33_Gao_2015_Dimensionality_Neural_Representations"
 ---
 

@@ -1,5 +1,5 @@
 ---
-tags: [#literature/external, #archive]
+tags: ["#literature/external", "#archive"]
 alias: "External Critique (2026-07-25): Brain-to-Brain Reframing Assessment"
 ---
 

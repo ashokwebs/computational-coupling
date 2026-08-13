@@ -1,5 +1,5 @@
 ---
-tags: [#literature/web-scan, #topic/neural-network-theory]
+tags: ["#literature/web-scan", "#topic/neural-network-theory"]
 alias: "Web Scan — Neural Network & Emergent Communication Theory, 2026"
 ---
 

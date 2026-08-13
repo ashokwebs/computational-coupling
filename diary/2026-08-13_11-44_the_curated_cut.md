@@ -1,5 +1,5 @@
 ---
-tags: [#diary/entry, #research-log, #review1, #paper2/bbi]
+tags: ["#diary/entry", "#research-log", "#review1", "#paper2/bbi"]
 alias: "2026-08-13_11-44_the_curated_cut"
 ---
 

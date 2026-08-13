@@ -1,5 +1,5 @@
 ---
-tags: [#diary/entry, #research-log, #paper2/identifiability, #novelty-check, #related-work]
+tags: ["#diary/entry", "#research-log", "#paper2/identifiability", "#novelty-check", "#related-work"]
 alias: "2026-07-31_09-45_the_reads_survive_contact"
 ---
 

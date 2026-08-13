@@ -1,5 +1,5 @@
 ---
-tags: [#diary/entry, #research-log, #paper1/rl, #the-mentalist]
+tags: ["#diary/entry", "#research-log", "#paper1/rl", "#the-mentalist"]
 alias: "2026-07-25_18-15_the_signal_was_the_bias"
 ---
 

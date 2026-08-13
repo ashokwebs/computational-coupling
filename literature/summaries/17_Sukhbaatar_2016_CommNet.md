@@ -1,5 +1,5 @@
 ---
-tags: [#literature/paper, #paper/extended-canon]
+tags: ["#literature/paper", "#paper/extended-canon"]
 alias: "17_Sukhbaatar_2016_CommNet"
 ---
 

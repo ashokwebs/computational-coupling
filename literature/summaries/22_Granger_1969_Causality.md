@@ -1,5 +1,5 @@
 ---
-tags: [#literature/paper, #paper/extended-canon]
+tags: ["#literature/paper", "#paper/extended-canon"]
 alias: "22_Granger_1969_Causality"
 ---
 

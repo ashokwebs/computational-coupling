@@ -1,5 +1,5 @@
 ---
-tags: [#literature/paper, #paper/canon]
+tags: ["#literature/paper", "#paper/canon"]
 alias: "04_Jiang_2019_BrainNet"
 ---
 

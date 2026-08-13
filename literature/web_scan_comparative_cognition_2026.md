@@ -1,5 +1,5 @@
 ---
-tags: [#literature/web-scan, #topic/comparative-cognition]
+tags: ["#literature/web-scan", "#topic/comparative-cognition"]
 alias: "Web Scan — Comparative Cognition & Animal Communication, 2026"
 ---
 

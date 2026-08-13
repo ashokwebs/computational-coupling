@@ -1,5 +1,5 @@
 ---
-tags: [#literature/paper, #paper/round2-synchronization]
+tags: ["#literature/paper", "#paper/round2-synchronization"]
 alias: "36_Pecora_1990_Synchronization_Chaotic_Systems"
 ---
 

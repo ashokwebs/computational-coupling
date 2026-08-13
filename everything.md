@@ -1,5 +1,5 @@
 ---
-tags: [#meta/everything, #report/master-index]
+tags: ["#meta/everything", "#report/master-index"]
 alias: "Everything — What This Project Is, Does, and Is Going To Do"
 ---
 

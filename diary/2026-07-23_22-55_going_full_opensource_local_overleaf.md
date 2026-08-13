@@ -1,5 +1,5 @@
 ---
-tags: [#diary/entry, #research-log, #overleaf, #opensource]
+tags: ["#diary/entry", "#research-log", "#overleaf", "#opensource"]
 alias: "Day 5 Late Night — Going Full Open Source & Local Overleaf!"
 ---
 

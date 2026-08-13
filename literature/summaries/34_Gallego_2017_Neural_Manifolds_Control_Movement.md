@@ -1,5 +1,5 @@
 ---
-tags: [#literature/paper, #paper/round2-manifolds]
+tags: ["#literature/paper", "#paper/round2-manifolds"]
 alias: "34_Gallego_2017_Neural_Manifolds_Control_Movement"
 ---
 

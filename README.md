@@ -1,5 +1,5 @@
 ---
-tags: [#meta/readme, #overview]
+tags: ["#meta/readme", "#overview"]
 alias: "Computational Coupling Master Guide"
 ---
 

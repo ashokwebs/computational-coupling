@@ -1,5 +1,5 @@
 ---
-tags: [#literature/paper, #paper/round2-TE-methods]
+tags: ["#literature/paper", "#paper/round2-TE-methods"]
 alias: "39_Vicente_2011_Transfer_Entropy_Neuroscience"
 ---
 

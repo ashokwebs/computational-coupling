@@ -1,5 +1,5 @@
 ---
-tags: [#literature/web-scan, #topic/theory-of-mind, #novelty-check]
+tags: ["#literature/web-scan", "#topic/theory-of-mind", "#novelty-check"]
 alias: "Web Scan — Theory of Mind & Novelty Check, 2026"
 ---
 

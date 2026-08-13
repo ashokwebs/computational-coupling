@@ -1,5 +1,5 @@
 ---
-tags: [#literature/paper, #paper/extended-canon]
+tags: ["#literature/paper", "#paper/extended-canon"]
 alias: "26_Zamm_2024_EEG_Hyperscanning_Practical_Guide"
 ---
 

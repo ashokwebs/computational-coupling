@@ -1,5 +1,5 @@
 ---
-tags: [#literature/paper, #paper/canon]
+tags: ["#literature/paper", "#paper/canon"]
 alias: "06_McParlin_2022_Active_Inference"
 ---
 

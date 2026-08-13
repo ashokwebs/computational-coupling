@@ -1,5 +1,5 @@
 ---
-tags: [#literature/web-scan, #topic/neuroscience-complexity]
+tags: ["#literature/web-scan", "#topic/neuroscience-complexity"]
 alias: "Web Scan — Neurons, Complexity, Hyperscanning, 2026"
 ---
 

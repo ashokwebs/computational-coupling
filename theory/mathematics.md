@@ -1,5 +1,5 @@
 ---
-tags: [#theory/mathematics, #math/estimators]
+tags: ["#theory/mathematics", "#math/estimators"]
 alias: "Transfer Entropy Math"
 ---
 

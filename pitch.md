@@ -1,5 +1,5 @@
 ---
-tags: [#meta/pitch, #audience/general]
+tags: ["#meta/pitch", "#audience/general"]
 alias: "The Pitch — Understanding Is Not Observable"
 ---
 

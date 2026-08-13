@@ -1,5 +1,5 @@
 ---
-tags: [#literature/paper, #paper/round2-datasets]
+tags: ["#literature/paper", "#paper/round2-datasets"]
 alias: "31_Yamasaki_2026_DUET_EEG_Dataset"
 ---
 

@@ -1,5 +1,5 @@
 ---
-tags: [#meta/moc, #roadmap]
+tags: ["#meta/moc", "#roadmap"]
 alias: "Empirical Roadmap Map of Content"
 ---
 

@@ -1,5 +1,5 @@
 ---
-tags: [#theory/assumptions]
+tags: ["#theory/assumptions"]
 alias: "Theoretical Assumptions"
 ---
 

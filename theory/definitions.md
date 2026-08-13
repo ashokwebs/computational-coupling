@@ -1,5 +1,5 @@
 ---
-tags: [#theory/definitions, #math/manifolds]
+tags: ["#theory/definitions", "#math/manifolds"]
 alias: "Theory Definitions"
 ---
 

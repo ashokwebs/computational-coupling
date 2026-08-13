@@ -1,5 +1,5 @@
 ---
-tags: [#literature/paper, #paper/extended-canon]
+tags: ["#literature/paper", "#paper/extended-canon"]
 alias: "29_Shi_2024_Max_Information_Rate_Visual_BCI"
 ---
 

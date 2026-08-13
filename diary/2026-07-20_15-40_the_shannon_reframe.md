@@ -1,5 +1,5 @@
 ---
-tags: [#diary/entry, #research-log]
+tags: ["#diary/entry", "#research-log"]
 alias: "2026-07-20_15-40_the_shannon_reframe"
 ---
 

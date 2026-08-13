@@ -1,5 +1,5 @@
 ---
-tags: [#literature/paper, #paper/extended-canon]
+tags: ["#literature/paper", "#paper/extended-canon"]
 alias: "23_Permuter_2009_Directed_Information_Feedback_Capacity"
 ---
 

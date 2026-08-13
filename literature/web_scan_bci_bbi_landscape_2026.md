@@ -1,5 +1,5 @@
 ---
-tags: [#literature/web-scan, #topic/bci-bbi]
+tags: ["#literature/web-scan", "#topic/bci-bbi"]
 alias: "Web Scan — BCI/BBI Landscape, 2026"
 ---
 

@@ -1,5 +1,5 @@
 ---
-tags: [#diary/entry, #research-log, #paper1/rl, #the-mentalist]
+tags: ["#diary/entry", "#research-log", "#paper1/rl", "#the-mentalist"]
 alias: "2026-07-24_22-05_stage2_pettingzoo_and_the_mentalist"
 ---
 

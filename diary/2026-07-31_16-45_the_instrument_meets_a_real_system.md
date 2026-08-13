@@ -1,5 +1,5 @@
 ---
-tags: [#diary/entry, #research-log, #paper2/identifiability, #noise-as-instrument, #honest-null-result]
+tags: ["#diary/entry", "#research-log", "#paper2/identifiability", "#noise-as-instrument", "#honest-null-result"]
 alias: "2026-07-31_16-45_the_instrument_meets_a_real_system"
 ---
 

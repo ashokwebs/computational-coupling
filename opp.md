@@ -1,5 +1,5 @@
 ---
-tags: [#meta/research-program, #theory/non-identifiability]
+tags: ["#meta/research-program", "#theory/non-identifiability"]
 alias: "OPP — Understanding Is Not Observable"
 ---
 

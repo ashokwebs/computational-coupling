@@ -1,5 +1,5 @@
 ---
-tags: [#meta/moc, #literature]
+tags: ["#meta/moc", "#literature"]
 alias: "Literature Canon Map of Content"
 ---
 

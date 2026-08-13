@@ -1,5 +1,5 @@
 ---
-tags: [#meta/index, #diary/readme]
+tags: ["#meta/index", "#diary/readme"]
 alias: "Research Journal & Personal Lab Diary Index"
 ---
 

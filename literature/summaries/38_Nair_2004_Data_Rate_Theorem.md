@@ -1,5 +1,5 @@
 ---
-tags: [#literature/paper, #paper/round2-control]
+tags: ["#literature/paper", "#paper/round2-control"]
 alias: "38_Nair_2004_Data_Rate_Theorem"
 ---
 

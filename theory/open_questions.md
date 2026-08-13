@@ -1,5 +1,5 @@
 ---
-tags: [#theory/open-questions]
+tags: ["#theory/open-questions"]
 alias: "Open Research Questions"
 ---
 

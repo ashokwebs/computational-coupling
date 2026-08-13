@@ -1,5 +1,5 @@
 ---
-tags: [#diary/entry, #research-log, #review1, #paper2/authorship]
+tags: ["#diary/entry", "#research-log", "#review1", "#paper2/authorship"]
 alias: "2026-08-13_13-10_not_solo_anymore"
 ---
 

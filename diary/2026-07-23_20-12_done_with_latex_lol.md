@@ -1,5 +1,5 @@
 ---
-tags: [#diary/entry, #research-log]
+tags: ["#diary/entry", "#research-log"]
 alias: "2026-07-23_20-12_done_with_latex_lol"
 ---
 

@@ -1,5 +1,5 @@
 ---
-tags: [#meta/dashboard, #overview]
+tags: ["#meta/dashboard", "#overview"]
 alias: "Lab Home & Master Dashboard"
 ---
 

@@ -1,5 +1,5 @@
 ---
-tags: [#literature/paper, #paper/extended-canon]
+tags: ["#literature/paper", "#paper/extended-canon"]
 alias: "27_Markiewicz_2024_Brain_to_Brain_Coupling_Forecasts_Joint_Action"
 ---
 

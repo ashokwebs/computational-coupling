@@ -1,5 +1,5 @@
 ---
-tags: [#diary/entry, #research-log]
+tags: ["#diary/entry", "#research-log"]
 alias: "2026-07-22_23-45_deep_dive_into_the_canon"
 ---
 

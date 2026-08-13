@@ -1,5 +1,5 @@
 ---
-tags: [#literature/paper, #paper/canon]
+tags: ["#literature/paper", "#paper/canon"]
 alias: "07_Jiang_2024_LaBraM_EEG_Foundation"
 ---
 

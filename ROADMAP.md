@@ -1,5 +1,5 @@
 ---
-tags: [#meta/roadmap, #paper/plan]
+tags: ["#meta/roadmap", "#paper/plan"]
 alias: "4-Paper Strategic Roadmap"
 ---
 

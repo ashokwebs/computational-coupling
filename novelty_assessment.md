@@ -1,5 +1,5 @@
 ---
-tags: [#meta/novelty-assessment, #paper2/identifiability]
+tags: ["#meta/novelty-assessment", "#paper2/identifiability"]
 alias: "Novelty Assessment — Understanding Is Not Observable"
 ---
 

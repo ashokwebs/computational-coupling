@@ -1,5 +1,5 @@
 ---
-tags: [#meta/handoff]
+tags: ["#meta/handoff"]
 alias: "Handoff — state of the program, July 2026"
 ---
 

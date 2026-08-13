@@ -1,5 +1,5 @@
 ---
-tags: [#diary/entry, #research-log, #paper2/bbi, #convention-bottleneck, #bandwidth-argument]
+tags: ["#diary/entry", "#research-log", "#paper2/bbi", "#convention-bottleneck", "#bandwidth-argument"]
 alias: "2026-08-01_11-23_the_mouth_is_not_the_bottleneck"
 ---
 

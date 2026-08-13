@@ -1,5 +1,5 @@
 ---
-tags: [#meta/review1, #report/full-inventory]
+tags: ["#meta/review1", "#report/full-inventory"]
 alias: "Review 1 — Everything We're Working On"
 ---
 

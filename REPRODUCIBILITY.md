@@ -1,5 +1,5 @@
 ---
-tags: [#meta/reproducibility]
+tags: ["#meta/reproducibility"]
 alias: "Reproducibility Protocol"
 ---
 

@@ -1,5 +1,5 @@
 ---
-tags: [#literature/paper, #paper/round2-synchronization]
+tags: ["#literature/paper", "#paper/round2-synchronization"]
 alias: "35_Kuramoto_1975_Coupled_Oscillator_Synchronization"
 ---
 

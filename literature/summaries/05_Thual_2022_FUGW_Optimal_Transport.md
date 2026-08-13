@@ -1,5 +1,5 @@
 ---
-tags: [#literature/paper, #paper/canon]
+tags: ["#literature/paper", "#paper/canon"]
 alias: "05_Thual_2022_FUGW_Optimal_Transport"
 ---
 

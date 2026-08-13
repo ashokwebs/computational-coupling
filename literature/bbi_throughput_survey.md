@@ -1,5 +1,5 @@
 ---
-tags: [#literature/survey, #paper2/retrodiction, #bbi-throughput]
+tags: ["#literature/survey", "#paper2/retrodiction", "#bbi-throughput"]
 alias: "BBI Throughput Survey — checking the retrodiction against real numbers"
 ---
 

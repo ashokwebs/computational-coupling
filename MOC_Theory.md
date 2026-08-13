@@ -1,5 +1,5 @@
 ---
-tags: [#meta/moc, #theory]
+tags: ["#meta/moc", "#theory"]
 alias: "Theory Map of Content"
 ---
 
