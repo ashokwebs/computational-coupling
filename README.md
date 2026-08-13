@@ -6,7 +6,7 @@ alias: "Computational Coupling Master Guide"
 # 🧠⚡ A Theory of Computational Coupling Between Intelligent Systems
 ### *Toward a General Foundation for Brain-to-Brain Communication (BBI)*
 
-**Author:** Ashok Pasala (VIT-AP University)  
+**Authors:** Ashok Pasala, Snigdha Gorai (VIT-AP University)  
 **Target Venues:** NeurIPS, ICML, ICLR, Nature Machine Intelligence, Nature Neuroscience  
 **Draft Version:** 0.3.0 (Formal core + reproducible proof-of-concept)  
 
@@ -144,7 +144,7 @@ regenerates every figure in the paper. The coupling library lives in `coupling_l
 
 ## ✉️ Contact & Collaboration
 
-Written & maintained by **Ashok Pasala** (VIT-AP University).  
+Written & maintained by **Ashok Pasala** and **Snigdha Gorai** (VIT-AP University).  
 Got questions, suggestions, or wanna collaborate on multi-agent RL / neuro-imaging experiments? Open an Issue or Pull Request!
 
 *Lets build the future of computational neuroscience together!* 🚀✨

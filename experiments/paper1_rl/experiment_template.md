@@ -2,7 +2,7 @@
 
 **Date:** YYYY-MM-DD  
 **Run ID:** `paper1_marl_sweep_seed<SEED>`  
-**Author:** Ashok Pasala  
+**Authors:** Ashok Pasala, Snigdha Gorai  
 
 ---
 

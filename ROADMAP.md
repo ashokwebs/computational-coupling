@@ -10,7 +10,7 @@ alias: "4-Paper Strategic Roadmap"
 >
 > This file is kept because Papers 1–3 below contain reusable experimental design, and because the Stage 1/Stage 2 contrast turned out to be the accidental control that isolated the missing variable. Do not plan from it.
 
-**Author:** Ashok Pasala (VIT-AP University)  
+**Authors:** Ashok Pasala, Snigdha Gorai (VIT-AP University)  
 **Timeline:** 2026 – 2029 *(as originally planned)*  
 **Target Venues:** NeurIPS, ICML, ICLR, Nature Machine Intelligence, Nature Neuroscience  
 

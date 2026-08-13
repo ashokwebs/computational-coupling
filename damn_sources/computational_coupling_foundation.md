@@ -1,7 +1,7 @@
 # Towards a Theory of Computational Coupling Between Intelligent Systems
 ## A Foundation for Scalable Brain-to-Brain Communication
 
-**Author:** Ashok Pasala (VIT-AP University)  
+**Authors:** Ashok Pasala, Snigdha Gorai (VIT-AP University)  
 **Program:** Computational Coupling Research Program  
 **Date:** July 23, 2026  
 

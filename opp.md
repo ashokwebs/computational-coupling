@@ -8,7 +8,7 @@ alias: "OPP — Understanding Is Not Observable"
 ### Why no amount of conversation, behavioral evaluation, or neural correlation can establish that two systems understand each other — and what can
 
 **Status:** the paper. 2026-07-26. Not committed.
-**Author of record:** Ashok Pasala (VIT-AP). Drafted with Claude.
+**Author of record:** Ashok Pasala, Snigdha Gorai (VIT-AP).
 
 ---
 

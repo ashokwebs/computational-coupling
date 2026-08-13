@@ -5,7 +5,7 @@ alias: "Theory Definitions"
 
 # 📐 Formal Definitions: Theory of Computational Coupling
 
-**Author:** Ashok Pasala (VIT-AP University)  
+**Authors:** Ashok Pasala, Snigdha Gorai (VIT-AP University)  
 **Status:** Canonical Theoretical Definitions (Version 0.2.0)  
 
 ---
