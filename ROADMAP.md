@@ -49,7 +49,7 @@ We execute this vision through **two parallel tracks** across **four venue-targe
 * **Title:** *A Theory of Computational Coupling Between Intelligent Systems: Toward a General Foundation for Brain-to-Brain Communication*
 * **Status:** v0.3.0 — formal core complete **and empirically supported in a ground-truth simulation.**
   - ✅ Intro with Shannon analogy; explicit contributions list.
-  - ✅ Related Work populated from verified `paper/references.bib` (all 15 keys resolve).
+  - ✅ Related Work populated from verified `paper_main/references.bib` (all 15 keys resolve).
   - ✅ **Dimensional Bottleneck theorem + proof** (Sec. 4): ceiling $=\bar{c}\cdot\min(d_i,d_j)$.
   - ✅ **Proof-of-Concept validation** (Sec. 7): all three predictions supported; two estimators agree within 2%.
   - ✅ Falsifiability teeth, open problems, ethics of stimulation.

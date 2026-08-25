@@ -25,7 +25,7 @@ source .venv/bin/activate
 ## 3. Paper Compilation Commands
 ```bash
 # Compile Paper 1 (v0.3.0)
-python3 paper/compile_paper.py
+cd paper_main && ./build.sh
 
 # Compile Paper 2 ("Understanding Is Not Observable")
 cd paper2 && pdflatex main.tex && bibtex main && pdflatex main.tex && pdflatex main.tex

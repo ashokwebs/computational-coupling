@@ -120,6 +120,10 @@ Human speech carries roughly \textbf{39 bits of information per second}, remarka
 
 The obvious idea: the mouth and the ear are the bottleneck. Build a direct brain-to-brain link, skip articulation and hearing entirely, and two minds should finally exchange information at something closer to their true internal speed.
 
+We did not merely hold that idea --- we built the piece the field was missing. Brain-connection hardware has been designed for a decade without anyone defining what quantity such a link is supposed to \emph{maximise}, rather as if modems had been engineered before Shannon defined channel capacity in 1948. So we defined one: \textbf{coupling capacity}, a measure of how far one system's signal can steer another's internal trajectory. And we proved a theorem about it with a genuinely surprising ceiling --- set not by the width of the wire, but by the number of independent directions the \emph{receiver} can be moved along at all. Past a certain point, a wider channel buys nothing whatsoever.
+
+That theorem is still true, and it is Section 2 of the paper. What happened next is why it is not the headline.
+
 \section{The experiment that changed the premise}
 
 We tested it properly, in a controlled system built for exactly this question: two learning agents, one that holds private information, one that needs to act on it, connected by a channel we fully control.
@@ -177,6 +181,18 @@ That is the number that has quietly motivated a decade of brain-interface resear
 
 \textbf{What's still open:} whether a \emph{different} kind of gain exists --- not from widening the channel, but from an interface that grows a shared convention between two systems over time. Nobody has measured how much of that gap such an interface could recover, because nobody has built and tested one yet. Real, open, and a different question entirely from ``how much faster is a wider pipe.''
 
+\section{What survived the collapse, and what did not}
+
+This is the part people ask about, and the part easiest to fudge, so it is worth stating precisely.
+
+\textbf{The theorem survived.} A channel can drive a receiver along only as many independent directions as that receiver possesses. No quantity of bandwidth repairs that. It is proven, it is in the paper, and we would defend it.
+
+\textbf{The measurement programme built on top of it did not.} Two reasons, both of which we found ourselves rather than had pointed out to us. First, the original validation ran in a simulation satisfying the theory's assumptions by construction --- in one case a coupling parameter was \emph{imposed} on the simulator and then recovered, and the match was reported as confirmation. That demonstrates the measuring instrument inverts the model. It is not evidence for the theory, and presenting it as such was an overstatement we have since corrected in print. Second, and more seriously: the quantity the programme was designed to measure is precisely the quantity we later proved cannot be measured by observation.
+
+\begin{pullquote}
+\textit{An unused channel is trivially consistent with any upper bound on what it could have carried. We had built a ceiling for something that was sitting at zero for reasons the ceiling had nothing to say about.}
+\end{pullquote}
+
 \section{Why this is bigger than one experiment}
 
 This exact blind spot is quietly built into how several fields currently check for understanding.
@@ -209,6 +225,7 @@ Randomising a signal turned out to be roughly \textbf{three times more sensitive
 \textbf{Established}
 \begin{itemize}[leftmargin=*, itemsep=2pt, topsep=2pt]
   \item The impossibility result, proven formally
+  \item The dimensional bottleneck theorem, which stands
   \item A working system where the gap is visible with real numbers
   \item Why the gap exists
   \item A fix that works --- tested honestly, including where it hits a real wall
@@ -243,5 +260,25 @@ If it tracks the real meaning, that narrows the theory rather than breaking it. 
 \textbf{You can only find out by testing it.}
 \end{tcolorbox}
 \end{center}
+
+\vspace{0.7cm}
+
+\section*{Where to read it}
+\addcontentsline{toc}{section}{Where to read it}
+
+\begin{itemize}[leftmargin=*, itemsep=3pt]
+  \item \textbf{The paper} --- \texttt{paper\_main/main.pdf}, 36 pp. Build it with
+        \texttt{cd paper\_main \&\& ./build.sh}.
+  \item \textbf{The idea in prose}, longer than this and shorter than the paper ---
+        \texttt{opp.md}.
+  \item \textbf{The decisive experiment}, to run rather than read --- \\
+        \texttt{experiments/paper1\_rl/probe\_oracle\_listener.py}\ --- seeded, CPU-only,
+        about a minute.
+  \item \textbf{The research log}, including everything that did not work ---
+        \texttt{diary/}.
+\end{itemize}
+
+\vspace{0.3cm}
+\noindent\small Ashok Pasala \& Snigdha Gorai, VIT-AP University, Amaravati.
 
 \end{document}

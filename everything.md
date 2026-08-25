@@ -9,6 +9,12 @@ alias: "Everything — What This Project Is, Does, and Is Going To Do"
 
 A note on tone before it starts: this project has one standing rule that shows up in every diary entry and every section of the paper — say what's proven, say what's hypothesis, and never let the two blur, especially when the hypothesis is the exciting one. That rule is why this document is going to sound more careful in places than the underlying results deserve to be undersold. That's on purpose. The strong claims in here are strong *because* they're fenced off from the soft ones.
 
+> [!note] **Status note added 2026-08-25.** This document is dated and describes the state at the
+> time of writing, when the work lived in two manuscripts. There is now one paper,
+> [`paper_main/`](paper_main/) — `paper/` and `paper2/` were merged into it and deleted. Section
+> references here may not match the current numbering; file paths have been updated in place.
+> Nothing in the substance below is withdrawn by the merge.
+
 ---
 
 ## 1. What this actually is, in one breath

@@ -12,7 +12,7 @@ Method. The Gumbel-Sigmoid channel (gumbel_channel.py) injects fresh
 logistic noise into the message logits on every call:
     gumbel_noise = log(u) - log(1-u),   u ~ Uniform(0,1)
 independent of everything else by construction -- exactly the "exogenous
-channel noise" Remark 2 of paper2/main.tex argues qualifies as an
+channel noise" Remark 2 of paper_main/main.tex argues qualifies as an
 instrument. This script fixes the environment seed per episode (so the
 goal/landmark configuration -- the analogue of the shared-convention latent
 C -- is held fixed) and re-runs the *entire* episode `k_resamples` times with
@@ -221,7 +221,7 @@ def main():
     print(f"  IV estimate (noise-as-instrument):        {iv:+.3f}   95% CI [{iv_ci[0]:+.3f}, {iv_ci[1]:+.3f}]")
     print(f"  first-stage F-statistic:                  {f_stat:.1f}  ({'OK' if f_stat >= 10 else 'WEAK -- do not trust the IV point estimate'})")
 
-    value_of_info = 8.10  # expert (-8.78) minus goal-blind (-16.88), from Table 2 of paper2/main.tex
+    value_of_info = 8.10  # expert (-8.78) minus goal-blind (-16.88), from Table 2 of paper_main/main.tex
     direct_effect_ablation = direct['eval_return_real_message_mean'] - direct['eval_return_zero_message_mean']
     direct_effect_randomisation = direct['eval_return_real_message_mean'] - direct['eval_return_shuffled_message_mean']
     print(f"\n  For scale: direct-intervention effect sizes on this same policy were "

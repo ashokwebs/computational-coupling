@@ -8,18 +8,20 @@ Whether you're a math wizard deriving transfer entropy bounds, a neuro-geek hack
 
 ## 📜 Principles & Mindset
 
-1. **Rigor over Hype:** We dont do hand-wavy claims about "telepathy" or "brain languages". Everything we propose must be grounded in information theory, dynamical systems, or formal ML.
-2. **Humane & Fast Code:** Code should be clean, readable, and fun to hack on! Use clear variable names, add docstrings, and feel free to leave enthusiastic notes in PRs.
-3. **Reproducibility is King:** If you add an experiment script, include a fixed random seed parameter, a sample config file, and clear instructions on how to reproduce your plots.
+1. **Rigor over Hype:** We dont do hand-wavy claims about "telepathy" or "brain languages". Everything we propose must be grounded in information theory, causal inference, dynamical systems, or formal ML.
+2. **Say what's proven and what isn't:** This repo has one standing rule that outranks everything else — never let a hypothesis and a result blur, *especially* when the hypothesis is the exciting one. We retracted our own headline validation for breaking this rule (see `paper_main/` §2.3). Null and inconclusive results get reported as null and inconclusive.
+3. **Humane & Fast Code:** Code should be clean, readable, and fun to hack on! Use clear variable names, add docstrings, and feel free to leave enthusiastic notes in PRs.
+4. **Reproducibility is King:** If you add an experiment script, include a fixed random seed parameter, a sample config file, and clear instructions on how to reproduce your plots.
 
 ---
 
 ## 🛠️ How to Contribute
 
-### 1. Theory & LaTeX Paper (`paper/`)
-- Edit the modular section files in `paper/sections/` (`introduction.tex`, `theory.tex`, etc.).
-- Make sure all references are added to `paper/references.bib` with proper BibTeX formatting and valid DOIs/arXiv IDs.
-- Test `pdflatex main.tex` to ensure it compiles without errors before submitting your PR.
+### 1. Theory & LaTeX Paper (`paper_main/`)
+- There is exactly **one** paper: `paper_main/main.tex`. Edit it directly — it is a single file, not modular sections.
+- Add references to `paper_main/references.bib` with proper BibTeX formatting and valid DOIs/arXiv IDs.
+- Run `cd paper_main && ./build.sh` before submitting. It must report **0 overfull** and **0 undefined**; PRs that regress either will be asked to fix it first.
+- If you change a claim, change the claim's evidence in the same PR — or mark it explicitly as unsupported. See the honesty principle below.
 
 ### 2. Literature Summaries (`literature/`)
 - Found a paper related to BBI, optimal transport (FUGW), hyperscanning, or emergent MARL?

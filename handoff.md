@@ -32,8 +32,8 @@ The original program (a Shannon-style measurement theory for brain-to-brain inte
 | `opp.md` | The core idea, in prose. Start here for the *why*. | Current |
 | `paper_main/main.tex` | **The paper.** "Understanding Is Not Observable," with the coupling-capacity programme folded in as §2. | **Authoritative**, builds clean, 36 pp |
 | `paper_main/references.bib` | Its bibliography, 43 entries, all resolving | Current |
-| `paper2/` | Standalone draft of the same paper, v0.1.0 | **Archived** — see `paper2/ARCHIVED.md` |
-| `paper/` | Original BBI coupling paper, v0.3.0 | **Archived** — see `paper/ARCHIVED.md`; formalism lives in `paper_main` §2 |
+| `paper2/` | Standalone draft of the same paper, v0.1.0 | **Deleted 2026-08-25** — absorbed whole into `paper_main/` |
+| `paper/` | Original BBI coupling paper, v0.3.0 | **Deleted 2026-08-25** — formalism lives on as `paper_main/` §2 |
 | `experiments/paper1_rl/` | All code producing the anchor result | Working |
 | `experiments/paper1_rl/TODO.md` | Detailed experimental log, honest negatives included | Current, authoritative |
 | `experiments/results/logs/`, `plots/` | Run outputs | Current |

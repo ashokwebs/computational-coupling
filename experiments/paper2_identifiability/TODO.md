@@ -2,7 +2,7 @@
 
 ## ✅ Done — noise-as-instrument (2026-07-31)
 
-`noise_as_instrument.py` converts `paper2/main.tex` Remark 2 (§4.1, "an underexploited inversion") from an argued claim into a demonstrated method, per `handoff.md` §5's top research debt ("inject noise independent of the shared latent into the existing testbed, recover the known ground-truth coupling via IV, and confirm it matches the interventional estimate").
+`noise_as_instrument.py` converts `paper_main/main.tex` Remark 2 (§4.1, "an underexploited inversion") from an argued claim into a demonstrated method, per `handoff.md` §5's top research debt ("inject noise independent of the shared latent into the existing testbed, recover the known ground-truth coupling via IV, and confirm it matches the interventional estimate").
 
 **Construction.** Two linear-Gaussian dyads, matching Theorem 1's proof structure but continuous so 2SLS applies: a shared latent $C$ (the convention), a transmitted message $M = C + N$ with $N$ exogenous channel noise independent of $C$ (the instrument), and behaviour $U$ defined two ways:
 - **coupled**: $U = \kappa M + \varepsilon$ — behaviour causally depends on the message.
@@ -23,7 +23,7 @@ Observational gap between the two dyads: **0.0011** (statistically zero — conf
 
 Outputs: `experiments/results/logs/paper2_noise_as_instrument.json`, `experiments/results/plots/paper2_noise_as_instrument.png`.
 
-**Fed back into the paper**: `paper2/main.tex` Remark 2 (§4.1) and the corresponding limitations-section caveat updated to report this as demonstrated rather than asserted; recompiled clean.
+**Fed back into the paper**: `paper_main/main.tex` Remark 2 (§4.1) and the corresponding limitations-section caveat updated to report this as demonstrated rather than asserted; recompiled clean.
 
 **What this does *not* yet establish**: this is a linear-Gaussian toy matching the theorem's proof structure, not a demonstration on real (nonlinear, non-Gaussian) hyperscanning or RL data. The natural next step — flagged but not started — is applying the same instrument logic to the existing `experiments/paper1_rl/` Stage 2 system (its trained-channel noise, e.g. from the Gumbel-Softmax relaxation temperature or dropout, could serve as a real instrument) or to a real hyperscanning corpus's channel dropout/jitter, to check the method survives contact with a system that wasn't built to make it work.
 
@@ -49,7 +49,7 @@ The instrument is unusable here, and the diagnostic caught it correctly rather t
 
 Outputs: `experiments/results/logs/paper2_noise_as_instrument_stage2_seed42.json`, `experiments/results/plots/paper2_noise_as_instrument_stage2.png`.
 
-**Fed back into the paper**: `paper2/main.tex` Remark 2 and Limitations updated with this result — see main text.
+**Fed back into the paper**: `paper_main/main.tex` Remark 2 and Limitations updated with this result — see main text.
 
 ## 🔜 Next (not started)
 

@@ -55,5 +55,5 @@ alias: "Lab Home & Master Dashboard"
 
 - 📄 **The paper (LaTeX source):** [[paper_main/main.tex|paper_main/main.tex]] — *Understanding Is Not Observable*, 36 pp. The single authoritative manuscript.
 - 📑 **Compiled PDF:** [[paper_main/main.pdf|paper_main/main.pdf]] — build with `cd paper_main && ./build.sh`
-- 🗄️ **Archived:** `paper/` and `paper2/` were merged into `paper_main/` on 2026-08-25. Each carries an `ARCHIVED.md` saying where its content went. Do not edit either.
+- 🗄️ **Gone:** `paper/` and `paper2/` were merged into `paper_main/` on 2026-08-25 and deleted. `paper/`'s formalism is `paper_main/` §2; `paper2/` is the rest of the paper. Recoverable from git history at commit `94eca22` if ever needed.
 - 📁 **Complete Reference Archives:** [[damn_sources/computational_coupling_foundation|damn_sources master archive]]

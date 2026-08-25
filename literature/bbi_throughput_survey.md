@@ -6,7 +6,7 @@ alias: "BBI Throughput Survey — checking the retrodiction against real numbers
 # BBI Throughput Survey
 
 **Date:** 2026-07-31
-**Purpose:** `paper2/main.tex` §`sec:bbi` claims the framework retrodicts a decade-long stagnation in brain-to-brain interface (BBI) throughput despite large hardware gains, citing only Rao (2014) and Jiang (2019) by name and no numbers. `handoff.md` §5.6 and the Limitations section (§9) both flag this as asserted, not tabulated, and as "the section to cut first if the paper needs shortening" if it turns out throughput actually tracks hardware. This is that tabulation.
+**Purpose:** `paper_main/main.tex` §`sec:bbi` claims the framework retrodicts a decade-long stagnation in brain-to-brain interface (BBI) throughput despite large hardware gains, citing only Rao (2014) and Jiang (2019) by name and no numbers. `handoff.md` §5.6 and the Limitations section (§9) both flag this as asserted, not tabulated, and as "the section to cut first if the paper needs shortening" if it turns out throughput actually tracks hardware. This is that tabulation.
 
 **Method:** literature search (WebSearch/WebFetch) for direct human-to-human brain-to-brain interface (B2BI/BBI) studies — not general BCI, not human-to-animal — spanning the field's ~decade of existence (2014 onward), with electrode counts and any reported information-transfer figures. Cross-checked against a 2021 PRISMA systematic review of the whole B2BI literature (Ge et al./Frontiers in Neurorobotics) for coverage.
 

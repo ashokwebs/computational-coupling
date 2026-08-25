@@ -75,4 +75,4 @@ And it tells you the instrument that can: **ablate the channel and measure the b
 
 ## 📖 Related Primary Files
 - [`opp.md`](file:///home/charizard/computational-coupling/opp.md) — Master manifesto.
-- [`paper2/main.tex`](file:///home/charizard/computational-coupling/paper2/main.tex) — LaTeX manuscript of Paper 2.
+- [`paper_main/main.tex`](file:///home/charizard/computational-coupling/paper_main/main.tex) — LaTeX manuscript of Paper 2.

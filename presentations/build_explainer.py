@@ -357,7 +357,7 @@ def build():
     S.append(Paragraph(
         "Prepared as a plain-language companion to the full technical paper and "
         "research repository. For the formal version — definitions, proofs, and "
-        "the underlying data — see <i>paper/main.tex</i> and <i>theory/</i> in the "
+        "the underlying data — see <i>paper_main/main.tex</i> and <i>theory/</i> in the "
         "project repository.", styles["Caption"]))
 
     doc.build(S, canvasmaker=NumberedCanvas)

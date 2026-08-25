@@ -31,23 +31,38 @@ pip install torch numpy scipy matplotlib pettingzoo mpe2 gymnasium docx reportla
 
 ---
 
-## 3. Compiling the LaTeX Paper (`paper/`)
+## 3. Building the Paper (`paper_main/`)
 
-The paper source is modularized under `paper/`. You can compile it using python or `pdflatex`:
+There is one paper: `paper_main/main.tex`. Build it with the script, which runs the full
+`pdflatex → bibtex → pdflatex ×2` cycle and then reports page count, overfull boxes and
+undefined references:
 
 ```bash
-# Method A: Python compiler script
-python3 paper/compile_paper.py
-
-# Method B: Direct pdflatex command inside paper/
-cd paper/
-pdflatex main.tex
-bibtex main
-pdflatex main.tex
-pdflatex main.tex
+cd paper_main && ./build.sh
 ```
 
-The output PDF is automatically updated at `paper/output/paper.pdf`!
+Expected output:
+
+```
+built: .../paper_main/main.pdf
+  pages:     36
+  overfull:  0
+  undefined: 0
+```
+
+If `overfull` or `undefined` is anything other than `0`, fix it before committing. The PDF is
+tracked in git — it is the deliverable — but all the `.aux`/`.bbl`/`.log`/`.out` build noise is
+gitignored.
+
+Doing it by hand is equivalent:
+
+```bash
+cd paper_main/
+pdflatex main.tex && bibtex main && pdflatex main.tex && pdflatex main.tex
+```
+
+> **Note:** `paper/` and `paper2/` no longer exist. They were merged into `paper_main/` on
+> 2026-08-25 and deleted; recoverable from git history at commit `94eca22` if needed.
 
 ---
 
@@ -64,6 +79,14 @@ python run_bandwidth_sweep.py --env simple_speaker_listener_v4 --seed 42
 
 To sync this repo with Overleaf:
 1. Go to Overleaf -> New Project -> Import from GitHub.
-2. Select `ashokpasala/computational-coupling`.
-3. Set **Root Document** in Overleaf settings to `paper/main.tex`.
+2. Select `ashokwebs/computational-coupling`.
+3. Set **Root Document** in Overleaf settings to `paper_main/main.tex`.
 4. Edit anywhere — local VS Code or Overleaf — push/pull without breaking anything!
+
+The paper needs `texlive-latex-base texlive-latex-recommended texlive-latex-extra
+texlive-fonts-recommended`. Overleaf has all of them. Locally on Debian/Ubuntu:
+
+```bash
+sudo apt-get install -y texlive-latex-base texlive-latex-recommended \
+                        texlive-latex-extra texlive-fonts-recommended
+```

@@ -33,15 +33,19 @@ $$C(i \to j) \triangleq \sup_{g \in \mathcal{A}(B)} \mathrm{TE}_{i \to j}(\Delta
 
 ---
 
-## 3. The Critical Shift: "Understanding Is Not Observable" (`paper2/`)
+## 3. The Critical Shift: "Understanding Is Not Observable" (`paper_main/` §§3–8)
 
 During Stage 2 empirical validation, a crucial discovery superseded the pure observational framing.
+The three predictions above are stated in `paper_main/` §2 as the programme that was attempted;
+§2.3 explains why the simulation supporting them validated the *estimator* rather than the theory,
+and §2.4 shows the quantity they are built on is non-identifiable. **The bottleneck theorem itself
+still stands** — only the measurement programme built on it is withdrawn.
 
 ### The Empirical Wall & Discovery Chain
 1. **The Estimator Bias Trap**: An initial $r = 0.99$ bandwidth-coupling curve was identified as regression sample-size bias in raw transfer entropy. Pure noise returned 0.71 fabricated "bits". Corrected using block-shuffle surrogate subtraction (`cl.effective_te`).
 2. **Sender Encoding**: In multi-agent RL, agents initially failed to encode messages ($R^2 \approx 0.001$). Fixed by adding a speaker auxiliary prediction loss ($aux\_coef \approx 200$).
 3. **Receiver Decodability vs. Behavior (Proposition 1)**: The listener's internal hidden representations reconstructed the speaker's signal with error $0.0017$ (the information was *provably present and linearly decodable*), yet the receiver's policy remained completely unchanged ($z \approx 0$).
-4. **The Oracle Control**: Giving the receiver the goal directly without a channel resulted in the exact same goal-blind policy. The failure was an RL optimization landscape issue, not a channel capacity limit.
+4. **The Oracle Control**: Giving the receiver the goal directly without a channel resulted in the exact same goal-blind policy. The failure was an RL optimization landscape issue, not a channel capacity limit. This is the paper's decisive control (`paper_main/` §6.2) and the reason the bandwidth premise that started the project is rejected in §9.4.
 
 ### Key Theoretical Contributions of Paper 2
 
@@ -58,6 +62,5 @@ During Stage 2 empirical validation, a crucial discovery superseded the pure obs
 
 ## 📖 Primary Source Documents
 - [`opp.md`](file:///home/charizard/computational-coupling/opp.md) — Fundamental manifesto on the interventional reframe.
-- [`paper2/main.tex`](file:///home/charizard/computational-coupling/paper2/main.tex) — Draft of Paper 2 ("Understanding Is Not Observable").
-- [`paper/main.tex`](file:///home/charizard/computational-coupling/paper/main.tex) — Draft of Paper 1 (Original BBI Formalism).
+- [`paper_main/main.tex`](file:///home/charizard/computational-coupling/paper_main/main.tex) — **The paper.** "Understanding Is Not Observable," 36 pp. §2 carries the original BBI formalism; the rest is the impossibility argument and the interventional remedy.
 - [`handoff.md`](file:///home/charizard/computational-coupling/handoff.md) — Comprehensive state of project as of July 2026.

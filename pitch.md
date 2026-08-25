@@ -7,6 +7,10 @@ alias: "The Pitch — Understanding Is Not Observable"
 
 Not "do they seem like they understand you." Actually.
 
+> **The paper:** *Understanding Is Not Observable — Shared Convention Makes Communication
+> Possible and Its Measurement Impossible.* 36 pages, [`paper_main/`](paper_main/).
+> Ashok Pasala & Snigdha Gorai, VIT-AP University.
+
 Here's a strange fact to start with: a horse named Clever Hans could supposedly do arithmetic. Ask him "what's 4 plus 3?" and he'd tap his hoof seven times and stop. Crowds came to watch. Scientists tested him and couldn't catch him cheating — until someone thought to ask the question *without letting the horse see the questioner know the answer*. Hans stopped getting it right immediately. He was never doing math. He was reading tiny, unconscious relaxation cues in the human's posture the instant he reached the correct tap count. Everyone watching — including, for years, the scientists — had been fooled by something that looked exactly like understanding and wasn't.
 
 That's the whole project, basically. We found a modern, precise, provable version of the Clever Hans problem, and it's much bigger than a horse.
@@ -16,6 +20,10 @@ That's the whole project, basically. We found a modern, precise, provable versio
 The idea was simple and, honestly, kind of exciting: your brain thinks incredibly fast. But to tell anyone anything, you have to squeeze it out through your mouth, one word at a time — something like 40 bits of information per second, max, while your brain is arguably doing a billion times that internally. Speech is a straw. What if you could connect two brains directly and skip the straw entirely?
 
 That was the pitch. Build a direct brain-to-brain link, remove the bottleneck, watch two minds finally talk at full speed.
+
+And we didn't just have the idea — we built the missing piece. The whole field had been designing brain-connection hardware without ever defining what quantity such a link is supposed to *maximise*. It's a bit like designing modems before Shannon worked out what a channel's capacity even was in 1948. So we defined one: **coupling capacity**, a measure of how much one system's signal can actually steer another's internal trajectory. And we proved a theorem about it that turned out to be genuinely surprising — the ceiling is set not by how fat the wire is, but by how many independent directions the *receiver* can be moved in at all. Past a certain point, a wider channel buys you literally nothing.
+
+That theorem is still true. It's in the paper. But the story of what happened next is why it isn't the headline.
 
 ## The experiment that ruined that idea, in the best way
 
@@ -46,6 +54,16 @@ It turns out this exact blind spot is quietly built into how several entire fiel
 ## The fix, in plain terms
 
 You can't find this by watching. You have to poke it. Take the signal away, or scramble it, and see if behavior actually changes. If it does — real communication was happening. If it doesn't — you had the Clever Hans version the whole time, no matter how convincing it looked. That's a test anyone can run, on an AI system, on hyperscanning data neuroscientists already have sitting around, on almost anything two-sided.
+
+## What survived from the original theory — and what didn't
+
+Worth being precise here, because it's the part people ask about and the part that's easiest to fudge.
+
+**The theorem survived.** A channel can only push a receiver along as many independent directions as that receiver actually has. No amount of bandwidth fixes that. It's proven, it's in the paper as Section 2, and we'd defend it.
+
+**The measurement programme built on top of it did not.** Two reasons, both of which we found ourselves rather than had pointed out to us. First, our original "validation" ran in a simulation that satisfied the theory's assumptions by construction — in one case we *set* a coupling number, then measured it back out, and reported the match as confirmation. That's a demonstration that our measuring stick works. It is not evidence that the theory is true, and we shouldn't have presented it as though it were. Second, and worse: the quantity the whole programme was designed to measure is exactly the quantity we later proved you cannot measure by watching.
+
+**The honest summary:** we built a ceiling for something, and then discovered the thing was sitting at zero for reasons the ceiling had nothing to say about. An unused channel is trivially consistent with any upper bound on what it *could* have carried. That's the sentence the whole project turns on.
 
 ## The numbers, for anyone who wants to check the story instead of just hearing it
 
@@ -90,3 +108,14 @@ If the system tracks the real meaning: that's evidence the fluency is doing genu
 ## The one-sentence version, if that's all there's time for
 
 You cannot tell whether two systems understand each other by watching them — you can only find out by testing it — and almost nobody currently tests it that way.
+
+---
+
+### Where to read it
+
+- **The paper** — [`paper_main/main.pdf`](paper_main/main.pdf), 36 pp. Build it yourself with `cd paper_main && ./build.sh`.
+- **The idea in prose**, longer than this and shorter than the paper — [`opp.md`](opp.md).
+- **The decisive experiment**, if you'd rather just run it — `experiments/paper1_rl/probe_oracle_listener.py`. Seeded, CPU-only, about a minute.
+- **The research log**, all of it including the parts that didn't work — [`diary/`](diary/).
+
+*Contact: Ashok Pasala & Snigdha Gorai, VIT-AP University.*

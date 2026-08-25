@@ -6,12 +6,15 @@ alias: "paper_main — the paper"
 # paper_main — the single authoritative manuscript
 
 **Understanding Is Not Observable: Shared Convention Makes Communication Possible and Its
-Measurement Impossible.** 36 pp. This merges and replaces the two earlier manuscripts:
+Measurement Impossible.** 36 pp. This merges and replaces the two earlier manuscripts, which
+were folded in here on 2026-08-25 and then deleted from the tree:
 
-- `paper/` — *A Theory of Computational Coupling Between Intelligent Systems* (v0.3.0) → **archived**
-- `paper2/` — *Understanding Is Not Observable* (v0.1.0) → **archived**
+- `paper/` — *A Theory of Computational Coupling Between Intelligent Systems* (v0.3.0)
+- `paper2/` — *Understanding Is Not Observable* (v0.1.0)
 
-Both retain an `ARCHIVED.md` explaining where their content went. Do not edit either.
+Nothing was lost. `paper/`'s formalism is §2 below; `paper2/` is the rest of the paper in full.
+Both directories are recoverable from git history if you ever need the originals — see commit
+`94eca22` and its parents.
 
 ## Build
 

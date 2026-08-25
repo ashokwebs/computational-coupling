@@ -18,8 +18,7 @@ To quickly get up to speed without getting lost in the details, follow this sequ
 ### Day 2: Theoretical & Mathematical Foundations
 1. **[02_MATHEMATICS_AND_ESTIMATORS.md](file:///home/charizard/computational-coupling/study-these/02_MATHEMATICS_AND_ESTIMATORS.md)** — Formal math: State spaces, Transfer Entropy ($TE$), KSG estimators, and block-shuffle surrogate bias correction (`cl.effective_te`).
 2. **Primary Source Drafts**:
-   - [`paper2/main.tex`](file:///home/charizard/computational-coupling/paper2/main.tex) — "Understanding Is Not Observable" (Active Paper 2).
-   - [`paper/main.tex`](file:///home/charizard/computational-coupling/paper/main.tex) — Original BBI coupling theory paper (Paper 1).
+   - [`paper_main/main.tex`](file:///home/charizard/computational-coupling/paper_main/main.tex) — **"Understanding Is Not Observable."** The one paper. §2 is the original BBI coupling theory (coupling capacity + the bottleneck theorem) and the account of why its validation does not support it; §§3–8 are the standing argument. Formerly two directories, `paper/` and `paper2/`, merged 2026-08-25.
    - [`theory/definitions.md`](file:///home/charizard/computational-coupling/theory/definitions.md) & [`theory/mathematics.md`](file:///home/charizard/computational-coupling/theory/mathematics.md).
 
 ### Day 3: Empirical Testbed & Code Architecture
@@ -45,7 +44,7 @@ To quickly get up to speed without getting lost in the details, follow this sequ
    ```
 3. **Compile Papers**:
    ```bash
-   python3 paper/compile_paper.py
+   cd paper_main && ./build.sh
    ```
 
 ---

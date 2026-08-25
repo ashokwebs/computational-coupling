@@ -1,7 +1,7 @@
 """
 noise_as_instrument.py
 =======================
-Demonstrates Remark 2 of paper2/main.tex ("On (ii): an underexploited
+Demonstrates Remark 2 of paper_main/main.tex ("On (ii): an underexploited
 inversion"): exogenous channel noise, independent of a dyad's shared
 convention, satisfies the instrumental-variable conditions and recovers
 functional coupling where observational statistics cannot.

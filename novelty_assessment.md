@@ -6,7 +6,13 @@ alias: "Novelty Assessment — Understanding Is Not Observable"
 # 🔍 Novelty Assessment — "Understanding Is Not Observable"
 
 **Date:** 2026-07-29
-**Purpose:** Honest evaluation of what is genuinely new in `paper2/` vs. what exists in prior art.
+**Purpose:** Honest evaluation of what is genuinely new in `paper_main/` vs. what exists in prior art.
+
+> [!note] **Status note added 2026-08-25.** This document is dated and describes the state at the
+> time of writing, when the work lived in two manuscripts. There is now one paper,
+> [`paper_main/`](paper_main/) — `paper/` and `paper2/` were merged into it and deleted. Section
+> references here may not match the current numbering; file paths have been updated in place.
+> Nothing in the substance below is withdrawn by the merge.
 
 ---
 
@@ -156,7 +162,7 @@ Both papers have now been read in full (not from memory or summary). This sectio
 
 Their formalism is **monadic, not dyadic**: semantic information ($I_{\text{sem}}^{\text{stored}} = I_{\tilde p^*}(X_0;Y_0)$, Eq. 5.7) is defined for *one* system's information about *its own environment*, via a viability-optimal counterfactual intervention. There is no sender/receiver pair anywhere in the paper, no treatment of two systems exchanging signals, and no notion of a shared convention or common-cause confounder between two agents. They also do **not** state or prove any non-identifiability/impossibility result — they assume interventional (counterfactual) access is available and build the definition on top of it; nothing in the paper says semantic information *cannot* be recovered observationally. And they never touch communication, hyperscanning, BBI, or AI evaluation — the paper is about organisms (bacteria, birds) maintaining themselves against an environment.
 
-**Correction to §4:** the original threat-matrix severity of 🟡 HIGH was set from memory and was too high. On a full read, K&W is a strong *citation* (nearest formal neighbour for "meaning = causal relevance, not correlation") but a weak *competitor* — they don't have the dyadic structure, the confounder, the impossibility result, or the domain. Actual severity: 🟢 LOW–MEDIUM. `paper2/main.tex` §8 (L347) already states this distinction correctly ("unlike us, they do not address identifiability from observational data or the constitutive role of shared convention as confounder") — that sentence is now verified against the primary source rather than asserted from a prior summary.
+**Correction to §4:** the original threat-matrix severity of 🟡 HIGH was set from memory and was too high. On a full read, K&W is a strong *citation* (nearest formal neighbour for "meaning = causal relevance, not correlation") but a weak *competitor* — they don't have the dyadic structure, the confounder, the impossibility result, or the domain. Actual severity: 🟢 LOW–MEDIUM. `paper_main/main.tex` §8 (L347) already states this distinction correctly ("unlike us, they do not address identifiability from observational data or the constitutive role of shared convention as confounder") — that sentence is now verified against the primary source rather than asserted from a prior summary.
 
 ### 6.2 Lowe et al. (2019) — verified
 

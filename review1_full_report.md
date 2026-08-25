@@ -8,6 +8,12 @@ alias: "Review 1 — Everything We're Working On"
 **Written:** 2026-08-13, the day before Review 1.
 **Purpose:** the full inventory — not the curated fifteen minutes (see the diary entry from this morning for that split), but *everything*: what's done, what's proven, what's still a hypothesis, and every angle this work could be pitched from. Read this to remember what's in the building, then decide what to walk people through.
 
+> [!note] **Status note added 2026-08-25.** This document is dated and describes the state at the
+> time of writing, when the work lived in two manuscripts. There is now one paper,
+> [`paper_main/`](paper_main/) — `paper/` and `paper2/` were merged into it and deleted. Section
+> references here may not match the current numbering; file paths have been updated in place.
+> Nothing in the substance below is withdrawn by the merge.
+
 ---
 
 ## 1. The one-paragraph version, if someone stops you in the hallway
@@ -45,7 +51,7 @@ It genuinely helps to tell this chronologically rather than as a features list, 
 - **An honestly-scoped instrument validation.** Noise-as-instrument recovers exact ground truth on a calibrated toy (200 seeds), and *fails* on the real trained system with a diagnosed cause (auxiliary-loss-driven logit saturation starves the channel's own noise of relevance) — a genuine boundary condition on the method, written up as such rather than hidden.
 - **A field-level retrodiction with primary sourcing.** BBI throughput went *down* from Rao et al. 2014 to Jiang et al.'s BrainNet 2019 despite five years of hardware improvement — confirmed in the BrainNet authors' own discussion section and an independent 2021 systematic review — and the framework is the only account on hand that predicts this rather than being surprised by it.
 - **A novelty check done properly**, not assumed: Kolchinsky & Wolpert (2018) and Lowe et al. (2019) read in full from primary sources. K&W is monadic (no sender/receiver pair, no confounder, no impossibility result) — a strong citation, not a competitor. Lowe et al. independently found the same positive-signalling/positive-listening split empirically but traced it to an architectural confound our system's diagnostic chain rules out, and never ran an oracle control. The claim survives contact with the closest prior work.
-- **A compiled paper.** `paper2/main.tex`, 17 pages, 0 overfull boxes, 0 undefined references, bibliography resolving.
+- **A compiled paper.** `paper_main/main.tex`, 17 pages, 0 overfull boxes, 0 undefined references, bibliography resolving.
 
 ---
 
