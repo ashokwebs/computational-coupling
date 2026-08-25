@@ -2,6 +2,11 @@
 %  Understanding Is Not Observable
 %  Shared Convention Makes Communication Possible and Its Measurement Impossible
 %
+%  MAIN PAPER.  Supersedes and absorbs both earlier manuscripts:
+%    - paper/   "A Theory of Computational Coupling Between Intelligent Systems"
+%    - paper2/  "Understanding Is Not Observable" (v0.1.0)
+%  Both are archived; this file is the single authoritative manuscript.
+%
 %  Single-column academic article (standard LaTeX `article` template).
 %  Build:  ./build.sh        (pdflatex -> bibtex -> pdflatex x2)
 %==============================================================================
@@ -140,6 +145,15 @@
 %==============================================================================
 \begin{abstract}
 \noindent
+This paper began as an attempt to give brain-to-brain interface research what Shannon gave
+telecommunications: a governing quantity to aim at rather than a catalogue of devices to
+imitate. We define one --- \emph{coupling capacity}, a directed, interface-supremum
+generalisation of channel capacity over state trajectories --- and prove that it saturates at
+the smaller of the two systems' effective representational dimensionalities rather than at the
+channel rate. We then show that the quantity so defined cannot be measured, and that the
+obstruction is not a defect of our formulation but applies to every observational coupling
+measure in current use.
+
 Four fields ask whether one system understands another --- artificial intelligence of its
 models, neuroscience of interacting brains, comparative cognition of other species,
 philosophy of other minds --- and all four answer the same way: observe what passes
@@ -187,8 +201,8 @@ would decide the account.
 
 \vspace{2pt}
 \noindent\textbf{Keywords:} functional coupling; causal identifiability; shared convention;
-emergent communication; hyperscanning; mechanistic interpretability; brain-to-brain
-interfaces; instrumental variables.
+coupling capacity; transfer entropy; emergent communication; hyperscanning; mechanistic
+interpretability; brain-to-brain interfaces; instrumental variables.
 
 \vspace{4pt}
 \noindent\rule{\textwidth}{0.4pt}
@@ -214,6 +228,19 @@ This paper argues that the instrument cannot return the answer --- not because m
 is noisy or the systems are complex, but because the quantity of interest is not a function
 of the data being collected. We give two independent arguments, one theoretical and one
 empirical, and one remedy.
+
+\paragraph{How we arrived at this claim.}
+We did not set out to prove a negative. The work began on the constructive side of the same
+question, in brain-to-brain interface research, which occupies today roughly the position
+telecommunications occupied before 1948: considerable engineering technique, no governing
+quantity that says what a link is for or how well it is doing. \Cref{sec:attempt} states the
+quantity we proposed to fill that gap --- \emph{coupling capacity}, a supremum of directed
+information over admissible interfaces --- together with a bottleneck theorem showing it is
+capped by representational geometry rather than by bandwidth, and the simulation we built to
+test it. The programme did not survive its own controls, and it failed in a way that turned
+out to generalise far beyond the interface question that motivated it. We report it first
+because the rest of the paper is the diagnosis of that failure, and because the failure mode
+is, we will argue, shared by four literatures that have not noticed it.
 
 \paragraph{The theoretical argument.}
 \Cref{sec:nonid} is an identifiability result with an unusual structure. Ordinary
@@ -247,6 +274,13 @@ dissociating.
 \subsection{Contributions}\label{sec:contributions}
 
 \begin{enumerate}[leftmargin=1.6em, itemsep=3pt]
+    \item A formal target for interface research --- coupling capacity (\cref{def:cc}) and an
+    effective-dimensionality bottleneck theorem (\cref{thm:bottleneck}) --- stated in full,
+    together with an explicit account of why its empirical validation does not support it and
+    why the quantity it bounds is not recoverable from observation (\cref{sec:attempt}). The
+    theorem stands as a statement about what a bandwidth-limited interface can drive; the
+    measurement programme built on it does not.
+
     \item A non-identifiability theorem for functional coupling under shared convention
     (\cref{thm:nonid}), with the observation that the confounder is constitutive rather than
     incidental, and a linear--Gaussian family (\cref{prop:generic}) showing the construction
@@ -306,8 +340,10 @@ human--AI or hyperscanning data; \cref{sec:open} states those as the principal o
 obligations, with designs.
 
 \subsection{Roadmap}
-\Cref{sec:setup} fixes notation and the causal object of interest. \Cref{sec:nonid} proves
-non-identifiability. \Cref{sec:identification} characterises when identification is
+\Cref{sec:attempt} states the coupling-capacity programme, its bottleneck theorem, and the
+controls that ended it; a reader interested only in the paper's standing claims may begin at
+\cref{sec:setup}. \Cref{sec:setup} fixes notation and the causal object of interest.
+\Cref{sec:nonid} proves non-identifiability. \Cref{sec:identification} characterises when identification is
 recoverable and when it is not. \Cref{sec:empirical} reports the state--behaviour
 dissociation, \cref{sec:why} explains it, and \cref{sec:remedy} gives the measurement
 protocol. \Cref{sec:implications} draws consequences for four fields, \cref{sec:related}
@@ -316,10 +352,226 @@ and \cref{sec:open} lists what would settle it. Proofs, experimental detail and 
 pre-registered protocol for the outstanding human--AI study appear in the appendices.
 
 %==============================================================================
+\section{The target we set out to supply}\label{sec:attempt}
+
+Before 1948, telecommunications engineering possessed extensive practical technique but no
+rigorous definition of information or of a medium's fundamental capacity. Shannon's
+contribution \citep{shannon1948mathematical} was not a device but a measurement theory: it
+specified the upper bound on error-free transmission over any noisy medium, and thereby gave
+a field a target to aim at rather than a catalogue of gadgets to imitate.
+
+Brain-to-brain interface (BBI) and brain--computer interface research occupies an analogous
+position. Considerable ingenuity goes into tokenisation schemes, neural decoders and aligned
+embedding spaces \citep{pais2013brain, rao2014direct, jiang2019brainnet, thual2022aligning},
+yet two questions have no agreed answer:
+
+\begin{enumerate}[label=(\alph*), leftmargin=1.9em, itemsep=2pt]
+    \item What quantity is being optimised across a link between two systems?
+    \item What bounds that quantity for two dynamic, non-stationary neural manifolds?
+\end{enumerate}
+
+Absent answers, ``success'' is whichever downstream behavioural score a given paper reports,
+and results across hardware, species and modality cannot be placed on a common axis. This
+section states the quantity we proposed, the one theorem we proved about it, and --- in
+\cref{sec:sim,sec:pivot} --- exactly what our validation did and did not establish.
+
+\subsection{Coupling capacity}\label{sec:cc}
+
+Let each system $i$ be characterised by a state space $\mathcal{M}_i$, a manifold carrying an
+internal state trajectory $x_i(t)$, together with a self-predictive model $P_i$ that predicts
+$x_i(t+\Delta)$ from $x_i(\le t)$. We deliberately do not assume $\mathcal{M}_i$ is shared,
+aligned, or even of comparable dimension across systems --- a departure from hyperalignment
+approaches, which presuppose a common representational geometry.
+
+An \emph{interface} from $i$ to $j$ is a possibly stochastic map
+$g_{i\to j}: x_i(\le t) \mapsto s_{i\to j}(t)$ producing a signal that influences the
+subsequent evolution of $x_j$, subject to a bandwidth or structural budget --- a discrete
+channel of vocabulary size $K$, a continuous channel of bandwidth $B$, a hardware-constrained
+stimulation protocol. Write $\mathcal{G}$ for the admissible set under a given budget. The
+directed coupling under $g$ at lag $\Delta$ is the transfer entropy
+\citep{schreiber2000measuring, massey1990causality}
+\begin{equation}\label{eq:te}
+\TE_{i \to j}(\Delta; g) \;=\; I\big(x_i(t)\, ;\, x_j(t+\Delta) \,\big|\, x_j(\le t)\big),
+\end{equation}
+the reduction in uncertainty about $j$'s future beyond what $j$'s own past supplies. The
+explicit lag matters because biological systems exhibit genuine transmission delay and
+representational drift, which a lag-free formulation would misattribute to noise.
+
+\begin{definition}[Coupling capacity]\label{def:cc}
+The coupling capacity from system $i$ to system $j$ is the supremum of directed coupling over
+admissible interfaces,
+\begin{equation}
+C(i \to j) \;=\; \sup_{g \,\in\, \mathcal{G}} \; \TE_{i \to j}(\Delta; g).
+\end{equation}
+\end{definition}
+
+This is the dynamical analogue of Shannon capacity: where Shannon's is a supremum over input
+distributions of mutual information under a power constraint, coupling capacity is a supremum
+over \emph{interface designs} of directed information between coupled dynamical systems. Total
+coupling is $C_{\text{total}} = C(i\to j) + C(j\to i)$, with an asymmetry index
+\begin{equation}\label{eq:asym}
+A \;=\; \frac{C(i \to j) - C(j \to i)}{C(i \to j) + C(j \to i)} \;\in\; [-1, 1],
+\end{equation}
+predicted to track task-defined role --- leading versus following, speaking versus listening.
+
+\subsection{The dimensional bottleneck}\label{sec:bottleneck}
+
+The programme's substantive claim was that coupling capacity is bounded by representational
+geometry rather than by the wire.
+
+\begin{theorem}[Effective-dimensionality bottleneck]\label{thm:bottleneck}
+Let systems $i$ and $j$ have effective representational dimensionalities
+$d_i = \dim_{\mathrm{eff}}(\mathcal{M}_i)$ and $d_j = \dim_{\mathrm{eff}}(\mathcal{M}_j)$, and
+let the interface be a channel of scalar bandwidth $B$ bits per step. Then
+$C(i\to j; B)$ is non-decreasing in $B$ and
+\begin{equation}\label{eq:bottleneck}
+C(i \to j; B) \;\le\; \min\!\big(B,\; \bar{c}\cdot\min(d_i, d_j)\big),
+\end{equation}
+where $\bar{c}$ is a per-direction capacity in bits per independently drivable dimension per
+step. Consequently, as $B \to \infty$ the capacity saturates at
+$C^\ast = \bar{c}\cdot\min(d_i, d_j)$, independently of further bandwidth.
+\end{theorem}
+
+\begin{proof}
+\emph{Bandwidth bound.} The path $x_i(t) \to s_{i\to j}(t) \to x_j(t+\Delta)$ is a Markov
+chain, since $x_j$ is influenced by $x_i$ only through the transmitted signal. By the data
+processing inequality,
+\[
+I\big(x_i(t); x_j(t{+}\Delta)\mid x_j(\le t)\big)
+\;\le\; I\big(s_{i\to j}(t); x_j(t{+}\Delta)\mid x_j(\le t)\big) \;\le\; B,
+\]
+the last step because the channel carrying $s_{i\to j}$ has Shannon capacity $B$.
+
+\emph{Dimensional bound.} The exogenous drive enters $x_j$'s update through an injection
+operator whose image lies in the tangent space of $\mathcal{M}_j$, of dimension $d_j$; it can
+excite at most $d_j$ independent directions. Symmetrically the source can supply at most $d_i$
+independent predictive components, so the number of independently couplable directions is
+$\min(d_i,d_j)$. Each is a scalar coupled channel whose capacity is bounded by a finite
+constant $\bar{c}$ set by that direction's dynamic range relative to the receiver's intrinsic
+process noise. Summing over directions gives $C \le \bar{c}\cdot\min(d_i,d_j)$, with no
+dependence on $B$.
+
+\emph{Monotonicity.} Enlarging $B$ enlarges $\mathcal{G}$, and a supremum over a larger set
+cannot decrease. Taking the minimum of the two bounds and letting $B\to\infty$ gives the
+stated saturation.
+\end{proof}
+
+\Cref{thm:bottleneck} is, we believe, correct, and we do not withdraw it: it is a statement
+about what a bandwidth-limited interface can drive into a receiver of finite effective
+dimension, and its proof uses nothing beyond the data processing inequality and a tangent-space
+count. Concavity of $C(\cdot;B)$ in $B$ --- the smooth approach to the ceiling --- follows from
+a time-sharing argument in the cases we checked; a general proof remains open. What does not
+survive is the measurement programme built on top of the theorem, for reasons given in
+\cref{sec:pivot}.
+
+\subsection{Three predictions, and what the simulation actually showed}\label{sec:sim}
+
+The theorem and definition yield three falsifiable predictions.
+
+\begin{description}[leftmargin=2.6em, itemsep=3pt, font=\normalfont\bfseries]
+    \item[P1 --- Saturation law.] $C(i \to j; B)$ increases monotonically and concavely in
+    $B$, saturating at $\bar{c}\cdot\min(d_i,d_j)$ --- that is, at the smaller system's
+    \emph{effective} dimensionality rather than at the channel's rate. Falsifier: capacity that
+    keeps scaling with bandwidth well past that ceiling.
+    \item[P2 --- Self-prediction governs efficiency.] The capacity achieved per unit of
+    bandwidth, $C/B$, increases jointly in the two systems' self-predictive accuracies $R_i$ and
+    $R_j$: better internal world models extract more coupling from an identical channel.
+    \item[P3 --- Asymmetry tracks role.] The asymmetry index \eqref{eq:asym} correlates with an
+    externally defined task role across domains.
+\end{description}
+
+We tested these in a seeded sandbox of two coupled stationary vector-autoregressive processes
+joined by a quantised $B$-bit channel, with the receiver's effective dimensionality, the
+coupling gain and the bit budget all set by hand, reporting mean $\pm$ s.d.\ over five seeds
+under both a predictive-gain estimator and the model-free Kraskov--St\"ogbauer--Grassberger
+$k$-nearest-neighbour estimator \citep{kraskov2004estimating}. All three predictions were
+supported. Capacity saturated far below the raw channel limit, with ceilings of $0.81$, $1.63$
+and $3.17$ bits/step at $d_{\mathrm{eff}} = 2, 4, 8$, i.e.\ a slope of
+$\bar{c}\approx 0.39$ bits per dimension, and the ceiling tracked the hidden rank $r$ rather
+than the ambient dimension when a rank-$r$ manifold was embedded in a $16$-dimensional state.
+Coupling efficiency $C/B$ rose from $0.21$ to $0.72$ as self-predictive accuracy rose towards
+$0.9$ (Pearson $r = 0.94$). The asymmetry index tracked the role parameter from $-0.89$ through
+$0$ to $+0.88$ (Pearson $r = 1.00$). The two estimators, one parametric and one geometric,
+agreed to within $2\%$ (Pearson $r > 0.99$).
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.98\textwidth]{fig2_capacity_bandwidth_law.png}\\[6pt]
+\includegraphics[width=0.44\textwidth]{fig4_selfpredictive_efficiency.png}
+\hfill
+\includegraphics[width=0.44\textwidth]{fig3_asymmetry_index.png}
+\caption{The superseded validation. Top: measured capacity against channel bandwidth for three
+receiver dimensionalities, saturating far below the raw channel limit (grey dashed), with
+ceilings linear in effective dimensionality at slope $\bar{c}\approx0.39$. Bottom left:
+coupling efficiency $C/B$ against joint self-predictive accuracy. Bottom right: asymmetry index
+against the imposed role parameter. Every panel behaves as \cref{thm:bottleneck} and P1--P3
+require. \Cref{sec:sim} explains why this is nonetheless not evidence for the theory: the
+quantities being recovered were the ones written into the simulator.}
+\label{fig:oldsim}
+\end{figure}
+
+\paragraph{What this established.}
+Less than it appeared to, and we state the shortfall plainly because the rest of the paper is
+about what follows from it.
+
+The simulation satisfies the theory's assumptions by construction: it is linear, Gaussian and
+stationary, its manifolds have a dimensionality we chose, and its coupling has a gain we set.
+Under P3 in particular, a coupling parameter was imposed on the simulator and then recovered
+with $r = 1.00$; that is a demonstration that the estimator inverts the generative model, which
+is a property of the estimator, not evidence about the theory. The same reading applies with
+less force to P1 and P2. A measurement theory does need to behave correctly where ground truth
+is known --- this is a necessary condition --- but we presented it at the time as
+confirmation, and it is not.
+
+Two subsequent findings converted that overstatement into a structural problem.
+
+\paragraph{The estimator produced coupling where there was none.}
+Carried to a learned interface, the predictive-gain estimator reported a clean monotone
+bandwidth--coupling relationship at $r = 0.99$ --- apparently P1 confirmed on a second, harder
+system. It was bias: the estimator is an in-sample regression whose bias grows with the ratio of
+channel dimension to sample size, and a pure-noise control returned $0.71$ ``bits'' where the
+true value was zero. A block-shuffled surrogate correction removed essentially the entire
+effect, after which measured coupling sat at the noise floor across bandwidths $1$--$128$. We
+return to this in \cref{rem:artefact}, because it is the thesis of this paper occurring at the
+level of practice.
+
+\paragraph{The receiver ignored the channel, and then ignored the answer handed to it.}
+In the same learned-interface study the sender could be made to encode its private state at
+$R^2 = 0.90$ and the receiver's hidden layer made to carry that state at reconstruction error
+$0.0017$, with no behavioural consequence whatever; and a receiver given the sender's state
+\emph{directly}, with the channel deleted, behaved identically to one given nothing.
+\Cref{sec:empirical} reports this in full. Its immediate consequence here is that the bound in
+\eqref{eq:bottleneck} was never the binding constraint on that system. \Cref{thm:bottleneck}
+is not contradicted --- an unused channel is trivially consistent with any upper bound on what
+it could have driven --- but the quantity the programme proposed to maximise turned out not to
+be the quantity that governs whether two systems accomplish anything together.
+
+\subsection{Why the programme could not be completed}\label{sec:pivot}
+
+The transfer entropy of \eqref{eq:te} is a functional of the joint observational distribution
+of the two trajectories: in the vocabulary of \cref{def:obs} it is a $\Phi$, and coupling
+capacity, being a supremum of such functionals over interfaces, is one too. \Cref{thm:nonid}
+therefore applies to it directly, and \cref{prop:time} closes the escape that its directionality
+appears to offer. Two systems that can communicate at all must already share a convention; that
+convention is a common cause of what is sent and how the receiver acts; and no functional of the
+observational distribution --- \eqref{eq:te} included --- separates a dyad in which the channel
+does the work from one in which it does not.
+
+The programme was thus not defeated by an experimental disappointment that better tuning would
+repair. It was aimed at a quantity on the wrong rung of the causal hierarchy
+\citep{pearl2009causality}. The remainder of this paper makes that claim precise, shows that it
+generalises well beyond interfaces, establishes a second and independent failure that does not
+involve confounding at all, and gives the interventional protocol that replaces the programme
+described above. \Cref{sec:bbi} returns to brain-to-brain interfaces with the diagnosis in hand,
+and finds that it retrodicts the field's most conspicuous anomaly.
+
+%==============================================================================
 \section{Formal setup}\label{sec:setup}
 
-Consider a dyad consisting of a sender $A$ and a receiver $B$ exchanging signals over some
-channel.
+\Cref{sec:attempt} defined coupling over state trajectories, which is the natural object when
+the question is how much a channel can drive. The question of the rest of this paper is whether
+the channel drives anything at all, and for that a coarser object suffices. Consider a dyad
+consisting of a sender $A$ and a receiver $B$ exchanging signals over some channel.
 
 \begin{definition}[Dyad]\label{def:dyad}
 A dyad is a tuple $\Dy = (Z_A, M, Z_B, U)$ of random variables, where $Z_A$ is the sender's
@@ -371,8 +623,8 @@ $P(Z_A, M, Z_B, U)$ obtained by passive observation of the dyad.
 This class is broad and contains, to our knowledge, every measure currently in use: mutual
 information $I(Z_A;Z_B)$ and its lagged variants; transfer entropy $\TE_{A\to B}$
 \citep{schreiber2000measuring} and Granger causality \citep{granger1969investigating};
-directed information \citep{permuter2009directed}; phase-locking and coherence measures in
-hyperscanning \citep{montague2002hyperscanning, hasson2010brain}; representational
+directed information \citep{permuter2009directed}; the coupling capacity of \cref{def:cc};
+phase-locking and coherence measures in hyperscanning \citep{montague2002hyperscanning, hasson2010brain}; representational
 similarity and cross-subject decoding; behavioural agreement scores; and performance on
 conversational benchmarks including the imitation game \citep{turing1950computing}.
 
@@ -747,7 +999,8 @@ Measures defined by temporal ordering do not identify $\Fc$. Because $C$ precede
 $U$, conditioning on the past of $U$ does not block the back-door path
 $M \leftarrow Z_A \leftarrow C \rightarrow U$. Transfer entropy, Granger causality and directed
 information therefore remain functionals of the observational distribution and fall under
-\cref{thm:nonid}.
+\cref{thm:nonid} --- as does any supremum of them over interfaces, including the coupling
+capacity of \cref{def:cc}.
 \end{proposition}
 
 This deserves emphasis because such measures are routinely described as ``directed'' or
@@ -1254,6 +1507,28 @@ tests could never have provided one. \citet{lewis1969convention} formalised conv
 \citet{harnad1990symbol} posed symbol grounding; \citet{skyrms2010signals} derived meaning from signalling
 games.
 
+\paragraph{Directed information and its use between systems.}
+\citet{schreiber2000measuring} introduced transfer entropy for model-free asymmetric
+dependence between time series and \citet{massey1990causality} formalised directed information
+for systems with feedback; \citet{kraskov2004estimating} supply the $k$-nearest-neighbour
+estimators used as a model-free cross-check in \cref{sec:sim}. These are the tools from which
+\cref{def:cc} was assembled, and \cref{prop:time} is our statement of what they cannot do
+between two systems that share a convention. On the interface side,
+\citet{pais2013brain, rao2014direct} and \citet{jiang2019brainnet} established physical
+feasibility of direct neural links under severe bandwidth constraints;
+\citet{thual2022aligning} align functional cortical geometries across subjects by optimal
+transport, and \citet{nakamura2024unsupervised} perform zero-shot representation transfer with
+hyperspherical embeddings. On our reading, alignment is a technique for raising the quantity in
+\cref{def:cc}, not for identifying $\Fc$, and \cref{sec:bbi} argues that the constraint these
+systems face is not the one they are engineered against. \citet{friston2015active} model
+communication as mutual free-energy minimisation and \citet{hasson2010speaker} document
+speaker--listener neural coupling; both motivate why coupled systems synchronise without
+supplying a criterion that separates $\Dy_1$ from $\Dy_2$. Self-supervised neural encoders
+--- LaBraM \citep{jiang2024labram}, BrainLM \citep{caro2024brainlm}, MindEye2
+\citep{scotti2024mindeye2} --- are the state extractors on which a biological instantiation of
+these measures would be built, and by \cref{cor:resolution} their improvement does not change
+the identifiability situation.
+
 \paragraph{Nearest formal neighbour.}
 \citet{kolchinsky2018semantic} define semantic information as information with causal relevance to a system's
 viability. Like us, they locate meaning in causal consequence rather than correlation. Unlike us, they do not
@@ -1303,6 +1578,17 @@ insufficient; we supply an argument for why intervention is necessary rather tha
 \section{Limitations and falsification}\label{sec:limits}
 
 We state the ways this could be wrong, in order of severity.
+
+\paragraph{The superseded programme is reported, not defended.}
+\Cref{sec:attempt} states the coupling-capacity formalism and \cref{thm:bottleneck} because
+they are the origin of the argument and because we take the theorem to be correct as a bound on
+what a bandwidth-limited interface can drive. Its empirical support is nonetheless weak in the
+specific way \cref{sec:sim} sets out, and the quantity it bounds is exactly the quantity
+\cref{thm:nonid} shows to be unidentifiable. A reader assessing the paper's positive claims
+should weigh \cref{sec:nonid,sec:identification,sec:empirical,sec:remedy}; \cref{sec:attempt}
+is included for the record, and because the failure it describes is what the rest of the paper
+explains. Readers of the earlier manuscript should treat its headline validation claims as
+withdrawn in the form in which they were stated there.
 
 \paragraph{The assumption set may be narrowable further.}
 \Cref{thm:id} gives three sufficient conditions and \cref{prop:time,prop:frontdoor} rule out two tempting
@@ -1441,6 +1727,12 @@ way we found that the receiver's behaviour was faintly perturbable by the signal
 from it, so that sensitivity and benefit dissociate in their turn, and an interventional test needs a scale
 rather than a null.
 
+We arrived at this by trying to build the opposite. \Cref{thm:bottleneck} still says what a
+bandwidth-limited interface can drive into a receiver of finite effective dimension, and we
+expect it to be useful to anyone designing one. But a bound on what a channel could deliver is
+not a measurement of what a receiver does with it, and the quantity that bound governs is a
+functional of the observational distribution, so it inherits everything above.
+
 Functional coupling is an interventional quantity. It has been measured observationally. That, rather than any
 deep obscurity in the phenomenon, is why the question of whether one mind understands another has resisted
 answer: the instrument was on the wrong rung. The remedy is available and cheap. Remove the signal, and see what
@@ -1454,7 +1746,8 @@ All code, configurations, random seeds, logged results and figure-generating scr
 The identifiability demonstrations are in \code{experiments/paper2\_identifiability/} (\code{noise\_as\_instrument.py}
 for the controlled construction of \cref{prop:generic}, \code{noise\_as\_instrument\_stage2.py} for the trained-system
 application). The trained speaker--listener system, its four escape attempts and the oracle control are in
-\code{experiments/paper1\_rl/}. Numerical results are logged as JSON under \code{experiments/results/logs/}. The
+\code{experiments/paper1\_rl/}, whose \code{run\_experiments.py} also produces the
+superseded ground-truth simulation and the panels of \cref{fig:oldsim}. Numerical results are logged as JSON under \code{experiments/results/logs/}. The
 study-by-study brain-to-brain throughput tabulation supporting \cref{sec:bbi} is in
 \code{literature/bbi\_throughput\_survey.md}.
 

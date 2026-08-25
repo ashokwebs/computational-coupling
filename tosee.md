@@ -23,11 +23,10 @@ Two things in this file:
   Sukhbaatar CommNet, Jang Gumbel-Softmax, Mordatch, Lazaridou), hyperscanning (Hasson, Montague, Zamm,
   Markiewicz, DUET/Joint-Agency EEG datasets), neural manifolds (Gao, Gallego), synchronization (Kuramoto,
   Pecora), and control/rate-distortion theory (Tatikonda, Nair).
-- **[`literature/bibliography.bib`](literature/bibliography.bib)** — BibTeX entries for the canon (separate from `paper/references.bib`, which is the subset actually cited in the paper draft).
+- **[`literature/bibliography.bib`](literature/bibliography.bib)** — BibTeX entries for the canon (separate from `paper_main/references.bib`, which is the subset actually cited in the paper).
 - **[`literature/literature_review.md`](literature/literature_review.md)** — the running narrative literature review.
 - **[`literature/TODO.md`](literature/TODO.md)** — open literature-reading tasks.
-- **[`MOC_Literature.md`](MOC_Literature.md)** — Obsidian map-of-content index (currently only lists the original 15 of the 40 — worth regenerating from the full `summaries/` folder next time you're in Obsidian).
-- **[`paper/references.bib`](paper/references.bib)** — the 15 keys actually `\cite{}`'d in the Track 1 theory paper draft.
+- **[`paper_main/references.bib`](paper_main/references.bib)** — the 43 keys actually `\cite{}`'d in the paper. All resolve.
 
 None of the papers below are in that canon yet — they're new, surfaced by the external critique doc.
 
@@ -70,4 +69,4 @@ None of the papers below are in that canon yet — they're new, surfaced by the 
 
 ## Note on the ⚠️ flags
 
-A handful of author names in the original pasted critique document (Barda, Barmpas, van der Plas) didn't turn up in the actual search results for their papers — the paper topics, venues, and years check out as real, findable work, but I couldn't verify those specific author names are correct. Worth a two-minute check against the actual arXiv listing pages before citing any of these in `paper/references.bib`.
+A handful of author names in the original pasted critique document (Barda, Barmpas, van der Plas) didn't turn up in the actual search results for their papers — the paper topics, venues, and years check out as real, findable work, but I couldn't verify those specific author names are correct. Worth a two-minute check against the actual arXiv listing pages before citing any of these in `paper_main/references.bib`.

@@ -6,7 +6,7 @@ alias: "4-Paper Strategic Roadmap"
 # 🗺️ Research Roadmap: Theory of Computational Coupling
 
 > [!warning] **SUPERSEDED — describes the v0.3.0 BBI framing (July 2026 and earlier).**
-> The program was reframed on 2026-07-26. The four-paper BBI roadmap below assumed an EEG/TMS lab and dyadic data collection that were never available, and Stage 2 produced a result that reframed the question entirely. The current program is **`opp.md`** (the idea), **`paper2/`** (the paper), and **`handoff.md`** (state + next steps). BBI is now a *case study* the framework explains, not the subject.
+> The program was reframed on 2026-07-26. The four-paper BBI roadmap below assumed an EEG/TMS lab and dyadic data collection that were never available, and Stage 2 produced a result that reframed the question entirely. The current program is **`opp.md`** (the idea), **`paper_main/`** (the paper — `paper/` and `paper2/` were merged into it on 2026-08-25 and are archived), and **`handoff.md`** (state + next steps). BBI is now a *case study* the framework explains, not the subject.
 >
 > This file is kept because Papers 1–3 below contain reusable experimental design, and because the Stage 1/Stage 2 contrast turned out to be the accidental control that isolated the missing variable. Do not plan from it.
 
@@ -44,7 +44,7 @@ We execute this vision through **two parallel tracks** across **four venue-targe
 
 ---
 
-## 📄 Track 1: Foundational Paper (`paper/`)
+## 📄 Track 1: Foundational Paper (`paper/` — archived; absorbed into `paper_main/` §2)
 
 * **Title:** *A Theory of Computational Coupling Between Intelligent Systems: Toward a General Foundation for Brain-to-Brain Communication*
 * **Status:** v0.3.0 — formal core complete **and empirically supported in a ground-truth simulation.**

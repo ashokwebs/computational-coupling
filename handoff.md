@@ -5,7 +5,17 @@ alias: "Handoff — state of the program, July 2026"
 
 # Handoff
 
-**Written 2026-07-26.** Everything needed to pick this up cold — after a break, on a new machine, or by a collaborator. Read §1 and §3 first; the rest is reference.
+**Written 2026-07-26. Updated 2026-08-25.** Everything needed to pick this up cold — after a break, on a new machine, or by a collaborator. Read §1 and §3 first; the rest is reference.
+
+> [!important] **2026-08-25 — there is now exactly one paper.**
+> `paper/` and `paper2/` were merged into **`paper_main/`** and then deleted. The merged paper is
+> *Understanding Is Not Observable*, 36 pp, building clean. The coupling-capacity formalism and
+> the dimensional bottleneck theorem survive as its **§2** — the programme we set out to build,
+> stated in full, followed by an honest account of why its validation does not support it.
+> Also deleted: `study-these.tar.gz`, the three `MOC_*.md` files, and both `.canvas` boards —
+> all indexed the superseded framing. **Everything below this banner is a historical log.**
+> Where it says `paper2/main.tex`, read `paper_main/main.tex`; where it says `paper/`, read
+> `paper_main/` §2. Page counts quoted in the log are from older builds.
 
 ---
 
@@ -20,9 +30,10 @@ The original program (a Shannon-style measurement theory for brain-to-brain inte
 | Path | What it is | Status |
 |---|---|---|
 | `opp.md` | The core idea, in prose. Start here for the *why*. | Current |
-| `paper2/main.tex` | **The new paper.** "Understanding Is Not Observable." | Draft v0.1.0, uncompiled |
-| `paper2/references.bib` | Its bibliography, 21 entries, all resolving | Current |
-| `paper/` | Original BBI coupling paper, v0.3.0 | Superseded framing, reusable formalism |
+| `paper_main/main.tex` | **The paper.** "Understanding Is Not Observable," with the coupling-capacity programme folded in as §2. | **Authoritative**, builds clean, 36 pp |
+| `paper_main/references.bib` | Its bibliography, 43 entries, all resolving | Current |
+| `paper2/` | Standalone draft of the same paper, v0.1.0 | **Archived** — see `paper2/ARCHIVED.md` |
+| `paper/` | Original BBI coupling paper, v0.3.0 | **Archived** — see `paper/ARCHIVED.md`; formalism lives in `paper_main` §2 |
 | `experiments/paper1_rl/` | All code producing the anchor result | Working |
 | `experiments/paper1_rl/TODO.md` | Detailed experimental log, honest negatives included | Current, authoritative |
 | `experiments/results/logs/`, `plots/` | Run outputs | Current |
@@ -95,10 +106,10 @@ Ordered by how much they change the paper's standing.
 
 ## 6. Housekeeping debts
 
-- ~~**The Obsidian vault is stale.**~~ **DONE for the two that matter:** `ROADMAP.md` and `Home.md` now carry prominent superseded/reframed banners pointing at `opp.md`, `paper2/`, and this file. Still stale and lower priority: `MOC_Theory.md`, `MOC_Roadmap.md`, `MOC_Literature.md` (which also still lists only 15 of the 40 summaries), and the two `.canvas` files.
-- ~~**`paper/` needs a status banner**~~ **DONE.** `paper/main.tex` now opens with a red SUPERSEDED box that also states the two specific reasons — the Prediction-3 validation is estimator-validation, and the TE quantity is non-identifiable under shared convention — so the old claims can't be cited naively from the PDF alone.
-- **Nothing in this session is committed.** `opp.md`, `paper2/`, `handoff.md`, and the last round of experiment changes are all uncommitted. Decide what goes in and write a commit that reflects the reframe.
-- **`experiments/results/logs/P1_stage2_*_seed42.json` are overwritten per run.** If any specific numbers end up in the paper, freeze those files under a `paper2/data/` directory so the manuscript's figures are reproducible from pinned artefacts.
+- ~~**The Obsidian vault is stale.**~~ **DONE 2026-08-25.** `ROADMAP.md` and `Home.md` carry superseded/reframed banners and now point at `opp.md`, `paper_main/`, and this file. The three `MOC_*.md` files and both `.canvas` boards were deleted rather than repaired — they indexed only the v0.3.0 framing and the 15-of-40 summary subset.
+- ~~**`paper/` needs a status banner**~~ **SUPERSEDED 2026-08-25.** `paper/` is deleted. The two reasons the banner stated — the Prediction-3 validation is estimator-validation, and the TE quantity is non-identifiable under shared convention — are now written into `paper_main/` §2.3 and §2.4 as part of the argument rather than as a disclaimer on a dead manuscript.
+- ~~**Nothing in this session is committed.**~~ **DONE 2026-08-25.** The reframe, the merge into `paper_main/`, and the deletion of the superseded files are all committed and pushed to `main`.
+- **`experiments/results/logs/P1_stage2_*_seed42.json` are overwritten per run.** If any specific numbers end up in the paper, freeze those files under a `paper_main/data/` directory so the manuscript's figures are reproducible from pinned artefacts. **Still open.**
 
 ---
 
@@ -156,7 +167,7 @@ A day that began by debugging a reinforcement-learning bug ended with a compiled
 ## 10. If you only do three things
 
 1. ~~**Read Kolchinsky & Wolpert (2018) and Lowe et al. (2019) properly**~~ **DONE 2026-07-31.** Both read in full from primary sources (PMC / ar5iv), not summaries. Verdict: the novelty claim survives. K&W's formalism is monadic (one system vs. its environment, no sender/receiver pair, no confounder, no impossibility result) — a strong citation, a weak competitor. Lowe et al. is closer — their Speaker-Consistency-vs-CIC result independently replicates the positive-signalling/positive-listening dissociation with real numbers (SC 0.19–0.54, CIC at floor) — but they trace it to an architectural confound (shared hidden layers) that our diagnostic chain already rules out for our system, and they never run an oracle/unbottlenecked control. Full writeup in `novelty_assessment.md` §6; `paper2/main.tex` §8 updated with the CIC numbers and the monadic-vs-dyadic distinction, recompiled clean (14pp, bibtex resolves).
-2. **Print `paper2/main.pdf` and read it cold as a hostile referee**, ideally after a night's sleep and away from the machine. Mark every sentence that asserts rather than shows. Still open.
+2. **Print `paper_main/main.pdf` and read it cold as a hostile referee**, ideally after a night's sleep and away from the machine. Mark every sentence that asserts rather than shows. Still open — and now includes §2, which is new and has had no adversarial read at all.
 3. **Run the human–AI dissociation.** Cheap, nobody has done it, and it is the difference between a seminar-room argument and a result. If apparent and functional coupling come apart in a deployed system, this matters; if they don't, that is worth knowing quickly and the paper should say so. Still open — now the top remaining priority. **Deferred by Ashok 2026-07-31; full design (task bank, four-condition protocol, scoring, statistics, confounds, implementation plan) written up in `experiments/paper2_human_ai/TODO.md` so it can be picked up and run directly, no re-derivation needed.**
 
 *(Item 4.2 — the identification conditions — is done and is now §4 of the paper. It went from the highest-value open item to the paper's technical core in a single sitting, which is the argument for doing the theory rather than planning it.)*

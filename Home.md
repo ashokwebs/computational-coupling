@@ -5,7 +5,7 @@ alias: "Lab Home & Master Dashboard"
 
 # 🧠 Theory of Computational Coupling — Master Lab Dashboard
 
-> [!danger] **Reframed 2026-07-26 — start with [[opp]], [[handoff]], and `paper2/`.**
+> [!danger] **Reframed 2026-07-26. Merged into one paper 2026-08-25 — start with [[opp]], [[handoff]], and `paper_main/`.**
 > The dashboard below describes the v0.3.0 brain-to-brain framing. The current question is **"when does information flowing between two adaptive systems actually constitute communication, and how would you know?"** — answered by showing that functional coupling is an *interventional* quantity, not identifiable from the observational measures four fields currently use. Links below still work but describe the older program.
 
 > [!abstract] **Core Research Vision (v0.3.0 — superseded)**
@@ -13,22 +13,17 @@ alias: "Lab Home & Master Dashboard"
 
 ---
 
-## 🧭 Interactive Navigation & Visual Canvases
+## 🧭 Navigation
 
-```
- ┌─────────────────────────────────────────────────────────────────────────────┐
- │                         INTERACTIVE CANVAS BOARDS                           │
- ├──────────────────────────────────────┬──────────────────────────────────────┤
- │ 🗺️ [[Computational_Coupling_Architecture.canvas|Architecture Map]]          │
- │ 📚 [[Literature_Canon_Map.canvas|Literature Canon Visual Graph]]             │
- └──────────────────────────────────────┴──────────────────────────────────────┘
-```
-
-> [!tip] **Quick Access Maps of Content (MOCs)**
-> - 📐 **[[MOC_Theory|Theory MOC]]** — State space manifolds, transfer entropy estimators, capacity saturation proofs.
-> - 📚 **[[MOC_Literature|Literature Canon MOC]]** — 15 core paper breakdowns, FUGW, LaBraM, BrainLM, Nakamura defense.
-> - 🗺️ **[[ROADMAP|4-Paper Strategic Roadmap]]** — Empirical roadmap spanning MARL (Paper 1) to Nature Prototype (Paper 4).
-> - 📔 **[[diary/README|Research Journal MOC]]** — 5-day research log (July 19 – July 23, 2026).
+> [!tip] **Start here**
+> - 💡 **[[opp|opp.md]]** — the current idea, in prose. Read this first.
+> - 📄 **[[paper_main/main.tex|paper_main/main.tex]]** — *the* paper. 36 pp. Build: `cd paper_main && ./build.sh`.
+> - 🧭 **[[handoff|handoff.md]]** — state of the programme + next steps.
+> - 📔 **[[diary/README|Research Journal]]** — the research log.
+> - 🗺️ **[[ROADMAP|ROADMAP.md]]** — the old 4-paper plan, kept with a superseded banner for context.
+>
+> The MOC files and the two `.canvas` boards were deleted on 2026-08-25 — they indexed the
+> superseded v0.3.0 framing and had drifted badly out of date.
 
 ---
 
@@ -58,6 +53,7 @@ alias: "Lab Home & Master Dashboard"
 
 ## 📑 Working Paper & Outputs
 
-- 📄 **Master LaTeX Paper Source:** [[paper/main.tex|paper/main.tex]]
-- 📑 **Compiled PDF Report:** [[paper/output/paper.pdf|paper/output/paper.pdf]]
+- 📄 **The paper (LaTeX source):** [[paper_main/main.tex|paper_main/main.tex]] — *Understanding Is Not Observable*, 36 pp. The single authoritative manuscript.
+- 📑 **Compiled PDF:** [[paper_main/main.pdf|paper_main/main.pdf]] — build with `cd paper_main && ./build.sh`
+- 🗄️ **Archived:** `paper/` and `paper2/` were merged into `paper_main/` on 2026-08-25. Each carries an `ARCHIVED.md` saying where its content went. Do not edit either.
 - 📁 **Complete Reference Archives:** [[damn_sources/computational_coupling_foundation|damn_sources master archive]]

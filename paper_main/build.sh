@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Build paper2. Usage: ./build.sh   (from the paper2/ directory)
+# Build the main paper. Usage: ./build.sh   (from the paper_main/ directory)
 # Requires: texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
 set -euo pipefail
 cd "$(dirname "$0")"
